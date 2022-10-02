@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
 # Instantiate FastAPI app
 app = FastAPI()
 
 # Permit origin from React to allow for connection
 origins = [
-    'https://localhost:3000'
+    'https://localhost:5000'
 ]
 
 # Define middleware rules for app, currently all methods
