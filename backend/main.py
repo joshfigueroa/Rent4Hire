@@ -7,7 +7,7 @@ app = FastAPI()
 
 # Permit origin from React to allow for connection
 origins = [
-    'https://localhost:5000'
+    'https://localhost:3000'
 ]
 
 # Define middleware rules for app, currently all methods
