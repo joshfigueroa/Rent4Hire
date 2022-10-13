@@ -1,18 +1,27 @@
-from sqlalchemy import Column, Integer, Float, String
-from sqlalchemy.orm import declarative_base
+from uuid import UUID
+from sqlalchemy import DATETIME, VARCHAR, Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 
-Base = declarative_base()
+from database import Base
 
-class Rental(Base):
-    __tablename__ = "rentals"
-    id = Column(Integer, primary_key=True)
-    name = Column(String(255))
-    category = Column(String(255))
-    quantity = Column(Integer)
-    price = Column(Float)
-    value = Column(Float)
-    description = Column(String(255))
-    image = Column(String(255))
-    location = Column(String(255))
-    def __repr__(self):
-        return f"User(id={self.id!r})"
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+    is_active = Column(Boolean, default=True)
+
+    items = relationship("Item", back_populates="owner")
+
+class Item(Base):
+    __tablename__ = "items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    description = Column(String, index=True)
+    owner_id = Column(Integer, ForeignKey("users.id"))
+    
+
+    owner = relationship("User", back_populates="items")
