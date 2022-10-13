@@ -26,7 +26,14 @@ app.add_middleware(
 def read_root():
     return {"Rent4Hire"}
 
+# Login
+@app.get("/api/user-{gmail}")
+async def auth_user(gmail):
+    # Authenticate with Google OAuth then return session token (??)
+    return 1
+
 # Rental HTTP methods
+
 @app.get("/api/rental")
 async def get_rental():
     return 1
