@@ -9,9 +9,18 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
+    created_at = Column(DATETIME, index=True)
+
+    email = Column(String, unique=True, index=True)
+    firstName = Column(String, nullable=False)
+    lastName = Column(String, nullable=False)
+    street = Column(String, nullable=False)
+    city = Column(String, nullable=False)
+    state = Column(VARCHAR(2), nullable=False)
+    zip = Column(VARCHAR(5), nullable=False)
+
 
     items = relationship("Item", back_populates="owner")
 
