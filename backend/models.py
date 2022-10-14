@@ -2,10 +2,18 @@ from uuid import UUID
 from sqlalchemy import DATETIME, VARCHAR, Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
+from typing import AsyncGenerator
+
+from fastapi import Depends
+from fastapi_users.db import SQLAlchemyBaseUserTableUUID, SQLAlchemyUserDatabase
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
+from sqlalchemy.orm import sessionmaker
 from database import Base
 
+#Add user table with public facing UUID, internal int ID
 
-class User(Base):
+class User(SQLAlchemyBaseUserTableUUID, Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
