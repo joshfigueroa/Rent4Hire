@@ -17,17 +17,17 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    hashed_password = Column(String)
+    hashed_password = Column(String(255))
     is_active = Column(Boolean, default=True)
     created_at = Column(DATETIME, index=True)
 
-    email = Column(String, unique=True, index=True)
-    firstName = Column(String, nullable=False)
-    lastName = Column(String, nullable=False)
-    street = Column(String, nullable=False)
-    city = Column(String, nullable=False)
-    state = Column(VARCHAR(2), nullable=False)
-    zip = Column(VARCHAR(5), nullable=False)
+    email = Column(String(255), unique=True, index=True)
+    firstName = Column(String(255), nullable=False)
+    lastName = Column(String(255), nullable=False)
+    street = Column(String(255), nullable=False)
+    city = Column(String(255), nullable=False)
+    state = Column(String(2), nullable=False)
+    zip = Column(String(5), nullable=False)
 
 
     items = relationship("Item", back_populates="owner")
@@ -36,8 +36,8 @@ class Item(Base):
     __tablename__ = "items"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    description = Column(String, index=True)
+    name = Column(String(255), index=True)
+    description = Column(String(255), index=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
     
 
