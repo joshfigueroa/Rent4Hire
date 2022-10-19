@@ -4,9 +4,10 @@ from sqlalchemy.orm import sessionmaker
 #import MYSQLdb
 
 # Connect to a remote MySQL instance on Amazon RDS
-SQLALCHEMY_DATABASE_URL = "mysql+pymysql://admin:Rent4Hire@aws-rent4hire-database.c543rvh0sa3x.us-east-1.rds.amazonaws.com:3306/rent4hire"
-#SQLALCHEMY_DATABASE_URL = "aws-rent4hire-database.c543rvh0sa3x.us-east-1.rds.amazonaws.com"
-#SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+
+# SQLALCHEMY_DATABASE_URL = "mysql+pymysql://admin:Rent4Hire@aws-rent4hire-database.c543rvh0sa3x.us-east-1.rds.amazonaws.com:3306/rent4hire"
+# SQLALCHEMY_DATABASE_URL = "aws-rent4hire-database.c543rvh0sa3x.us-east-1.rds.amazonaws.com"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
 # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
 engine = create_engine(
