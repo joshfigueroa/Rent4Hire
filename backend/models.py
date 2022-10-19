@@ -11,7 +11,7 @@ from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 from sqlalchemy.orm import sessionmaker
 from database import Base
 
-#Add user table with public facing UUID, internal int ID
+#Add location table to avoid redundancy
 
 class User(SQLAlchemyBaseUserTableUUID, Base):
     __tablename__ = "users"
