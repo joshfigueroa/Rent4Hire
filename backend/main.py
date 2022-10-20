@@ -21,6 +21,14 @@ origins = [
     'https://localhost:3000'
 ]
 
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 # Define middleware rules for app, currently all methods
 # and headers are allowed for dev purposes 
 # (*SHOULD BE CHANGED IN FINAL VERSION)

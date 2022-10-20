@@ -1,5 +1,7 @@
-from pydantic import BaseModel
+# Models used for Pydantic
 
+from datetime import datetime
+from pydantic import BaseModel
 
 class ItemBase(BaseModel):
     title: str
@@ -20,6 +22,13 @@ class Item(ItemBase):
 
 class UserBase(BaseModel):
     email: str
+    date_created: datetime
+    first_name: str
+    last_name: str
+    email: str
+    street: str
+    location_id: int
+    availability: datetime
 
 
 class UserCreate(UserBase):
@@ -30,6 +39,7 @@ class User(UserBase):
     id: int
     is_active: bool
     items: list[Item] = []
+    
 
     class Config:
         orm_mode = True

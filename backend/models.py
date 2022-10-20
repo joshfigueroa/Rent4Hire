@@ -1,3 +1,5 @@
+# Models used with SQLAlchemy
+
 from uuid import UUID
 from sqlalchemy import DATETIME, Text, Boolean, Column, ForeignKey, Integer, String, Float
 from sqlalchemy.orm import relationship
@@ -31,7 +33,7 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     
     items = relationship("Item", backref="owner")
     orders = relationship("Order_Item", backref="renter")
-    reviews = relationship("Review", backref="reviewer") #is that the backref???
+    reviews = relationship("Review", backref="user") #modified backrf
     
 
 class Item(Base):
@@ -46,7 +48,7 @@ class Item(Base):
     #item_location_id = Column(Integer)#, ForeignKey("locations.id"), index=True) #Not sure if this is needed
     price = Column(Float(5), nullable=False, index=True) #Same thig here
     
-    reviews = relationship("Review", backref="item") #its the item being reviewed
+    item_reviews = relationship("Review", backref="item") #its the item being reviewed
     orders = relationship("Order_Item", backref="item")
 
 
@@ -90,7 +92,7 @@ class Review(Base):
     reviewer = Column(Integer, ForeignKey("users.id"), index=True)
     reviewed_item = Column(Integer, ForeignKey("items.id"), index=True) 
     title = Column(String(255), index=True)
-    review = Column(Text, index=True)
+    descritpion = Column(Text, index=True)
     
 class Transaction(Base):
     __tablename__ = "transactions"
