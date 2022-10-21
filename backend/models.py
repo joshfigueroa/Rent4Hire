@@ -21,18 +21,18 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    hashed_password = Column(String(255))
+    hashed_password = Column(String(255), nullable=False)
     is_active = Column(Boolean, default=True)
     date_created = Column(DATETIME, default=datetime.utcnow, index=True)
-    firstName = Column(String(255), nullable=False)
-    lastName = Column(String(255), nullable=False)
+    first_name = Column(String(255), nullable=False)
+    last_name = Column(String(255), nullable=False)
     email = Column(String(255), unique=True, index=True)
     street = Column(String(255), nullable=False)
     location_id = Column(Integer, ForeignKey("locations.id"))
     availability = Column(DATETIME, nullable=False) #????????
     
     items = relationship("Item", backref="owner")
-    orders = relationship("Order_Item", backref="renter")
+    orders = relationship("Order", backref="renter")
     reviews = relationship("Review", backref="user") #modified backrf
     
 
@@ -45,24 +45,26 @@ class Item(Base):
     availability = Column(DATETIME, nullable=False) #???????????
     description = Column(Text, index=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
+    date_created = Column(DATETIME, default=datetime.utcnow, index=True)
     #item_location_id = Column(Integer)#, ForeignKey("locations.id"), index=True) #Not sure if this is needed
-    price = Column(Float(5), nullable=False, index=True) #Same thig here
+    price_in_cents = Column(Integer, nullable=False, index=True) #Same thing here
     
     item_reviews = relationship("Review", backref="item") #its the item being reviewed
-    orders = relationship("Order_Item", backref="item")
+    orders = relationship("Order", backref="item")
 
 
-class Order_Item(Base):
+class Order(Base):
     __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True, index=True)
-    date_placed = Column(DATETIME, default=datetime.utcnow, nullable=False) #Not sure if im defaulting these dates right
+    date_created = Column(DATETIME, default=datetime.utcnow, index=True)
     renter_id = Column(Integer, ForeignKey("users.id"), index=True)
     pickup_date = Column(DATETIME, nullable=False)
     dropoff_date = Column(DATETIME, nullable=False)
     item_id = Column(Integer, ForeignKey("items.id"), index=True) 
+    #add total
     
-    transaction = relationship("Transaction", backref="order", uselist=False) #one-to-one rel
+    #transaction = relationship("Transaction", backref="order", uselist=False) #one-to-one rel
     
 
 class Location(Base):
@@ -91,9 +93,12 @@ class Review(Base):
     id = Column(Integer, primary_key=True, index=True)
     reviewer = Column(Integer, ForeignKey("users.id"), index=True)
     reviewed_item = Column(Integer, ForeignKey("items.id"), index=True) 
+    date_created = Column(DATETIME, default=datetime.utcnow, index=True)
     title = Column(String(255), index=True)
     descritpion = Column(Text, index=True)
-    
+
+"""
+# Dont Use yet  
 class Transaction(Base):
     __tablename__ = "transactions"
 
@@ -107,12 +112,5 @@ class Transaction(Base):
     card_exp_month = Column(String(2), nullable=False) 
     card_exp_year = Column(String(4), nullable=False) 
     created_at = Column(DATETIME, default=datetime.utcnow, nullable=False)
-
-    records = relationship("Record", backref="transactions") #not sure if this rel is right
+"""
     
-class Record(Base):
-    __tablename__ = "records"
-
-    id = Column(Integer, primary_key=True, index=True)
-    transaction_id = Column(Integer, ForeignKey("transactions.id"))
-
