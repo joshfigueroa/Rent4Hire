@@ -1,14 +1,13 @@
-from model import Rental
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-# MongoDB driver
-import motor.motor_asyncio
+SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+# SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
-client = motor.motor_asyncio.AsyncIOMotorClient(
-    'mongodb://localhost:27017')
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-database = client.Rent4Hire
-collection = database.rental
-
-async def fetch_one_rental(name):
-    document = await collection.find_one({"name":name})
-    return document
+Base = declarative_base()
