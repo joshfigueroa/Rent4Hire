@@ -3,8 +3,24 @@
 import logo from './logo.svg';
 import './App.css';
 import Message from './components/Message';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 
 function Listing_Page() {
+  function handleSubmit(event) {
+
+    event.preventDefault();
+    root.render( 
+      <React.StrictMode>
+        <App />
+      </React.StrictMode> );
+
+    }
   return (
     <div className="App">
       <header className="App-header">
@@ -14,13 +30,15 @@ function Listing_Page() {
         
         
         
-        <form method="POST">
-          <input name="text">
+        <form method="POST" onSubmit={handleSubmit}>
+          <input name="text" className="App-text-field">
           </input>
-          <input type="submit">
+          <input name="text" className="App-text-field">
           </input>
         
-        
+          <button className="App-button" onClick={handleSubmit}>
+          Back
+          </button>
         
         </form>
       </header>
@@ -28,4 +46,4 @@ function Listing_Page() {
   );
 }
 
-export default Listing_Page;
+export default Listing_Page; 
