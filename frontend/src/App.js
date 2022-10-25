@@ -2,10 +2,38 @@
 // To do: add a button that can take you to another page.
 import logo from './logo.svg';
 import './App.css';
-import Message from './components/Message';
-import './Listing_Page'
+import './Listing_Page.js'
+import Listing_Page from './Listing_Page.js';
+import ReactDOM from 'react-dom/client';
+import React, { useState } from "react";
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
 
 function App() {
+  const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  function validateForm() {
+
+    return email.length > 0 && password.length > 0;
+
+  }
+
+  function handleSubmit(event) {
+
+    event.preventDefault();
+    root.render(
+    
+      <React.StrictMode>
+      <Listing_Page />
+    </React.StrictMode>
+    
+  );
+
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -13,8 +41,8 @@ function App() {
         Rent4Hire
 
         
-        <Message/>
-        <form method="POST">
+        
+        <form method="POST" onSubmit={handleSubmit}>
 
           <input name="text" className="App-text-field">
           </input>
@@ -24,9 +52,12 @@ function App() {
           </input>
           
 
-          <button className="App-button" >
+          <button className="App-button">
           Submit
           </button>
+
+          
+          
 
 
         </form>
@@ -35,6 +66,7 @@ function App() {
       
     </div>
     
+
   );
 }
 
