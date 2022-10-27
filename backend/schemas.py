@@ -21,10 +21,11 @@ class Item(ItemBase):
 
 
 class UserBase(BaseModel):
-    email: str
+    id: int
+    is_active: bool
     date_created: datetime
-    first_name: str
-    last_name: str
+    firstName: str
+    lastName: str
     email: str
     street: str
     location_id: int

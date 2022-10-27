@@ -76,7 +76,7 @@ class Location(Base):
     zip = Column(String(5), nullable=False)
     country = Column(String(255), nullable=False) 
     
-    users = relationship("User", backref="location")   
+    users = relationship("User", back_populates="location")   
     
 class Category(Base):
     __tablename__ = "categories"
@@ -84,7 +84,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True, index=True)
     category = Column(String(255), index=True)
     
-    items = relationship("Item", backref="category")   
+    items = relationship("Item", back_populates="category")   
 
     
 class Review(Base):
