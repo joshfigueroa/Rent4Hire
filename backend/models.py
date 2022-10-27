@@ -31,9 +31,9 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     location_id = Column(Integer, ForeignKey("locations.id"))
     availability = Column(DATETIME, nullable=False) #????????
     
-    items = relationship("Item", backref="owner")
-    orders = relationship("Order_Item", backref="renter")
-    reviews = relationship("Review", backref="user") #modified backrf
+    items = relationship("Item", back_populates="owner")
+    orders = relationship("Order_Item", back_populates="renter")
+    reviews = relationship("Review", back_populates="users") #modified back_populates
     
 
 class Item(Base):
@@ -48,9 +48,9 @@ class Item(Base):
     #item_location_id = Column(Integer)#, ForeignKey("locations.id"), index=True) #Not sure if this is needed
     price = Column(Float(5), nullable=False, index=True) #Same thig here
     
-    item_reviews = relationship("Review", backref="item") #its the item being reviewed
-    orders = relationship("Order_Item", backref="item")
-
+    item_reviews = relationship("Review", back_populates="item") #its the item being reviewed
+    orders = relationship("Order_Item", back_populates="item")
+    owner = relationship("User", back_populates="items")
 
 class Order_Item(Base):
     __tablename__ = "orders"
@@ -62,8 +62,8 @@ class Order_Item(Base):
     dropoff_date = Column(DATETIME, nullable=False)
     item_id = Column(Integer, ForeignKey("items.id"), index=True) 
     
-    transaction = relationship("Transaction", backref="order", uselist=False) #one-to-one rel
-    
+    transaction = relationship("Transaction", back_populates="order", uselist=False) #one-to-one rel
+    renter = relationship("User", back_populates="item")
 
 class Location(Base):
     __tablename__ = "locations"
@@ -74,7 +74,7 @@ class Location(Base):
     zip = Column(String(5), nullable=False)
     country = Column(String(255), nullable=False) 
     
-    users = relationship("User", backref="location")   
+    users = relationship("User", back_populates="location")   
     
 class Category(Base):
     __tablename__ = "categories"
@@ -82,7 +82,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True, index=True)
     category = Column(String(255), index=True)
     
-    items = relationship("Item", backref="category")   
+    items = relationship("Item", back_populates="category")   
 
     
 class Review(Base):
@@ -108,7 +108,7 @@ class Transaction(Base):
     card_exp_year = Column(String(4), nullable=False) 
     created_at = Column(DATETIME, default=datetime.utcnow, nullable=False)
 
-    records = relationship("Record", backref="transactions") #not sure if this rel is right
+    records = relationship("Record", back_populates="transactions") #not sure if this rel is right
     
 class Record(Base):
     __tablename__ = "records"
