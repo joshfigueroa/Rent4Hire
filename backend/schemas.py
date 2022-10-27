@@ -24,8 +24,8 @@ class UserBase(BaseModel):
     id: int
     is_active: bool
     date_created: datetime
-    firstName: str
-    lastName: str
+    first_name: str
+    last_name: str
     email: str
     street: str
     location_id: int
