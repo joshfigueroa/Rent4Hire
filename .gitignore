@@ -31,3 +31,5 @@ __pychache__/
 node_modules
 
 .vscode
+
+*db.*
