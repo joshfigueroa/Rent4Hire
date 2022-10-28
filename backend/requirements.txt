@@ -7,7 +7,6 @@ sqlalchemy == 1.4.41
 aiosqlite == 0.17.0
 anyio == 3.6.1
 async-generator == 1.10
-starlette == 0.20.4
 uvicorn == 0.18.3
 cryptography == 36.0.2
 bcrypt == 3.2.0
