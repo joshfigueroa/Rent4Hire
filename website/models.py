@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):#LEFT OUT TABLE NAMES BC IT COMPLICATED THINGS
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150), nullable=False)
-    last_name = db.Column(db.String(150), nullable=False)#If null this will break!! Take out or have error checking in auth.py
+    last_name = db.Column(db.String(150), nullable=False)
     notes = db.relationship('Note')
     
     date_created = db.Column(db.DATETIME, default=datetime.utcnow, index=True)
@@ -34,9 +34,9 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
     name = db.Column(db.String(255), index=True)
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"), index=True)
-    availability = db.Column(db.DATETIME, nullable=False) #???????????
+    availability = db.Column(db.DATETIME) #, nullable=False???????????
     description = db.Column(db.Text, index=True)
-    owner_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    owner_id = db.Column(db.Integer, db.ForeignKey("user.id"))#??????????
     date_created = db.Column(db.DATETIME, default=datetime.utcnow, index=True)
     #item_location_id = Column(Integer)#, ForeignKey("locations.id"), index=True) #Not sure if this is needed
     price_in_cents = db.Column(db.Integer, nullable=False, index=True) #Same thing here
