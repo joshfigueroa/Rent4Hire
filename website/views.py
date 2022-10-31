@@ -9,7 +9,7 @@ views = Blueprint('views', __name__)
 # Routes to the home page
 @views.route('/', methods=['GET', 'POST'])
 @login_required
-def home():
+def home(): # this is sample code, the home method needs to be updated to get rental listings (from area if possible)
     if request.method == 'POST':
         note = request.form.get('note')
 
@@ -23,7 +23,7 @@ def home():
 
     return render_template("home.html", user=current_user)
 
-
+# This would ne good to update to delete rental listing or something like that/ maybe even useful for deleting user
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
     note = json.loads(request.data)

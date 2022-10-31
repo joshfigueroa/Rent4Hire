@@ -3,7 +3,7 @@ from flask_login import UserMixin
 from sqlalchemy.sql import func
 from datetime import datetime
 
-
+# This will be delete, this is an example for rental listings
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10000))
@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):#LEFT OUT TABLE NAMES BC IT COMPLICATED THINGS
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150), nullable=False)
     last_name = db.Column(db.String(150), nullable=False)
-    notes = db.relationship('Note')
+    notes = db.relationship('Note') #Will be deleted
     
     date_created = db.Column(db.DATETIME, default=datetime.utcnow, index=True)
     
@@ -55,7 +55,7 @@ class Order(db.Model):
     
     #transaction = relationship("Transaction", backref="order", uselist=False) #one-to-one rel IF USING TRANSACTION TABLE
     
-
+#add location etc in profile
 class Location(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
     city = db.Column(db.String(255), nullable=False)

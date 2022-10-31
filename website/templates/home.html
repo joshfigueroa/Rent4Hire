@@ -1,11 +1,11 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
-%}
-<h1 align="center">Listings</h1>
-<ul class="list-group list-group-flush" id="notes">
-  {% for note in user.notes %}
+%}<!--Add a search box like figma example https://www.figma.com/file/3U5ECD3dQNLCi4cU3l3yIB/Website-Mockup?node-id=0%3A1-->
+<h1 align="center">Listings</h1><!--I updated figma to match the new layout a little more and wrote some notes-->
+<ul class="list-group list-group-flush" id="notes"><!--Make Rentals pop up here instead of notes-->
+  {% for note in user.notes %} 
   <li class="list-group-item">
     {{ note.data }}
-    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})"><!--This is delete note function that works with static/index.js (somehow) Funct not needed in here, but good to have this reference for deleting item in profile - my listings page-->
       <span aria-hidden="true">&times;</span>
     </button>
   </li>

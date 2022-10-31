@@ -7,7 +7,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
-
+# Route of what happens to input on login page, checks if email exists then if input = password, make current user
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -34,7 +34,7 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
-
+# Todo: Update with optional location fields/number
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
@@ -60,7 +60,7 @@ def sign_up():
             flash('Password must be at least 7 characters.', category='error')
         else:
             new_user = User(email=email, first_name=first_name, last_name=last_name, street=street, password=generate_password_hash(
-                password1, method='sha256'))#UPDATE USER INFO FOR R4H
+                password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
