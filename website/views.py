@@ -54,4 +54,19 @@ def create_listing():#CHANGE NAME
 
     return render_template("create_listing.html", user=current_user)
 
+# Routes to create rental page
+@views.route('/create_rental', methods=['GET', 'POST'])
+@login_required
+def create_rental():
+    if request.method == 'POST':
+        if request.form.get('submit_button') == "Submit":
+            pass
+        if request.form.get('chat_button') == "Chat":
+            return render_template('chat.html', user=current_user)
+    return render_template("create_rental.html", user=current_user)
 
+# Route to a testing page, test whatever html/css you want to play with
+@views.route('/test')
+@login_required
+def test_every():
+    return render_template("test.html", user=current_user)

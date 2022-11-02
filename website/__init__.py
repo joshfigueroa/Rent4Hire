@@ -8,7 +8,7 @@ DB_NAME = "database.db"
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_url_path='/static') # static_url_path in order to init path for anything in static folder
     app.config['SECRET_KEY'] = 'ireuhgkdjfndlfkgjdslhjlkjgjvcbbjh'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False      # HOPING TO FIX issue with db at start up -> DIDNT WORK
