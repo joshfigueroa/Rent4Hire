@@ -1,0 +1,103 @@
+{% extends "base.html" %} 
+    {% block title %}Create Rental{% endblock %} 
+    {% block content %}
+    <head>
+        <link rel="stylesheet" href="static/css/rental.css" />
+    </head>
+    <div class="container py-4">
+        <h2 class="text-center font-weight-light">Let's Start Renting!</h2>
+        <div class="row">
+
+            <!-- Col on the left, for renting infos-->
+            <div class="col-6 big-box">
+                <div class="col-md-5 col-lg-5 mx-auto">
+                    <!-- FORM START HERE-->
+                    <form method="POST">
+                        <div class="form-group">
+                                Item name
+                        </div>
+
+                        <!-- Quantity input -->
+                        <div class="form-group">
+                          
+                                
+                                <div class="d-flex justify-content-between">
+                                    <div><p class="text-dark">Quantity</p></div>
+                                    
+                                    <div class="quantityClass"><input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field border-3 text-center w-25"></div>
+                                    
+                                </div>
+                            
+                        </div>
+
+                        <!-- Rental Price-->
+                        <div class="form-group">
+                            Rental Price
+                        </div>
+
+                        <!-- Total Value -->
+                        <div class="form-group">
+                            Value
+                        </div>
+                        
+                        <!-- Categories of rental items-->
+                        <div class="form-group">
+                            Categories
+                        </div>
+
+                        <!-- Description box -->
+                        <div class="form-group">
+                            <label for="desBox">Notes for the owner</label>
+                            <textarea name="desBox" id="" cols="40" rows="4" placeholder="Description"></textarea>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-flex">
+                            <div class="input-group"><button type="submit" name="submit_button" value="Submit" class="btn btn-primary">Submit</button></div>
+                            <div class="input-group px-3"><button type="submit" name="chat_button" value="Chat" class="btn btn-primary">Chat</button></div>
+                        </div>
+                        
+                    </form>
+                </div>    
+            </div>
+
+            <!--Col on the right, for pictures of rental items-->
+            <div class="col-6 big-box">
+                <div class="row">
+                    <div class="col-md-5 col-lg-5 mx-auto">
+                        <div id="innerCon">
+                            <div><img id="placeholderImg" src="static/images/img_nature.jpg" alt="Nature" style="width:250%""></div>
+                            
+                            <!-- Expanded image -->
+                            <img id="expandedImg" style="width:250%">
+                        </div>
+                    </div>
+                    
+                    <!--DUMMY PICTURE-->
+                    <div class="row" id="innerRow">
+                        <div class="col mini-box">
+                          <img src="static/images/img_nature.jpg" alt="Nature" onclick="myFunction(this);">
+                        </div>
+                        <div class="col mini-box">
+                          <img src="static/images/img_snow.jpg" alt="Snow" onclick="myFunction(this);">
+                        </div>
+                        <div class="col mini-box">
+                          <img src="static/images/img_mountains.jpg" alt="Mountains" onclick="myFunction(this);">
+                        </div>
+                        <div class="col mini-box">
+                          <img src="static/images/img_lights.jpg" alt="Lights" onclick="myFunction(this);">
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="static/js/rental.js"></script>
+    {% endblock %}
+
+
+
+
+
+
