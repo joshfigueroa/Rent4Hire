@@ -10,8 +10,8 @@ DB_NAME = "database.db"
 def create_app():
     app = Flask(__name__, static_url_path='/static') # static_url_path in order to init path for anything in static folder
     app.config['SECRET_KEY'] = 'ireuhgkdjfndlfkgjdslhjlkjgjvcbbjh'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False      # HOPING TO FIX issue with db at start up -> DIDNT WORK
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///' + DB_NAME
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True      # HOPING TO FIX issue with db at start up -> DIDNT WORK
     db.init_app(app)
 
     from .views import views
@@ -23,9 +23,9 @@ def create_app():
 
     from .models import User, Note
 
-    # Creates the database
-    with app.app_context():
-        db.create_all()
+    # Creates an empty database
+    # with app.app_context():
+    #    db.create_all()
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
