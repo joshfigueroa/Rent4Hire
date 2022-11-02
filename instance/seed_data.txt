@@ -1,0 +1,58 @@
+INSERT INTO category(category) VALUES
+    ("electronics"),
+    ("antiques"),
+    ("arts+crafts"),
+    ("baby+kid"),
+    ("beauty+health"),
+    ("books"),
+    ("furniture"),
+    ("general"),
+    ("household"),
+    ("motor vehicle"),
+    ("outdoors"),
+    ("service"),
+    ("sporting"),
+    ("tools"),
+    ("toys+games");
+
+INSERT INTO location VALUES
+    (0, 'Glassboro', 'NJ', '08028'),
+    (1, 'Blackwood', 'NJ', '08021'),
+    (2, 'Sicklerville', 'NJ', '08081'),
+    (3, 'Vineland', 'NJ', '08360'),
+    (4, 'Pitman', 'NJ', '08071'),
+    (5, 'Hammonton', 'NJ', '08037'),
+    (6, 'Berlin', 'NJ', '08009'),
+    (7, 'Millville', 'NJ', '08332');
+
+INSERT INTO item(name, category_id, description, owner_id, price_in_cents) VALUES
+    ("Kayaks", 11, "Rent my kayaks!!!!", 1, 150000),
+    ("Tent", 11, "Rent my tent!!!!", 1, 100000),
+    ("Jack Hammer", 14, "Rent my Jack Hammer!!!!", 2, 100000),
+    ("China Plates", 9, "Rent my plates for a nice dinner to impress!!!!", 1, 50000),
+    ("Bible", 6, "Rent my Bible!! Its King James Version!!", 1, 10000),
+    ("Bouncy House", 15, "Rent this big bouncy house!!!!", 1, 3000000),
+    ("Football", 13, "Rent my football!!!!", 2, 10000),
+    ("Fishing Pole", 11, "Rent my fishing pole!!!!", 2, 50000),
+    ("Plowing", 12, "I can plow your driveway!!", 2, 100000),
+    ("Truck Rental", 10, "Rent my Ford F150!! For an hour!!", 1, 250000),
+    ("Paint Supplies", 3, "I have paint brushes and oil paint!! NO ACRYLIC EWWW!!", 1, 60000),
+    ("Drone", 11, "Rent my drone!! DISCLAIMER: Only certified drone operators!!", 2, 100000),
+    ("Tarp", 14, "Rent my tarp!! Good for carrying leaves!!", 2, 50000),
+    ("Cones", 14, "Need cones for an event? Rent my cones!!!!", 2, 50000),
+    ("Trampline", 11, "Rent my trampoline!! Its a 16 ft !!", 2, 1000000),
+    ("Water Slide", 11, "For a party!!!!", 2, 2500000),
+    ("Bounce House", 11, "This is fun!!!!", 2, 1000000),
+    ("Bounce Slide", 11, "Rent it for a party!!!!", 2, 150000),
+    ("Water Slide", 11, "Rent for a birthday party!!!!", 2, 150000);
+
+INSERT INTO review VALUES
+    (1, 1, 1, CURRENT_DATE, 'Just okay', 'meh'),
+    (2, 2, 3, CURRENT_DATE, 'Awesome!!!!!', 'I left my wife and kids for this'),
+    (3, 1, 7, CURRENT_DATE, 'Life changing', 'fre*king sweet'),
+    (4, 2, 2, CURRENT_DATE, 'The worst thing ever', 'ruined my life'),
+    (5, 1, 11,CURRENT_DATE, 'cool', 'wow so good');
+
+ADD YOU QUERY YOU MADE HERE WITH: SELECT * FROM user;
+1|daniellewhitmarsh3@gmail.com|sha256$MFUSYRfdbGj8BR49$4c1cbe03cbc1e0e8f7f0b6303775eff8daece3e46a27f1c0fef9ffea0bcefd27|Danielle|Whitmarsh|2022-10-30 16:25:07.419686||
+2|whitma13@students.rowan.edu|sha256$WIrO6NvBhvRMLL28$89d27bad9c70b66a235e736f53031a4f6d3352830eb15ebd2f2cecd1e3f43c07|John|Doe|2022-11-02 20:16:20.035378|123 street|

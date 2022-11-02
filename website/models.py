@@ -43,6 +43,7 @@ class Item(db.Model):
     
     item_reviews = db.relationship("Review", backref="item") #its the item being reviewed
     orders = db.relationship("Order", backref="item")
+ 
     
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
@@ -61,7 +62,7 @@ class Location(db.Model):
     city = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(2), nullable=False)
     zip = db.Column(db.String(5), nullable=False)
-    country = db.Column(db.String(255), nullable=False) 
+    #country = db.Column(db.String(255), nullable=False) # Deleted this 
     
     users = db.relationship("User", backref="location")   
     
@@ -70,7 +71,7 @@ class Category(db.Model):
     category = db.Column(db.String(255), index=True)
     
     items = db.relationship("Item", backref="category")   
-
+    
     
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
