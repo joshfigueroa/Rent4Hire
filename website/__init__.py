@@ -1,17 +1,18 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from os import path
 from flask_login import LoginManager
+from pathlib import Path
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
+DB_NAME = "instance/database.db"
+DB_PATH = Path(DB_NAME).resolve()
 
 
 def create_app():
     app = Flask(__name__, static_url_path='/static') # static_url_path in order to init path for anything in static folder
     app.config['SECRET_KEY'] = 'ireuhgkdjfndlfkgjdslhjlkjgjvcbbjh'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///' + DB_NAME
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True      # HOPING TO FIX issue with db at start up -> DIDNT WORK
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///' + str(DB_PATH)
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False      # HOPING TO FIX issue with db at start up -> DIDNT WORK
     db.init_app(app)
 
     from .views import views
