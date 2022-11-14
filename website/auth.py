@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from .models import User, Location
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -41,9 +41,13 @@ def sign_up():
         email = request.form.get('email')
         first_name = request.form.get('firstName')
         last_name = request.form.get('lastName')
-        street = request.form.get('street')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
+        street = request.form.get('street')
+        # Adding city, state, and zip to location. 
+        city = request.form.get('city')
+        state = request.form.get('state')
+        zip = request.form.get('zip')
 
         user = User.query.filter_by(email=email).first()
         if user:
@@ -58,9 +62,48 @@ def sign_up():
             flash('Passwords don\'t match.', category='error')
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
+        
+        # If location city, state, zip are entered
+        elif city or state or zip:
+            
+            location = Location.query.filter_by(city=city, state=state, zip=zip).first()
+
+            #!!!!!!!! TO DO: ERROR CHECKING, CLEAN UP!!!!!!!!!!!!
+            if len(city) < 1:
+                flash('Enter city name.', category='error')
+            elif len(state) < 1:
+                flash('Enter state name.', category='error')
+            elif len(zip) > 5 or len(zip) < 5:
+                flash('Invalid zip code.', category='error')
+            # If city, state, zip exists in table, get id            
+            elif location:
+                # Create user with location id
+                new_user = User(email=email, first_name=first_name, last_name=last_name, street=street, 
+                                location_id=location.id, password=generate_password_hash(password1, method='sha256'))
+                db.session.add(new_user)
+                db.session.commit()
+                login_user(new_user, remember=True)
+                flash('Account created!', category='success')
+                return redirect(url_for('views.home'))
+            else:
+                # If not in table, create location,
+                # grab location id and add create user with location
+                new_location = Location(city=city, state=state, zip=zip)
+                db.session.add(new_location)
+                db.session.commit()
+                location = Location.query.filter_by(city=city, state=state, zip=zip).first()
+                new_user = User(email=email, first_name=first_name, last_name=last_name, street=street, 
+                                location_id=location.id, password=generate_password_hash(password1, method='sha256'))   
+                db.session.add(new_user)
+                db.session.commit()
+                login_user(new_user, remember=True)
+                flash('Account created! New location', category='success')
+                return redirect(url_for('views.home'))
+        
+        # else, just sign up without location
         else:
-            new_user = User(email=email, first_name=first_name, last_name=last_name, street=street,
-                password=generate_password_hash(password1, method='sha256'))
+            new_user = User(email=email, first_name=first_name, last_name=last_name, street=street, 
+                            password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)

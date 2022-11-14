@@ -6,6 +6,9 @@
 <h5>Name: {{ user.first_name }} {{ user.last_name }}</h5>
 <h5>Email: {{ user.email }}</h5>
 <h5>Address: {{ user.street }}</h5>
+<h5>City: {{ user.location.city }}</h5>
+<h5>State: {{ user.location.state }}</h5>
+<h5>Zip: {{ user.location.zip }}</h5>
 <br>
 <br>
 <form method="POST">
@@ -44,6 +47,33 @@
             id="street"
             name="street"
             placeholder="Street Address"
+    />
+  </div>
+  <div class="form-group">
+    <input
+            type="text"
+            class="form-control"
+            id="city"
+            name="city"
+            placeholder="City"
+    />
+  </div>
+  <div class="form-group">
+    <input
+            type="text"
+            class="form-control"
+            id="state"
+            name="state"
+            placeholder="State"
+    />
+  </div>
+  <div class="form-group">
+    <input
+            type="text"
+            class="form-control"
+            id="zip"
+            name="zip"
+            placeholder="Zip code"
     />
   </div>
   <br>
