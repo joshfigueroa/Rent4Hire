@@ -2,10 +2,17 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 from datetime import datetime
+import uuid
+
+# Method to generate a unique id for any object.
+# Casts to an int for compatability with sqlalchemy.
+
+def generate_uuid():
+    return int(uuid.uuid4())
 
 # This will be delete, this is an example for rental listings
 class Note(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, default=generate_uuid())
     data = db.Column(db.String(10000))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
