@@ -1,21 +1,66 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}<!--Add a search box like figma example https://www.figma.com/file/3U5ECD3dQNLCi4cU3l3yIB/Website-Mockup?node-id=0%3A1-->
-<h1 align="center">Listings</h1><!--I updated figma to match the new layout a little more and wrote some notes-->
-<ul class="list-group list-group-flush" id="notes"><!--Make Rentals pop up here instead of notes-->
-  {% for note in user.notes %} 
-  <li class="list-group-item">
-    {{ note.data }}
-    <button type="button" class="close" onClick="deleteNote({{ note.id }})"><!--This is delete note function that works with static/index.js (somehow) Funct not needed in here, but good to have this reference for deleting item in profile - my listings page-->
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </li>
-  {% endfor %}
-</ul>
-<form method="POST">
-  <textarea name="note" id="note" class="form-control"></textarea>
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body style="background-color: rgb(242, 251, 255)">
   <br />
-  <div align="center">
-    <button type="submit" class="btn btn-primary">Add Note</button>
-  </div>
-</form>
+  <h1
+    align="center"
+    style="
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      text-shadow: 0 0 2px #ffffff;
+      font-weight: bold;
+    "
+  >
+    Listings
+  </h1>
+  <br />
+
+  <!--I updated figma to match the new layout a little more and wrote some notes-->
+  <ul class="list-group list-group-flush" align="center" id="notes">
+    <!--Make Rentals pop up here instead of notes-->
+    {% for note in user.notes %}
+    <li class="list-group-item" style="background-color: rgb(221, 221, 221)">
+      <p style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">
+        {{ note.data }}
+        <!--This is delete note function that works with static/index.js (somehow) Funct not needed in here, but good to have this reference for deleting item in profile - my listings page-->
+        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </p>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <ul class="list-group list-group-flush" id="items">
+    <!--Make Rentals pop up here instead of notes-->
+
+    {% for Item in user.items %}
+    <li
+      class="list-group-item"
+      style="background-color: rgb(221, 221, 221); max-height: 40px"
+    >
+      <p style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">
+        {{ Item.name }}: {{Item.description}}, ${{Item.price_in_cents / 100}}0
+        <!--This is delete note function that works with static/index.js (somehow) Funct not needed in here, but good to have this reference for deleting item in profile - my listings page-->
+        <button type="button" class="close" onClick="deleteNote({{ Item.id }})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </p>
+    </li>
+    {% endfor %}
+  </ul>
+  <br /><br />
+
+  <form method="POST">
+    <textarea name="note" id="note" class="form-control"></textarea>
+    <br />
+    <div align="center">
+      <button type="submit" class="btn btn-primary">Add Note</button>
+    </div>
+    <br />
+    <br />
+  </form>
+</body>
 {% endblock %}
