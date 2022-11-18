@@ -4,6 +4,7 @@ from website import create_app
 app = create_app()
 
 if __name__ == '__main__':
-    app.run(debug=True)#TAKE OUT DEBUG BEFORE PRODUCTION
+    app.run(debug=True)  # TAKE OUT DEBUG BEFORE PRODUCTION
 
-# HAVING ISSUES STARTING WITH EXISTING DATABASE, IF ERROR IS TRACEDBACK TO user.lastName than delete database file and rerun
+# HAVING ISSUES STARTING WITH EXISTING DATABASE
+# IF ERROR IS TRACED BACK TO user.lastName THEN DELETE DATABASE FILE AND RE-RUN

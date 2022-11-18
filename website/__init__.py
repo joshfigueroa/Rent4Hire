@@ -7,14 +7,16 @@ db = SQLAlchemy()
 DB_NAME = "instance/database.db"
 DB_PATH = Path(DB_NAME).resolve()
 
-UPLOAD_FOLDER = 'website\static\images'
+UPLOAD_FOLDER = 'website\\static\\images'
 UPLOAD_PATH = Path(UPLOAD_FOLDER).resolve()
 
+
 def create_app():
-    app = Flask(__name__, static_url_path='/static') # static_url_path in order to init path for anything in static folder
+    app = Flask(__name__,
+                static_url_path='/static')  # static_url_path in order to init path for anything in static folder
     app.config['SECRET_KEY'] = 'ireuhgkdjfndlfkgjdslhjlkjgjvcbbjh'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///' + str(DB_PATH)
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False      # HOPING TO FIX issue with db at start up -> DIDNT WORK
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # HOPING TO FIX issue with db at start up -> DIDNT WORK
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
     db.init_app(app)
@@ -37,7 +39,7 @@ def create_app():
     login_manager.init_app(app)
 
     @login_manager.user_loader
-    def load_user(id):
-        return User.query.get(id)
+    def load_user(user_id):
+        return User.query.get(user_id)
 
     return app

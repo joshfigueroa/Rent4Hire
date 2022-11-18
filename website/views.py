@@ -1,25 +1,28 @@
-from flask import Blueprint, render_template, request, flash, jsonify, Flask, redirect, url_for
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, app
 from flask_login import login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from .models import Note
+from werkzeug.utils import secure_filename
+
+from .models import Note, User
 from . import db
 import json
 import os
-import urllib.request
 
 views = Blueprint('views', __name__)
 
 # Defines allowed filetypes for image uploads
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
 
 # Defines proper filename for upload
 def allowed_file(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 # Routes to the home page
 @views.route('/', methods=['GET', 'POST'])
 @login_required
-def home(): # this is sample code, the home method needs to be updated to get rental listings (from area if possible)
+def home():  # this is sample code, the home method needs to be updated to get rental listings (from area if possible)
     if request.method == 'POST':
         note = request.form.get('note')
 
@@ -33,43 +36,41 @@ def home(): # this is sample code, the home method needs to be updated to get re
 
     return render_template("home.html", user=current_user)
 
-@views.route('/')
-@login_required
-def upload_form():
-	return render_template('upload.html')
 
 @views.route('/', methods=['POST'])
 @login_required
 def upload_image():
-	if 'file' not in request.files:
-		flash('No file part')
-		return redirect(request.url)
-	file = request.files['file']
-	if file.filename == '':
-		flash('No image selected for uploading')
-		return redirect(request.url)
-	if file and allowed_file(file.filename):
-		filename = secure_filename(file.filename)
-		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-		#print('upload_image filename: ' + filename)
-		flash('Image successfully uploaded and displayed below')
-		return render_template('upload.html', filename=filename)
-	else:
-		flash('Allowed image types are -> png, jpg, jpeg, gif')
-		return redirect(request.url)
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+    file = request.files['file']
+    if file.filename == '':
+        flash('No image selected for uploading')
+        return redirect(request.url)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # print('upload_image filename: ' + filename)
+        flash('Image successfully uploaded and displayed below')
+        return render_template('upload.html', filename=filename)
+    else:
+        flash('Allowed image types are -> png, jpg, jpeg, gif')
+        return redirect(request.url)
+
 
 @views.route('/display/<filename>')
 @login_required
 def display_image(filename):
-	#print('display_image filename: ' + filename)
-	return redirect(url_for('static', filename='uploads/' + filename), code=301)
+    # print('display_image filename: ' + filename)
+    return redirect(url_for('static', filename='uploads/' + filename), code=301)
 
-# This would ne good to update to delete rental listing or something like that/ maybe even useful for deleting user
+
+# This would be good to update to delete rental listing or something like that/ maybe even useful for deleting user
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
     note = json.loads(request.data)
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
+    note_id = note['noteId']
+    note = Note.query.get(note_id)
     if note:
         if note.user_id == current_user.id:
             db.session.delete(note)
@@ -81,7 +82,7 @@ def delete_note():
 # Routes to create listing page
 @views.route('/create', methods=['GET', 'POST'])
 @login_required
-def create_listing():#CHANGE NAME
+def create_listing():  # CHANGE NAME
     if request.method == 'POST':
         note = request.form.get('note')
 
@@ -95,6 +96,7 @@ def create_listing():#CHANGE NAME
 
     return render_template("create_listing.html", user=current_user)
 
+
 # Routes to create rental profile
 @views.route('/rental_profile', methods=['GET', 'POST'])
 @login_required
@@ -106,42 +108,43 @@ def rental_profile():
             return render_template('chat.html', user=current_user)
     return render_template("rental_profile.html", user=current_user)
 
+
 @views.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile_page():
-    checkAuth = False
+    check_auth = False
     user = current_user
     if request.method == 'POST':
-        if checkAuth:
+        if check_auth:
             print("here")
             if request.form['submit'] == 'submitNewInfo':
-                userDB = User.query.filter_by(email = user.email).first()
-                userDB.first_name = request.form.get('firstName')
-                userDB.last_name = request.form.get('lastName')
-                userDB.email = request.form.get('email')
-                userDB.street = request.form.get('street')
+                user_db = User.query.filter_by(email=user.email).first()
+                user_db.first_name = request.form.get('firstName')
+                user_db.last_name = request.form.get('lastName')
+                user_db.email = request.form.get('email')
+                user_db.street = request.form.get('street')
                 db.session.commit()
                 flash("Profile Updated!", category='success')
             elif request.form['submit'] == 'Submit New Password':
-                userDB = User.query.filter_by(email = user.email).first()
+                user_db = User.query.filter_by(email=user.email).first()
                 new_password = request.form.get('password')
                 conf_password = request.form.get('confPassword')
                 if new_password == conf_password:
-                    userDB.password = generate_password_hash(new_password, method='sha256')
+                    user_db.password = generate_password_hash(new_password, method='sha256')
                     db.session.commit()
                     flash("Password Updated!", category='success')
                 else:
                     flash("Passwords don't match.", category='error')
         print("Here 2")
-        checkPassword = request.form.get('password')
-        if check_password_hash(user.password, checkPassword):
-            checkAuth = True
+        check_password = request.form.get('password')
+        if check_password_hash(user.password, check_password):
+            check_auth = True
         else:
-            checkAuth = False
+            check_auth = False
             flash("Incorrect credentials, try again.", category='error')
-        return render_template("profile_dash.html", user = user, checkAuth = checkAuth)
+        return render_template("profile_dash.html", user=user, checkAuth=check_auth)
     elif request.method == 'GET':
-        return render_template("profile_dash.html", user = user, checkAuth = checkAuth)
+        return render_template("profile_dash.html", user=user, checkAuth=check_auth)
 
 
 # Route to a testing page, test whatever html/css you want to play with
