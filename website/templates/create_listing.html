@@ -5,27 +5,15 @@ content %}
 
   <!-- FIELD FOR ITEM NAME -->
   <div class="form-group">
-    <label for="name">Item Name</label
-    ><!--UPDATE WITH ITEM INFO-->
-    <input
-      type="name"
-      class="form-control"
-      id="name"
-      name="name"
-      placeholder="Enter name"
-    />
+    <label for="name">Item Name</label>
+    <!--UPDATE WITH ITEM INFO-->
+    <input type="name" class="form-control" id="name" name="name" placeholder="Enter name" />
   </div>
 
   <!-- FIELD FOR ITEM DESCRIPTION -->
   <div class="form-group">
     <label for="description">Item Description</label>
-    <input
-      type="text"
-      class="form-control"
-      id="description"
-      name="description"
-      placeholder="Enter item description"
-    />
+    <input type="text" class="form-control" id="description" name="description" placeholder="Enter item description" />
   </div>
 
   <!-- FIELD FOR ITEM CLASSIFICATION -->
@@ -54,22 +42,35 @@ content %}
   <!-- FIELD FOR ITEM PRICE -->
   <div class="form-group">
     <label for="price">Price</label>
-    <input
-      type="number"
-      class="form-control"
-      id="price"
-      name="price"
-      placeholder="Enter Price"
-    />
+    <input type="number" class="form-control" id="price" name="price" placeholder="Enter Price" />
   </div>
   <br />
 
-  <!-- FIELD FOR IMAGE UPLOADS -->
-  <label for="img">Select image:</label>
-  <input type="file" id="img" name="img" accept="image/*" />
-  <br />
-  <br />
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 
-{% endblock %}
+  {% if filename %}
+  <div>
+    <img src="{{ url_for('display_image', filename=filename) }}">
+  </div>
+  {% endif %}
+  <form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+      <p>
+        <input type="file" name="file" autocomplete="off" required>
+      </p>
+    </dl>
+    <p>
+      <input type="submit" value="Submit">
+    </p>
+
+    <!-- FIELD FOR IMAGE UPLOADS 
+    <label for="img">Select image:</label>
+    <input type="file" id="img" name="img" accept="image/*" />
+    <br />
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    -->
+    
+  </form>
+
+  {% endblock %}
