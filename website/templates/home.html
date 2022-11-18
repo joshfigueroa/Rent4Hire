@@ -56,11 +56,14 @@
   
   {% for Item in user.items %}
   <form method="POST" align="left">
-    <div style="float: left; text-align: center;" >
+    <div style="float: left; text-align: center; white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 245px;" >
     <img style=" margin: 0px 15px 15px 0px; border-radius: 25px" 
       src="static/images/img_lights.jpg" alt="static/images/img_lights.jpg" width="233" height="233">
       <h2> {{ Item.name }} </h2>
-      <p stlye="max-width:20"> {{ Item.description }}</p>
+      <p > {{ Item.description }}</p>
     </div>
     
   </form>
