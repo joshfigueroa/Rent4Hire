@@ -1,13 +1,12 @@
-{% extends "base.html" %}
-{% block title %}Create Rental{% endblock %}
-{% block content %}
-
-<head>
-    <link rel="stylesheet" href="static/css/rental.css" />
-</head>
-<div class="container py-4">
-    <h2 class="text-center font-weight-light">Let's Start Renting!</h2>
-    <div class="row">
+{% extends "base.html" %} 
+    {% block title %}Rental Profile{% endblock %} 
+    {% block content %}
+    <head>
+        <link rel="stylesheet" href="static/css/rental.css" />
+    </head>
+    <div class="container py-4">
+        <h2 class="text-center font-weight-light">Let's Start Renting!</h2>
+        <div class="row">
 
         <!-- Col on the left, for renting infos-->
         <div class="col-6 big-box">
@@ -55,15 +54,14 @@
                         <textarea name="desBox" id="" cols="40" rows="4" placeholder="Description"></textarea>
                     </div>
 
-                    <!-- Buttons -->
-                    <div class="d-flex">
-                        <div class="input-group"><button type="submit" name="submit_button" value="Submit"
-                                class="btn btn-primary">Submit</button></div>
-                        <div class="input-group px-3"><button type="submit" name="chat_button" value="Chat"
-                                class="btn btn-primary">Chat</button></div>
-                    </div>
-
-                </form>
+                        <!-- Buttons -->
+                        <div class="d-flex">
+                            <div class="input-group"><button type="submit" name="submit_button" value="Submit" class="btn btn-primary">Start Renting</button></div>
+                            <div class="input-group px-3"><button type="submit" name="chat_button" value="Chat" class="btn btn-primary">Chat</button></div>
+                        </div>
+                        
+                    </form>
+                </div>    
             </div>
         </div>
 
