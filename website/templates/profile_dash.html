@@ -1,124 +1,291 @@
 {% extends "base.html" %} {% block title %}Profile{% endblock %} {% block content %}
-<br>
-<h3 align="center">Profile Dashboard</h3>
-<br>
-<h4>Current Information</h4>
-<h5>Name: {{ user.first_name }} {{ user.last_name }}</h5>
-<h5>Email: {{ user.email }}</h5>
-<h5>Address: {{ user.street }}</h5>
-<h5>City: {{ user.location.city }}</h5>
-<h5>State: {{ user.location.state }}</h5>
-<h5>Zip: {{ user.location.zip }}</h5>
-<br>
-<br>
-<form method="POST">
-  {% if checkAuth %}
-  <div class="form-group">
-    <input
-            type="text"
-            class="form-control"
-            id="firstName"
-            name="firstName"
-            placeholder="First Name"
-    />
+<head>
+  <link rel="stylesheet" href="static/css/profile.css" />
+</head>
+
+<div class="accordion" id="accordionItem">
+  <!--Card 1-->
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          My Listing
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItem">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="card border-success" style="width: 18rem;">
+              <img src="static/images/img_nature.jpg" class="card-img-top" alt="...">
+              <div class="card-body text-info">
+                <h5 class="card-title"><b>Item 1's Name</b></h5>
+                <p class="card-text">Best features of Item 1 comes with great benefits for xyz. Suitable for certain types of people who need to use it</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Price: $10.00</li>
+                <li class="list-group-item">Location: Glassboro, NJ</li>
+                <li class="list-group-item">Last Modified Date: Today</li>
+              </ul>
+              <div class="card-body">
+                <a href="#" class="card-link">View Details</a>
+                <a href="#" class="card-link">Edit</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="card border-success" style="width: 18rem;">
+              <img src="static/images/img_snow.jpg" class="card-img-top" alt="...">
+              <div class="card-body text-info">
+                <h5 class="card-title"><b>Item 2's Name</b></h5>
+                <p class="card-text">Best features of Item 2 comes with great benefits for xyz. Suitable for certain types of people who need to use it</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Price: $5.00</li>
+                <li class="list-group-item">Location: Glassboro, NJ</li>
+                <li class="list-group-item">Last Modified Date: Today</li>
+              </ul>
+              <div class="card-body">
+                <a href="#" class="card-link">View Details</a>
+                <a href="#" class="card-link">Update</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="card border-success" style="width: 18rem;">
+              <img src="static/images/img_mountains.jpg" class="card-img-top" alt="...">
+              <div class="card-body text-info">
+                <h5 class="card-title"><b>Item 3's Name</b></h5>
+                <p class="card-text">Best features of Item 3 comes with great benefits for xyz. Suitable for certain types of people who need to use it</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Price: $15.00</li>
+                <li class="list-group-item">Location: Glassboro, NJ</li>
+                <li class="list-group-item">Last Modified Date: Today</li>
+              </ul>
+              <div class="card-body">
+                <a href="#" class="card-link">View Details</a>
+                <a href="#" class="card-link">Update</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <input
-            type="text"
-            class="form-control"
-            id="lastName"
-            name="lastName"
-            placeholder="Last Name"
-    />
+
+  <!--Card 2-->
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          My Rentals
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionItem">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="card border-primary" style="width: 18rem;">
+              <img src="static/images/img_nature.jpg" class="card-img-top" alt="...">
+              <div class="card-body text-primary">
+                <h5 class="card-title"><b>Item 1's Name</b></h5>
+                <p class="card-text">Best features of Item 1 comes with great benefits for xyz. Suitable for certain types of people who need to use it</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Cost: $10.00</li>
+                <li class="list-group-item">Location: Glassboro, NJ</li>
+                <li class="list-group-item">Borrower's name: Danielle</li>
+              </ul>
+              <div class="card-body">
+                <a href="#" class="card-link">View Details</a>
+                <a href="#" class="card-link">Chat With Renter</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="card border-primary" style="width: 18rem;">
+              <img src="static/images/img_snow.jpg" class="card-img-top" alt="...">
+              <div class="card-body text-primary">
+                <h5 class="card-title"><b>Item 2's Name</b></h5>
+                <p class="card-text">Best features of Item 2 comes with great benefits for xyz. Suitable for certain types of people who need to use it</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Price: $5.00</li>
+                <li class="list-group-item">Location: Glassboro, NJ</li>
+                <li class="list-group-item">Borrower's name: Josh</li>
+              </ul>
+              <div class="card-body">
+                <a href="#" class="card-link">View Details</a>
+                <a href="#" class="card-link">Chat With Renter</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="card border-primary" style="width: 18rem;">
+              <img src="static/images/img_mountains.jpg" class="card-img-top" alt="...">
+              <div class="card-body text-primary">
+                <h5 class="card-title"><b>Item 3's Name</b></h5>
+                <p class="card-text">Best features of Item 3 comes with great benefits for xyz. Suitable for certain types of people who need to use it</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Price: $15.00</li>
+                <li class="list-group-item">Location: Glassboro, NJ</li>
+                <li class="list-group-item">Borrower's name: Matt</li>
+              </ul>
+              <div class="card-body">
+                <a href="#" class="card-link">View Details</a>
+                <a href="#" class="card-link">Chat With renter</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <input
-            type="text"
-            class="form-control"
-            id="email"
-            name="email"
-            placeholder="Email"
-    />
+
+  <!--Card 3-->
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          My Profile
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionItem">
+      <div class="card-body">
+        <div>
+          <br>
+          <h4>Current Information</h4>
+          <h5>Name: {{ user.first_name }} {{ user.last_name }}</h5>
+          <h5>Email: {{ user.email }}</h5>
+          <h5>Address: {{ user.street }}</h5>
+          <h5>City: {{ user.location.city }}</h5>
+          <h5>State: {{ user.location.state }}</h5>
+          <h5>Zip: {{ user.location.zip }}</h5>
+          <br>
+          <br>
+          
+          <form method="POST">
+            {% if checkAuth %}
+            <div class="form-group">
+              <input
+                      type="text"
+                      class="form-control"
+                      id="firstName"
+                      name="firstName"
+                      placeholder="First Name"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                      type="text"
+                      class="form-control"
+                      id="lastName"
+                      name="lastName"
+                      placeholder="Last Name"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                      type="text"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="Email"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                      type="text"
+                      class="form-control"
+                      id="street"
+                      name="street"
+                      placeholder="Street Address"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                      type="text"
+                      class="form-control"
+                      id="city"
+                      name="city"
+                      placeholder="City"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                      type="text"
+                      class="form-control"
+                      id="state"
+                      name="state"
+                      placeholder="State"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                      type="text"
+                      class="form-control"
+                      id="zip"
+                      name="zip"
+                      placeholder="Zip code"
+              />
+            </div>
+            <br>
+            <input type="submit" name="submit" value="Update Profile" class="btn btn-primary"></button>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="form-group">
+              <input
+                      type="password"
+                      class="form-control"
+                      id="newPassword"
+                      name="newPassword"
+                      placeholder="New Password"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                      type="password"
+                      class="form-control"
+                      id="confPassoword"
+                      name="confPassword"
+                      placeholder="Confirm Password"
+              />
+            </div>
+            <br>
+            <input type="submit" name="submit" value="Change Password" class="btn btn-primary"></button>
+            <br>
+            <br>
+            {% else %}
+            Enter your password to unlock editing.
+            <br><br>
+            <div class="form-group">
+              <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      placeholder="Enter password"
+              />
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Edit Profile</button>
+            <br>
+          </form>
+        
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <input
-            type="text"
-            class="form-control"
-            id="street"
-            name="street"
-            placeholder="Street Address"
-    />
-  </div>
-  <div class="form-group">
-    <input
-            type="text"
-            class="form-control"
-            id="city"
-            name="city"
-            placeholder="City"
-    />
-  </div>
-  <div class="form-group">
-    <input
-            type="text"
-            class="form-control"
-            id="state"
-            name="state"
-            placeholder="State"
-    />
-  </div>
-  <div class="form-group">
-    <input
-            type="text"
-            class="form-control"
-            id="zip"
-            name="zip"
-            placeholder="Zip code"
-    />
-  </div>
-  <br>
-  <input type="submit" name="submit" value="Update Profile" class="btn btn-primary"></button>
-  <br>
-  <br>
-  <br>
-  <br>
-  <div class="form-group">
-    <input
-            type="password"
-            class="form-control"
-            id="newPassword"
-            name="newPassword"
-            placeholder="New Password"
-    />
-  </div>
-  <div class="form-group">
-    <input
-            type="password"
-            class="form-control"
-            id="confPassoword"
-            name="confPassword"
-            placeholder="Confirm Password"
-    />
-  </div>
-  <br>
-  <input type="submit" name="submit" value="Change Password" class="btn btn-primary"></button>
-  <br>
-  <br>
-  {% else %}
-  Enter your password to unlock editing.
-  <br><br>
-  <div class="form-group">
-    <input
-            type="password"
-            class="form-control"
-            id="password"
-            name="password"
-            placeholder="Enter password"
-    />
-  </div>
-  <br>
-  <button type="submit" class="btn btn-primary">Edit Profile</button>
-  <br>
-</form>
+</div>
+
+
         {% endif %}
         {% endblock %}

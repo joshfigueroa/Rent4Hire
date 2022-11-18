@@ -55,16 +55,16 @@ def create_listing():#CHANGE NAME
 
     return render_template("create_listing.html", user=current_user)
 
-# Routes to create rental page
-@views.route('/create_rental', methods=['GET', 'POST'])
+# Routes to create rental profile
+@views.route('/rental_profile', methods=['GET', 'POST'])
 @login_required
-def create_rental():
+def rental_profile():
     if request.method == 'POST':
         if request.form.get('submit_button') == "Submit":
             pass
         if request.form.get('chat_button') == "Chat":
             return render_template('chat.html', user=current_user)
-    return render_template("create_rental.html", user=current_user)
+    return render_template("rental_profile.html", user=current_user)
 
 @views.route('/profile', methods=['GET', 'POST'])
 @login_required
