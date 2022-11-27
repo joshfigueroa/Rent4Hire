@@ -17,24 +17,8 @@
   </h1>
   <br />
 
-  <!--I updated figma to match the new layout a little more and wrote some notes-->
-  <!--<ul class="list-group list-group-flush" align="center" id="notes">
-    -Make Rentals pop up here instead of notes-->
-    <!--{% for note in user.notes %}
-    <li class="list-group-item" style="background-color: rgb(221, 221, 221)">
-      <p style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">
-        {{ note.data }}
-        This is delete note function that works with static/index.js (somehow) Funct not needed in here, but good to have this reference for deleting item in profile - my listings page-->
-        <!--<button type="button" class="close" onClick="deleteNote({{ note.id }})">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </p>
-    </li>
-    {% endfor %}
-  </ul>-->
-
-  <ul class="list-group list-group-flush" id="items">
-    <!--Make Rentals pop up here instead of notes-->
+  <!--Left in for reference-->
+  <!--<ul class="list-group list-group-flush" id="items">
 
     {% for Item in user.items %}
     <li
@@ -44,14 +28,14 @@
       <p style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">
         {{ Item.name }}: {{Item.description}}, ${{Item.price_in_cents / 100}}0
         <!--This is delete note function that works with static/index.js (somehow) Funct not needed in here, but good to have this reference for deleting item in profile - my listings page-->
-        <button type="button" class="close" onClick="deleteNote({{ Item.id }})">
+        <!--<button type="button" class="close" onClick="deleteNote({{ Item.id }})">
           <span aria-hidden="true">&times;</span>
         </button>
       </p>
     </li>
     {% endfor %}
   </ul>
-  <br /><br />
+  <br /><br />-->
  
   
   {% for Item in user.items %}
@@ -61,24 +45,12 @@
     text-overflow: ellipsis;
     max-width: 245px;" >
     <img style=" margin: 0px 15px 15px 0px; border-radius: 25px" 
-      src="static/images/img_lights.jpg" alt="static/images/img_lights.jpg" width="233" height="233">
+      src="static/images/img_lights.jpg" alt="static/images/img_lights.jpg" width="233" height="233" title="{{ Item.description }}">
       <h2> {{ Item.name }} </h2>
-      <p > {{ Item.description }}</p>
     </div>
     
   </form>
 
   {% endfor %}
-
-
-  <form method="POST">
-    <textarea name="note" id="note" class="form-control"></textarea>
-    <br />
-    <div align="center">
-      <button type="submit" class="btn btn-primary">Add Note</button>
-    </div>
-    <br />
-    <br />
-  </form>
 </body>
 {% endblock %}
