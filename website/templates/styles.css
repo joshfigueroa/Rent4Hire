@@ -1,11 +1,11 @@
 body {
-    background-color: rgb(48, 48, 48)
+    background-color: rgb(242, 251, 255)
 }
 
 h1 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-        color: rgb(255, 202, 202);
-        text-shadow: 0 0 10px #ff0000, 0 0 15px #0000ff;
+      text-shadow: 0 0 2px #ffffff;
+      font-weight: bold;
 }
 
 basictexttemplate {

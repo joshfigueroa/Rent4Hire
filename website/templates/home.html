@@ -17,24 +17,9 @@
   </h1>
   <br />
 
-  <!--I updated figma to match the new layout a little more and wrote some notes-->
-  <ul class="list-group list-group-flush" align="center" id="notes">
-    <!--Make Rentals pop up here instead of notes-->
-    {% for note in user.notes %}
-    <li class="list-group-item" style="background-color: rgb(221, 221, 221)">
-      <p style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">
-        {{ note.data }}
-        <!--This is delete note function that works with static/index.js (somehow) Funct not needed in here, but good to have this reference for deleting item in profile - my listings page-->
-        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </p>
-    </li>
-    {% endfor %}
-  </ul>
+  <!--Left in for reference-->
 
-  <ul class="list-group list-group-flush" id="items">
-    <!--Make Rentals pop up here instead of notes-->
+  <!--<ul class="list-group list-group-flush" id="items">
 
     {% for Item in user.items %}
     <li
@@ -44,23 +29,47 @@
       <p style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">
         {{ Item.name }}: {{Item.description}}, ${{Item.price_in_cents / 100}}0
         <!--This is delete note function that works with static/index.js (somehow) Funct not needed in here, but good to have this reference for deleting item in profile - my listings page-->
-        <button type="button" class="close" onClick="deleteNote({{ Item.id }})">
+  <!--<button type="button" class="close" onClick="deleteNote({{ Item.id }})">
           <span aria-hidden="true">&times;</span>
         </button>
       </p>
     </li>
     {% endfor %}
   </ul>
-  <br /><br />
+  <br /><br />-->
 
-  <form method="POST">
-    <textarea name="note" id="note" class="form-control"></textarea>
-    <br />
-    <div align="center">
-      <button type="submit" class="btn btn-primary">Add Note</button>
+  <!-- loop through every item and display them. -->
+  {% for Item in user.items %}
+  <form method="POST" align="left">
+    <div
+      style="
+        float: left;
+        align-self: justify;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 14%;
+      "
+    >
+      <!-- 'a' tag links to a hyperlink. When clicked, route to the 'item' 
+      template with the second part of the url as the id. Pass the id to 
+      the rendered page to get the item id. -->
+      <a href="{{'/item/' ~ Item.id}}">
+        <!-- read the item image and styling. title field is hover text -->
+        <img
+          style="margin: 0px 15px 15px 0px; border-radius: 25px"
+          src="static/images/img_lights.jpg"
+          alt="static/images/img_lights.jpg"
+          width="223"
+          height="223"
+          title="{{ Item.description }}"
+        />
+        <!-- display the item name under the image -->
+        <h2 style="color: black">{{ Item.name }}</h2>
+      </a>
     </div>
-    <br />
-    <br />
   </form>
+  {% endfor %}
 </body>
 {% endblock %}
