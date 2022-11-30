@@ -23,17 +23,6 @@ def allowed_file(filename):
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():  # this is sample code, the home method needs to be updated to get rental listings (from area if possible)
-    if request.method == 'POST':
-        note = request.form.get('note')
-
-        if len(note) < 1:
-            flash('Note is too short!', category='error')
-        else:
-            new_note = Note(data=note, user_id=current_user.id)
-            db.session.add(new_note)
-            db.session.commit()
-            flash('Note added!', category='success')
-
     return render_template("home.html", user=current_user)
 
 
@@ -77,6 +66,10 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
+
+@views.route('/item/<id>', methods=['GET', 'POST'] )
+def display_item(id):
+    return render_template('item.html', user=current_user, ItemID = id)
 
 
 # Routes to create listing page
