@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
-from .models import Note, User
+from .models import Note, User, Item
 from . import db
 import json
 import os
@@ -22,8 +22,14 @@ def allowed_file(filename):
 # Routes to the home page
 @views.route('/', methods=['GET', 'POST'])
 @login_required
-def home():  # this is sample code, the home method needs to be updated to get rental listings (from area if possible)
-    return render_template("home.html", user=current_user)
+def home(): 
+    # if there has been a search request, pass it through searched. else pass ''
+    if request.form.get('search'):
+        searched = request.form.get('search')
+    else:
+        searched = ''
+    print(request.form.get('search'))
+    return render_template("home.html", user=current_user, searched=searched)
 
 
 @views.route('/', methods=['POST'])
@@ -67,9 +73,11 @@ def delete_note():
 
     return jsonify({})
 
+# page for individual items. gets passed the item id, returns the object.
 @views.route('/item/<id>', methods=['GET', 'POST'] )
 def display_item(id):
-    return render_template('item.html', user=current_user, ItemID = id)
+    
+    return render_template('item.html', user=current_user, currentItem=Item.query.get(id))
 
 
 # Routes to create listing page
