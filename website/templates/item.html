@@ -1,4 +1,16 @@
 {% extends "base.html" %} {% block title %}ITEM{% endblock %} {% block content
 %}
-<h1>ITEM PAGE FOR ITEM {{ ItemID }}</h1>
-{% endblock %}
+<body style="background-color: rgb(242, 251, 255)">
+  <br />
+  <h1
+    align="center"
+    style="
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      text-shadow: 0 0 2px #ffffff;
+      font-weight: bold;
+    "
+  >
+    {{ currentItem.name }}
+  </h1>
+  {% endblock %}
+</body>
