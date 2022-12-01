@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, flash, jsonify, redirect,
 from flask_login import login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
+import mysql.connector
 
 from .models import Note, User, Item
 from . import db
@@ -28,8 +29,10 @@ def home():
         searched = request.form.get('search')
     else:
         searched = ''
-    print(request.form.get('search'))
-    return render_template("home.html", user=current_user, searched=searched)
+    # grab all the items an pass to the webpage
+    items = Item.query.all()
+    return render_template("home.html", user=current_user, searched=searched, 
+    items=items)
 
 
 @views.route('/', methods=['POST'])

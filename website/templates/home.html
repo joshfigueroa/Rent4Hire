@@ -57,8 +57,10 @@
   <br /><br />-->
 
   <!-- loop through every item and display them. Filter by search. -->
-  {% for Item in user.items %} {% if searched == '' or searched.lower() in
-  Item.description.lower() or searched.lower() in Item.name.lower() %}
+  {% for Item in items %}
+  <!---->
+  {% if searched == '' or searched.lower() in Item.description.lower() or
+  searched.lower() in Item.name.lower() %} {% if Item.owner_id != user.id %}
   <form method="POST" align="left">
     <div
       style="
@@ -89,6 +91,6 @@
       </a>
     </div>
   </form>
-  {% endif %} {% endfor %}
+  {% endif %} {% endif %} {% endfor %}
 </body>
 {% endblock %}
