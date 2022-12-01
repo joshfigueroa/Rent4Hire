@@ -3,6 +3,24 @@
 <head>
   <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
+
+<!-- very little stying, can be cleaned up. Just a search bar to grab search input. -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="collapse navbar-collapse" id="navbar">
+    <div class="navbar-nav">
+      <form method="POST">
+        <input
+          type="text"
+          placeholder="Search..."
+          name="search"
+          id="search"
+          class="form-control"
+        />
+      </form>
+    </div>
+  </div>
+</nav>
+
 <body style="background-color: rgb(242, 251, 255)">
   <br />
   <h1
@@ -38,8 +56,9 @@
   </ul>
   <br /><br />-->
 
-  <!-- loop through every item and display them. -->
-  {% for Item in user.items %}
+  <!-- loop through every item and display them. Filter by search. -->
+  {% for Item in user.items %} {% if searched == '' or searched.lower() in
+  Item.description.lower() or searched.lower() in Item.name.lower() %}
   <form method="POST" align="left">
     <div
       style="
@@ -70,6 +89,6 @@
       </a>
     </div>
   </form>
-  {% endfor %}
+  {% endif %} {% endfor %}
 </body>
 {% endblock %}
