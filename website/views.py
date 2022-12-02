@@ -4,6 +4,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 import mysql.connector
 
+from flask_wtf import FlaskForm
+
 from .models import Note, User, Item, Category
 from . import db
 import json
