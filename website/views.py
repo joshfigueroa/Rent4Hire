@@ -4,7 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 import mysql.connector
 
-from .models import Note, User, Item
+from .models import Note, User, Item, Category
 from . import db
 import json
 import os
@@ -55,7 +55,7 @@ def upload_image():
         flash('Allowed image types are -> png, jpg, jpeg, gif')
         return redirect(request.url)
 
-
+#!!!!!!!!!!!!!WHATS THIS FOR???!!!!!!!!!!!!!!
 @views.route('/display/<filename>')
 @login_required
 def display_image(filename):
@@ -78,9 +78,16 @@ def delete_note():
 
 # page for individual items. gets passed the item id, returns the object.
 @views.route('/item/<id>', methods=['GET', 'POST'] )
+@login_required
 def display_item(id):
-    
-    return render_template('item.html', user=current_user, currentItem=Item.query.get(id))
+    if request.method == 'POST':
+        if request.form.get('submit_button') == "Submit":
+            pass
+        if request.form.get('chat_button') == "Chat":
+            return render_template('chat.html', user=current_user)
+        # NEED TO DISPLAY CATEGORY NAME ASSIGNED TO ITEM
+    return render_template('item.html', user=current_user, currentItem=Item.query.get(id),
+                           category=Category.query.all())
 
 # Convert dollars to cents to store nicely in database
 def convertToCents(dollars):
@@ -137,7 +144,7 @@ def create_listing():  # CHANGE NAME
 
     return render_template("create_listing.html", user=current_user)
 
-
+# SHOULD BE ABLE TO DELETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # Routes to create rental profile
 @views.route('/rental_profile', methods=['GET', 'POST'])
 @login_required
@@ -176,7 +183,7 @@ def profile_page():
                     flash("Password Updated!", category='success')
                 else:
                     flash("Passwords don't match.", category='error')
-        print("Here 2")
+        print("here 2")
         check_password = request.form.get('password')
         if check_password_hash(user.password, check_password):
             check_auth = True
