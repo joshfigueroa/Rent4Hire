@@ -4,3 +4,4 @@ flask-login
 werkzeug
 sqlalchemy
 mysql-connector
+flask_wtf
