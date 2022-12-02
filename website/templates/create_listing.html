@@ -12,30 +12,39 @@ content %}
 
   <!-- FIELD FOR ITEM DESCRIPTION -->
   <div class="form-group">
-    <label for="description">Item Description</label>
-    <input type="text" class="form-control" id="description" name="description" placeholder="Enter item description" />
+    <label for="description">Item Description</label><br>
+     <!-- !!!!!!!TEXTBOX NEEDS TO BE FIXED TO SHRINK AND EXPAND LIKE OTHERS PRB VIA CSS!!!!!!!!!!-->
+    <textarea id="description" name="description" rows="4" cols="100">
+      Enter text here...
+    </textarea>
+  </div>
+
+  <!-- FIELD FOR ITEM QUANTITY -->
+  <div class="form-group">
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" min="1" max="1000">
   </div>
 
   <!-- FIELD FOR ITEM CLASSIFICATION -->
   <div class="form-group">
     <label for="classification">Classification</label>
-    <select>
-      <option>electronics</option>
-      <option>antiques</option>
-      <option>arts&crafts</option>
-      <option>baby/kid</option>
-      <option>beauty/health</option>
-      <option>books</option>
-      <option>camping</option>
-      <option>furniture</option>
-      <option>general</option>
-      <option>household</option>
-      <option>motor vehicles</option>
-      <option>outdoors</option>
-      <option>service</option>
-      <option>sporting</option>
-      <option>tools</option>
-      <option>toys/games</option>
+    <select name="category" class="selectpicker form-control">
+      <option value="1">electronics</option>
+      <option value="2">antiques</option>
+      <option value="3">arts&crafts</option>
+      <option value="4">baby/kid</option>
+      <option value="5">beauty/health</option>
+      <option value="6">books</option>
+      <option value="16">camping</option>
+      <option value="7">furniture</option>
+      <option value="8">general</option>
+      <option value="9">household</option>
+      <option value="10">motor vehicles</option>
+      <option value="11">outdoors</option>
+      <option value="12">service</option>
+      <option value="13">sporting</option>
+      <option value="14">tools</option>
+      <option value="15">toys/games</option>
     </select>
   </div>
 
@@ -44,6 +53,12 @@ content %}
     <label for="price">Price</label>
     <input type="number" class="form-control" id="price" name="price" placeholder="Enter Price" />
   </div>
+
+    <!-- FIELD FOR ITEM VALUE -->
+    <div class="form-group">
+      <label for="value">Value</label>
+      <input type="number" class="form-control" id="value" name="value" placeholder="Enter Value" />
+    </div>
   <br />
 
 

@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):  # LEFT OUT TABLE NAMES BC IT COMPLICATED THING
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150), nullable=False)
     last_name = db.Column(db.String(150), nullable=False)
-    notes = db.relationship('Note')  # Will be deleted
+    #notes = db.relationship('Note')  # Will be deleted
 
     date_created = db.Column(db.DATETIME, default=datetime.utcnow, index=True)
 
@@ -50,6 +50,8 @@ class Item(db.Model):
     date_created = db.Column(db.DATETIME, default=datetime.utcnow, index=True)
     # item_location_id = Column(Integer)#, ForeignKey("locations.id"), index=True) #Not sure if this is needed
     price_in_cents = db.Column(db.Integer, nullable=False, index=True)  # Same thing here
+    quantity = db.Column(db.Integer, default=1, index=True) 
+    value_in_cents = db.Column(db.Integer, nullable=False, index=True) 
 
     item_reviews = db.relationship("Review", backref="item")  # the item being reviewed
     orders = db.relationship("Order", backref="item")
