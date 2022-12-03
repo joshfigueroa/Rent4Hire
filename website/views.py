@@ -1,10 +1,14 @@
-from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, app
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, app, session
 from flask_login import login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 import mysql.connector
 
 from flask_wtf import FlaskForm
+from wtforms.fields import DateTimeLocalField
+#from dateutil import parser
+from wtforms.validators import DataRequired, InputRequired
+from wtforms import SubmitField
 
 from .models import Note, User, Item, Category
 from . import db
@@ -36,7 +40,7 @@ def home():
     return render_template("home.html", user=current_user, searched=searched, 
     items=items)
 
-
+# !!!!!!!!!WHAT EVEN IS ALL OF THIS???????!!!!!!!!!
 @views.route('/', methods=['POST'])
 @login_required
 def upload_image():
@@ -78,18 +82,32 @@ def delete_note():
 
     return jsonify({})
 
+class OrderFormInfo(FlaskForm):
+    scheduled_pickup_date = DateTimeLocalField('Schedule Pickup', format='%Y-%m-%dT%H:%M', validators=(DataRequired(),InputRequired(),))
+    scheduled_return_date = DateTimeLocalField('Schedule Return', format='%Y-%m-%dT%H:%M', validators=(DataRequired(),InputRequired(),))
+    submit = SubmitField('Schedule') #OR RESERVE???
+
 # page for individual items. gets passed the item id, returns the object.
 @views.route('/item/<id>', methods=['GET', 'POST'] )
 @login_required
 def display_item(id):
+    form = OrderFormInfo()
     if request.method == 'POST':
-        if request.form.get('submit_button') == "Submit":
-            pass
-        if request.form.get('chat_button') == "Chat":
-            return render_template('chat.html', user=current_user)
-        # NEED TO DISPLAY CATEGORY NAME ASSIGNED TO ITEM
+        session['scheduled_pickup_date'] = form.scheduled_pickup_date.data.strftime("%Y-%m-%d %H:%M:%S %p")
+        session['scheduled_return_date'] = form.scheduled_return_date.data.strftime("%Y-%m-%d %H:%M:%S %p")
+        return redirect(url_for('static',filename='date/' + id), code=301)
     return render_template('item.html', user=current_user, currentItem=Item.query.get(id),
-                           category=Category.query.all())
+                           category=Category.query.all(), form=form)
+ 
+# !!!!!Added right now to see how it works  /redirects from item/id/!!!!!!!! 
+#!!!! is a static ---see if its useful!!!!!
+@views.route('static/date/<id>', methods=['GET','POST'])
+@login_required
+def date(id):
+    
+    scheduled_pickup_date = session['scheduled_pickup_date']
+    scheduled_return_date = session['scheduled_return_date']
+    return render_template('date.html', user=current_user, currentItem=Item.query.get(id))
 
 # Convert dollars to cents to store nicely in database
 def convertToCents(dollars):

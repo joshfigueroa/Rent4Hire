@@ -59,9 +59,9 @@ class Item(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
-    date_created = db.Column(db.DATETIME, default=datetime.utcnow, index=True)
+    date_created = db.Column(db.DATETIME(timezone=True), default=datetime.utcnow, index=True)
     renter_id = db.Column(db.Integer, db.ForeignKey("user.id"), index=True)
-    pickup_date = db.Column(db.DATETIME, nullable=False)
+    pickup_date = db.Column(db.DATETIME, nullable=False)    # Take strftime out of views form .data 
     drop_off_date = db.Column(db.DATETIME, nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey("item.id"), index=True)
     # add total

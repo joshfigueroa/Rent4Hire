@@ -29,55 +29,55 @@
 
                 <!-- Quantity input -->
                 <div class="form-group">
-
-
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="text-dark">Quantity </p>
                         </div>
                             <!--!!!!!! Quantity goes negative and needs to be fixed!!!!!!!!! -->
-                        <div class="quantityClass"><input type="number" step="1" name="quantity" max="{{ currentItem.quantity }}"
-                                class="quantity-field border-3 text-center w-25"></div>
-
+                        <div class="quantityClass">
+                            <input type="number" name="quantity" min="1" 
+                            max="{{currentItem.quantity}}" id="quantity"
+                            class="quantity-field border-3 text-center w-10"/>
+                        </div>
                     </div>
-
                 </div>
 
                 <!-- Rental Price 
                 !!!!!!!!NEED TO HAVE EXTRA 0 IN OUTPUT. POSSIBLY NEED JS SCRIPT-->
                 <div class="form-group">
-                    Rental Price: {{ currentItem.price_in_cents / 100}}
+                    Price: {{"${:.2f}".format(currentItem.price_in_cents/100)}}
                 </div>
 
                 <!-- Total Value -->
                 <div class="form-group">
-                    Value:  {{ currentItem.value_in_cents / 100}}
+                    Value:  {{"${:.2f}".format(currentItem.value_in_cents/100)}}
                 </div>
 
                 <!-- Categories of rental items-->
                 <div class="form-group">
-                  <!--!!!!!!!!!!!!!!!!EED TO DISPLAY CATEGORY NAME ASSIGNED TO ITEM INSTEAD OF NUM!!!!!!-->
+                  <!--!!!!!!!!!!!!!!!!NEED TO DISPLAY CATEGORY NAME ASSIGNED TO ITEM INSTEAD OF NUM!!!!!!-->
                     Category:   {{ currentItem.category_id }}
                 </div>
 
-                <!-- Description box -->
-                <div class="form-group">
-                    <label for="desBox">Notes for the owner</label>
-                    <textarea name="desBox" id="" cols="40" rows="4" placeholder="Description"></textarea>
-                </div>
-
-                    <!-- Buttons -->
-                    <div class="d-flex">
-                        <div class="input-group"><button type="submit" name="submit_button" value="Submit" class="btn btn-primary">Submit Request</button></div>
-                        <div class="input-group px-3"><button type="submit" name="chat_button" value="Chat" class="btn btn-primary">Chat</button></div>
+                <!-- Schedule Date Range of rental items-->
+                <h3> Schedule dates: </h3>
+                <form action="" method='POST' name="myform">
+                    {{ form.csrt_token }}
+                    {{ form.scheduled_pickup_date.label }} {{form.scheduled_pickup_date(class='datetime-localpicker')}} {{form.hidden_tag()}}
+                    {{ form.scheduled_return_date.label }} {{form.scheduled_return_date(class='datetime-localpicker')}} {{form.hidden_tag()}}
+                    
+                        <!-- Description box -->
+                    <div class="form-group">
+                        <label for="desBox">Notes for the owner</label>
+                        <textarea name="desBox" id="" cols="40" rows="4" placeholder="Description"></textarea>
                     </div>
                     
-                </form>
+                    {{form.submit()}}
             </div>    
         </div>
     </div>
 
-<!-- NO FILE UPLOAD IS NEEDED HERE I DONT THINK OR SUBMIT-->
+<!-- NO FILE UPLOAD IS NEEDED HERE I DONT THINK OR SUBMIT
 
     {% if filename %}
     <div>
@@ -93,7 +93,7 @@
         <p>
             <input type="submit" value="Submit">
         </p>
-        
+        -->
 <!--Col on the right, for pictures of rental items
         <div class="col-6 big-box">
             <div class="row">
