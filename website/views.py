@@ -2,16 +2,16 @@ from flask import Blueprint, render_template, request, flash, jsonify, redirect,
 from flask_login import login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
-import mysql.connector
 
 from flask_wtf import FlaskForm
 from wtforms.fields import DateTimeLocalField
 
-from wtforms.validators import DataRequired, InputRequired
+from wtforms.validators import DataRequired, InputRequired, ValidationError
 from wtforms import SubmitField
 
 from .models import Note, User, Item, Category
 from . import db
+import datetime
 import json
 import os
 
@@ -40,7 +40,7 @@ def home():
     return render_template("home.html", user=current_user, searched=searched, 
     items=items)
 
-# !!!!!!!!!WHAT EVEN IS ALL OF THIS???????!!!!!!!!!
+# !!!!!!!!!WHAT EVEN IS ALL OF THIS?!!!!!!!!!
 @views.route('/', methods=['POST'])
 @login_required
 def upload_image():
@@ -86,6 +86,13 @@ class OrderFormInfo(FlaskForm):
     scheduled_pickup_date = DateTimeLocalField('Schedule Pickup', format='%Y-%m-%dT%H:%M', validators=(DataRequired(),InputRequired(),))
     scheduled_return_date = DateTimeLocalField('Schedule Return', format='%Y-%m-%dT%H:%M', validators=(DataRequired(),InputRequired(),))
     submit = SubmitField('Schedule') #OR RESERVE???
+    
+    def validate_date(form, field):
+        if field.data < datetime.datetime.now():
+            #raise ValidationError("Date can't be in the past.")
+            flash("Date can't be in the past.", category='error')
+            #return True
+
 
 # page for individual items. gets passed the item id, returns the object.
 @views.route('/item/<id>', methods=['GET', 'POST'] )
@@ -93,9 +100,14 @@ class OrderFormInfo(FlaskForm):
 def display_item(id):
     form = OrderFormInfo()
     if request.method == 'POST':
-        session['scheduled_pickup_date'] = form.scheduled_pickup_date.data.strftime("%Y-%m-%d %H:%M:%S %p")
-        session['scheduled_return_date'] = form.scheduled_return_date.data.strftime("%Y-%m-%d %H:%M:%S %p")
-        return redirect(url_for('static',filename='date/' + id), code=301)
+        if form.validate_date(form.scheduled_pickup_date):
+            flash("Date can't be in the past.", category='error')
+        elif form.validate_date(form.scheduled_return_date):
+            flash("Date can't be in the past.", category='error')
+        else:
+            session['scheduled_pickup_date'] = form.scheduled_pickup_date.data.strftime("%Y-%m-%d %H:%M:%S %p")
+            session['scheduled_return_date'] = form.scheduled_return_date.data.strftime("%Y-%m-%d %H:%M:%S %p")
+            return redirect(url_for('static',filename='date/' + id), code=301)
     return render_template('item.html', user=current_user, currentItem=Item.query.get(id),
                            category=Category.query.all(), form=form)
  
