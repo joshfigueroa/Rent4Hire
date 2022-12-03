@@ -84,29 +84,29 @@ def delete_note():
 
     return jsonify({})
 
+# Displays the date/time UI functions
 class OrderFormInfo(FlaskForm):
-    scheduled_pickup_date = DateTimeLocalField('Schedule Pickup', format='%Y-%m-%dT%H:%M', validators=(DataRequired(),InputRequired(),))
-    scheduled_return_date = DateTimeLocalField('Schedule Return', format='%Y-%m-%dT%H:%M', validators=(DataRequired(),InputRequired(),))
+    scheduled_pickup_date = DateTimeLocalField('Schedule Pickup', format='%Y-%m-%dT%H:%M', validators=(DataRequired('** Required'),InputRequired(),))
+    scheduled_return_date = DateTimeLocalField('Schedule Return', format='%Y-%m-%dT%H:%M', validators=(DataRequired('** Required'),InputRequired(),))
     submit = SubmitField('Schedule') #OR RESERVE???
-    
-    def validate_date(form, field):
-        if field.data < datetime.datetime.now():
-            #raise ValidationError("Date can't be in the past.")
-            flash("Date can't be in the past.", category='error')
-            #return True
 
 
 # page for individual items. gets passed the item id, returns the object.
 @views.route('/item/<id>', methods=['GET', 'POST'] )
 @login_required
 def display_item(id):
+    # Creates date/time form
     form = OrderFormInfo()
     if request.method == 'POST':
-        if form.validate_date(form.scheduled_pickup_date):
-            flash("Date can't be in the past.", category='error')
-        elif form.validate_date(form.scheduled_return_date):
-            flash("Date can't be in the past.", category='error')
+        # Does error checking for scheduled pickup/return
+        if form.scheduled_pickup_date.data < datetime.datetime.now(): 
+            flash("Pickup date can't be in the past.", category='error')
+        elif form.scheduled_pickup_date.data > (datetime.datetime.now() + datetime.timedelta(days=3)):  
+            flash("Can only reserve items within 3 days.", category='error')
+        elif form.scheduled_return_date.data < form.scheduled_pickup_date.data: # (datetime.datetime.now() + datetime.timedelta(days=10)) > 
+            flash("Return date can't be in the past or before pickup date.", category='error')
         else:
+            # Grabs picked dates/times
             session['scheduled_pickup_date'] = form.scheduled_pickup_date.data.strftime("%Y-%m-%d %H:%M:%S %p")
             session['scheduled_return_date'] = form.scheduled_return_date.data.strftime("%Y-%m-%d %H:%M:%S %p")
             return redirect(url_for('static',filename='date/' + id), code=301)

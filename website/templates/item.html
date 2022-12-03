@@ -11,46 +11,52 @@
       font-family: Verdana, Geneva, Tahoma, sans-serif;
       text-shadow: 0 0 2px #ffffff;
       font-weight: bold;
-    "
-  >
+    ">
     {{ currentItem.name }}
   </h1>
+
+
   <div class="container py-4">
     <div class="row">
 
     <!-- Col on the left, for renting infos-->
     <div class="col-6 big-box">
-        <div class="col-md-5 col-lg-5 mx-auto">
+        <div class="col-md-10 col-lg-20 mx-auto">
             <!-- FORM START HERE-->
             <form method="POST">
+
                 <div class="form-group">
-                    <h3 style="color: rgb(0, 0, 0)">Item name:</h3>  {{ currentItem.name }}
-                    <h3 style="color: rgb(0, 0, 0)">Description:</h3>   {{ currentItem.description}}
+                    <h5 style="color: rgb(0, 0, 0)">Item name:</h5>  
+                    {{ currentItem.name }}
+                </div>
+
+                <div class="form-group">
+                    <h5 style="color: rgb(0, 0, 0)">Description:</h5>   
+                    {{ currentItem.description}}
                 </div>
 
                 <!-- Quantity input -->
                 <div class="form-group">
                     <div class="d-flex justify-content-between">
-                        <div>
-                            <p class="text-dark">Quantity </p>
-                        </div>
-                            <!--!!!!!! Quantity goes negative and needs to be fixed!!!!!!!!! -->
+                            <!--Quantity is in range of 1 to item's quantity-->
                         <div class="quantityClass">
+                            Quantity  
                             <input type="number" name="quantity" min="1" 
-                            max="{{currentItem.quantity}}" id="quantity"
-                            class="quantity-field border-3 text-center w-10"/>
+                                max="{{currentItem.quantity}}" id="quantity"
+                            />
                         </div>
                     </div>
                 </div>
 
-                <!-- Rental Price 
-                !!!!!!!!NEED TO HAVE EXTRA 0 IN OUTPUT. POSSIBLY NEED JS SCRIPT-->
+                <!-- Rental Price -->
                 <div class="form-group">
+                    <!-- Displays Correct Price Format-->
                     Price: {{"${:.2f}".format(currentItem.price_in_cents/100)}}
                 </div>
 
                 <!-- Total Value -->
                 <div class="form-group">
+                    <!-- Displays Correct Price Format-->
                     Value:  {{"${:.2f}".format(currentItem.value_in_cents/100)}}
                 </div>
 
@@ -61,19 +67,24 @@
                 </div>
 
                 <!-- Schedule Date Range of rental items-->
-                <h3 style="color: rgb(0, 0, 0)"> Schedule dates: </h3>
-                <form action="" method='POST' name="myform">
-                    {{ form.csrt_token }}
-                    {{ form.scheduled_pickup_date.label }} {{form.scheduled_pickup_date(class='datetime-localpicker')}} {{form.hidden_tag()}}
-                    {{ form.scheduled_return_date.label }} {{form.scheduled_return_date(class='datetime-localpicker')}} {{form.hidden_tag()}}
+                <h5 style="color: rgb(0, 0, 0)"> Schedule dates: </h5>
+                <!-- {% for field, errors in form.errors.items() %}
+                    <small class="form-text text-muted ">
+                        {{ ', '.join(errors) }}
+                    </small>
+                {% endfor %}-->
+                
+                {{ form.csrt_token }}
+                {{ form.scheduled_pickup_date.label }} {{form.scheduled_pickup_date(class='datetime-localpicker')}} {{form.hidden_tag()}}
+                {{ form.scheduled_return_date.label }} {{form.scheduled_return_date(class='datetime-localpicker')}} {{form.hidden_tag()}}
                     
-                        <!-- Description box -->
-                    <div class="form-group">
-                        <label for="desBox">Notes for the owner</label>
-                        <textarea name="desBox" id="" cols="40" rows="4" placeholder="Description"></textarea>
-                    </div>
+                <!-- Description box -->
+                <div class="form-group">
+                    <label for="desBox">Notes for the owner</label>
+                    <textarea name="desBox" id="" cols="40" rows="4" placeholder="Description"></textarea>
+                </div>
                     
-                    {{form.submit()}}
+                {{form.submit()}}
             </div>    
         </div>
     </div>
