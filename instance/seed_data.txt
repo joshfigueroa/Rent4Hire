@@ -25,6 +25,8 @@ INSERT INTO location VALUES
     (6, 'Berlin', 'NJ', '08009'),
     (7, 'Millville', 'NJ', '08332');
 
+________THEN CREATE THE 1ST 2 USERS_____________
+
 INSERT INTO item(name, category_id, description, owner_id, price_in_cents, quantity, value_in_cents) VALUES
     ("Kayaks", 11, "Rent my kayaks!!!!", 1, 150000, 5, 300000),
     ("Tent", 11, "Rent my tent!!!!", 1, 100000, 2, 150000),
@@ -53,6 +55,6 @@ INSERT INTO review VALUES
     (4, 2, 2, CURRENT_DATE, 'The worst thing ever', 'ruined my life'),
     (5, 1, 11,CURRENT_DATE, 'cool', 'wow so good');
 
-ADD YOU QUERY YOU MADE HERE WITH: SELECT * FROM user;
+ADD YOUR QUERY YOU MADE HERE WITH: SELECT * FROM user;
 1|daniellewhitmarsh3@gmail.com|sha256$MFUSYRfdbGj8BR49$4c1cbe03cbc1e0e8f7f0b6303775eff8daece3e46a27f1c0fef9ffea0bcefd27|Danielle|Whitmarsh|2022-10-30 16:25:07.419686||
 2|whitma13@students.rowan.edu|sha256$WIrO6NvBhvRMLL28$89d27bad9c70b66a235e736f53031a4f6d3352830eb15ebd2f2cecd1e3f43c07|John|Doe|2022-11-02 20:16:20.035378|123 street|
