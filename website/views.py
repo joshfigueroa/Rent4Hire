@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, app, session
+from flask import Blueprint, Flask, render_template, request, flash, jsonify, redirect, url_for, app
 from flask_login import login_required, current_user
+from flask_googlemaps import GoogleMaps, Map
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
-import mysql.connector
 
 from flask_wtf import FlaskForm
 from wtforms.fields import DateTimeLocalField
@@ -220,3 +220,18 @@ def profile_page():
 @login_required
 def test_every():
     return render_template("test.html", user=current_user)
+
+# Route to a testing page for maps
+@views.route('/maptest')
+@login_required
+def test_map():
+    test_map = Map(
+                identifier="view-side",
+                varname="test_map",
+                style="height:720px;width:1100px;margin:0;", # hardcoded!
+                lat=37.4419, # hardcoded!
+                lng=-122.1419, # hardcoded!
+                zoom=15,
+                markers=[(37.4419, -122.1419)] # hardcoded!
+            )
+    return render_template('example_test_map.html', test_map=test_map) 
