@@ -24,7 +24,8 @@
             <!-- FORM START HERE-->
             <form method="POST">
                 <div class="form-group">
-                    Item name:  {{ currentItem.name }}
+                    <h3 style="color: rgb(0, 0, 0)">Item name:</h3>  {{ currentItem.name }}
+                    <h3 style="color: rgb(0, 0, 0)">Description:</h3>   {{ currentItem.description}}
                 </div>
 
                 <!-- Quantity input -->
@@ -60,7 +61,7 @@
                 </div>
 
                 <!-- Schedule Date Range of rental items-->
-                <h3> Schedule dates: </h3>
+                <h3 style="color: rgb(0, 0, 0)"> Schedule dates: </h3>
                 <form action="" method='POST' name="myform">
                     {{ form.csrt_token }}
                     {{ form.scheduled_pickup_date.label }} {{form.scheduled_pickup_date(class='datetime-localpicker')}} {{form.hidden_tag()}}
