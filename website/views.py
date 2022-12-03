@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, render_template, request, flash, jsonify, redirect, url_for, app
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, app, session
 from flask_login import login_required, current_user
 from flask_googlemaps import GoogleMaps, Map
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 
 from flask_wtf import FlaskForm
 from wtforms.fields import DateTimeLocalField
-#from dateutil import parser
+
 from wtforms.validators import DataRequired, InputRequired
 from wtforms import SubmitField
 

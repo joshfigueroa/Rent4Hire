@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from pathlib import Path
+from flask_googlemaps import GoogleMaps
 
 db = SQLAlchemy()
 DB_NAME = "instance/database.db"
@@ -19,7 +20,14 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # HOPING TO FIX issue with db at start up -> DIDNT WORK
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+    
+    # initialize API key for Google Maps API
+    #app.config['GOOGLEMAPS_KEY'] = "AIzaSyBjtiszrLI3QPX3XEJvaITaq_Ns9kFf94Y"
+    # Inialize extension
+    #GoogleMaps(app, key="AIzaSyBjtiszrLI3QPX3XEJvaITaq_Ns9kFf94Y")
+    
     db.init_app(app)
+
 
     from .views import views
     from .auth import auth
