@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}<!--Add a search box like figma example https://www.figma.com/file/3U5ECD3dQNLCi4cU3l3yIB/Website-Mockup?node-id=0%3A1-->
 <head>
-  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <link rel="stylesheet" type="text/css" href="static/css/home.css" />
 </head>
 
 <!-- very little stying, can be cleaned up. Just a search bar to grab search input. -->
@@ -55,43 +55,39 @@
     {% endfor %}
   </ul>
   <br /><br />-->
-
+  <div class="card-body">
+    <div class="row">
   <!-- loop through every item and display them. Filter by search. -->
   {% for Item in items %}
   <!---->
   {% if searched == '' or searched.lower() in Item.description.lower() or
   searched.lower() in Item.name.lower() %} {% if Item.owner_id != user.id %}
   <form method="POST" align="left">
-    <div
-      style="
-        float: left;
-        align-self: justify;
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 14%;
-      "
-    >
+    <div class="col-sm-6 col-md-4">
       <!-- 'a' tag links to a hyperlink. When clicked, route to the 'item' 
       template with the second part of the url as the id. Pass the id to 
       the rendered page to get the item id.
       !!!!!!!!!!!NOT A BIG FAN OF THE WAY THIS IS SET UP BUT WORKS!!!!!!!!!!!!! -->
-      <a href="{{'/item/' ~ Item.id}}">
-        <!-- read the item image and styling. title field is hover text -->
-        <img
-          style="margin: 0px 15px 15px 0px; border-radius: 25px"
-          src="static/images/img_lights.jpg"
-          alt="static/images/img_lights.jpg"
-          width="223"
-          height="223"
-          title="{{ Item.description }}"
-        />
-        <!-- display the item name under the image -->
-        <h2 style="color: black">{{ Item.name }}</h2>
-      </a>
+      
+      <div class="card border-success" style="width: 20rem;">
+        <a href="{{'/order/item/' ~ Item.id}}">
+          <!-- read the item image and styling. title field is hover text -->
+            <img src="static/images/img_nature.jpg" class="card-img-top" alt="...">
+            <h5 class="card-title" align="center" style="padding-top: 15px; color: rgb(3, 4, 5)"><b>{{ Item.name }}</b></h5>
+          
+        </a>
+        <ul class="list-group list-group-flush">
+          <p class="card-text" align="center">{{Item.description}}</p>
+          <li class="list-group-item">Quantity: {{ Item.quantity }}</li>
+          <li class="list-group-item">Price: {{"${:.2f}".format(Item.price_in_cents/100)}}</li>
+          <li class="list-group-item">Value: {{"${:.2f}".format(Item.value_in_cents/100)}}</li>
+          <li class="list-group-item">Location: {{user.street}} {{location.city}} {{location.state}} {{location.zip}}</li>
+        </ul>
+      </div>
     </div>
   </form>
   {% endif %} {% endif %} {% endfor %}
+</div>
+</div>
 </body>
 {% endblock %}

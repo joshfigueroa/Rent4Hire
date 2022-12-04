@@ -21,7 +21,7 @@ class OrderFormInfo(FlaskForm):
 
 
 # page for individual items. gets passed the item id, returns the object.
-@order_item.route('/item/<id>', methods=['GET', 'POST'] )
+@order_item.route('order/item/<id>', methods=['GET', 'POST'] )
 @login_required
 def display_item(id):
     # Creates date/time form
@@ -45,7 +45,7 @@ def display_item(id):
             create_order(session['scheduled_pickup_date'], session['scheduled_return_date'], id, quantity)
             flash('Order Scheduled! Visit profile to confirm pickup.', category='success')
             return redirect(url_for('views.home'))
-    return render_template('item.html', user=current_user, currentItem=currentItem,
+    return render_template('order.html', user=current_user, currentItem=currentItem,
                            category=category, form=form)
  
  

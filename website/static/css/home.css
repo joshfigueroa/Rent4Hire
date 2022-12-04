@@ -3,10 +3,13 @@
     margin: auto;
 }
  .card-body{
-    padding-left: 65px;
+    padding-left: 45px;
  }
 .col-sm-6 {
-    padding-bottom: 65px;
+    padding-bottom: 15px;
     max-width:100%;
     height:auto;
+    max-width: 1000px;
+    grid-template-columns: repeat(auto-fill);
+
 }
