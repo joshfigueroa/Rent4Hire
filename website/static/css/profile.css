@@ -10,3 +10,13 @@
     max-width:100%;
     height:auto;
 }
+.form-group{
+    display:inline-block;
+    padding:10px;
+    width: 225px;
+}
+.address{
+    display:block;
+    padding:10px;
+    width: 450px;
+}

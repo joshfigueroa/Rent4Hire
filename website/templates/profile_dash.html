@@ -9,13 +9,13 @@
   <div class="card">
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           My Listings
         </button>
       </h2>
     </div>
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItem">
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionItem">
       
       <div class="card-body">
         <div class="row">
@@ -37,7 +37,7 @@
               </ul>
               <div class="card-body">
                 <a href="{{'/item/' ~ Item.id}}" class="card-link">View Details</a>
-                <a href="#" class="card-link">Edit</a>
+                <a href="{{'/item/' ~ Item.id}}" class="card-link">Edit</a>
               </div>
             </div>
             
@@ -95,12 +95,12 @@
   <div class="card">
     <div class="card-header" id="headingThree">
       <h2 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
           My Profile
         </button>
       </h2>
     </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionItem">
+    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionItem">
       <div class="card-body">
         <div>
           <br>
@@ -118,7 +118,7 @@
             {% if checkAuth %}
             <div class="form-group">
               <input
-                      type="text"
+                      type="text" 
                       class="form-control"
                       id="firstName"
                       name="firstName"
@@ -127,7 +127,7 @@
             </div>
             <div class="form-group">
               <input
-                      type="text"
+                      type="text" 
                       class="form-control"
                       id="lastName"
                       name="lastName"
@@ -143,7 +143,7 @@
                       placeholder="Email"
               />
             </div>
-            <div class="form-group">
+            <div class="address">
               <input
                       type="text"
                       class="form-control"
@@ -180,32 +180,33 @@
               />
             </div>
             <br>
-            <input type="submit" name="submit" value="Update Profile" class="btn btn-primary"></button>
+            <input type="submit" name="prof_submit" value="Update Profile" class="btn btn-primary"></button>
             <br>
             <br>
             <br>
             <br>
-            <div class="form-group">
-              <input
-                      type="password"
-                      class="form-control"
-                      id="newPassword"
-                      name="newPassword"
-                      placeholder="New Password"
-              />
+            <div class="password">
+              <div class="form-group">
+                <input
+                        type="password"
+                        class="form-control"
+                        id="newPassword"
+                        name="newPassword"
+                        placeholder="New Password"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                        type="password"
+                        class="form-control"
+                        id="confPassoword"
+                        name="confPassword"
+                        placeholder="Confirm Password"
+                />
+              </div>
+              <input type="submit" name="submit" value="Change Password" class="btn btn-primary"></button>
+              <br>
             </div>
-            <div class="form-group">
-              <input
-                      type="password"
-                      class="form-control"
-                      id="confPassoword"
-                      name="confPassword"
-                      placeholder="Confirm Password"
-              />
-            </div>
-            <br>
-            <input type="submit" name="submit" value="Change Password" class="btn btn-primary"></button>
-            <br>
             <br>
             {% else %}
             Enter your password to unlock editing.
@@ -218,10 +219,11 @@
                       name="password"
                       placeholder="Enter password"
               />
+            
+              <br>
+              <button type="submit" name="submit" value="Edit Profile" class="btn btn-primary">Edit Profile</button>
+              <br>
             </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Edit Profile</button>
-            <br>
           </form>
         
         </div>
