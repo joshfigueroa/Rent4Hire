@@ -2,23 +2,25 @@ from flask import Blueprint, render_template, request, flash
 from flask_login import login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from .models import User
+from .models import User, Location, Item, Category
 from . import db
 
 
 user_profile = Blueprint('user_profile', __name__)
 
-# SHOULD BE ABLE TO DELETE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Need for updates?
 # Routes to create rental profile
 @user_profile.route('/rental_profile', methods=['GET', 'POST'])
 @login_required
 def rental_profile():
+    user=current_user
+    location=Location.query.get(user.location_id)
     if request.method == 'POST':
         if request.form.get('submit_button') == "Submit":
             pass
         if request.form.get('chat_button') == "Chat":
-            return render_template('chat.html', user=current_user)
-    return render_template("rental_profile.html", user=current_user)
+            return render_template('chat.html', user=user)
+    return render_template("rental_profile.html", user=user)
 
 
 @user_profile.route('/profile', methods=['GET', 'POST'])
@@ -26,6 +28,7 @@ def rental_profile():
 def profile_page():
     check_auth = False
     user = current_user
+    location=Location.query.get(user.location_id)
     if request.method == 'POST':
         if check_auth:
             print("here")
@@ -56,4 +59,17 @@ def profile_page():
             flash("Incorrect credentials, try again.", category='error')
         return render_template("profile_dash.html", user=user, checkAuth=check_auth)
     elif request.method == 'GET':
-        return render_template("profile_dash.html", user=user, checkAuth=check_auth)
+        return render_template("profile_dash.html", user=user, checkAuth=check_auth, location=location)
+
+# page for individual items. gets passed the item id, returns the object.
+@user_profile.route('/item/<id>', methods=['GET', 'POST'] )
+@login_required
+def display_item(id):
+    # Creates date/time form
+    currentItem=Item.query.get(id)
+    category=Category.query.get(currentItem.category_id)
+    
+    
+    return render_template('item.html', user=current_user, currentItem=currentItem,
+                           category=category)
+ 

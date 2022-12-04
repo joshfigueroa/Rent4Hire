@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, flash, jsonify, redirect,
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 
-from .models import Note, Item
+from .models import Note, Item, Location
 from . import db
 import json
 import os
@@ -22,6 +22,8 @@ def allowed_file(filename):
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home(): 
+    user=current_user
+    location=Location.query.get(user.location_id)
     # if there has been a search request, pass it through searched. else pass ''
     if request.form.get('search'):
         searched = request.form.get('search')
@@ -29,8 +31,8 @@ def home():
         searched = ''
     # grab all the items an pass to the webpage
     items = Item.query.all()
-    return render_template("home.html", user=current_user, searched=searched, 
-    items=items)
+    return render_template("home.html", user=user, searched=searched, 
+    items=items, location=location)
 
 # !!!!!!!!!WHAT EVEN IS ALL OF THIS?!!!!!!!!!
 @views.route('/', methods=['POST'])
