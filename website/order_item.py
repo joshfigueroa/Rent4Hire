@@ -7,7 +7,8 @@ from wtforms.fields import DateTimeLocalField
 from wtforms.validators import DataRequired, InputRequired
 from wtforms import SubmitField
 
-from .models import Item, Category
+from . import db
+from .models import Item, Category, Order
 import datetime
 
 order_item = Blueprint('order_item', __name__)
@@ -25,6 +26,8 @@ class OrderFormInfo(FlaskForm):
 def display_item(id):
     # Creates date/time form
     form = OrderFormInfo()
+    currentItem=Item.query.get(id)
+    category=Category.query.get(currentItem.category_id)
     if request.method == 'POST':
         # Does error checking for scheduled pickup/return
         if form.scheduled_pickup_date.data < datetime.datetime.now(): 
@@ -34,13 +37,19 @@ def display_item(id):
         elif form.scheduled_return_date.data < form.scheduled_pickup_date.data: # (datetime.datetime.now() + datetime.timedelta(days=10)) > 
             flash("Return date can't be in the past or before pickup date.", category='error')
         else:
+            quantity = request.form.get('quantity')
             # Grabs picked dates/times
-            session['scheduled_pickup_date'] = form.scheduled_pickup_date.data.strftime("%Y-%m-%d %H:%M:%S %p")
-            session['scheduled_return_date'] = form.scheduled_return_date.data.strftime("%Y-%m-%d %H:%M:%S %p")
-            return redirect(url_for('static',filename='date/' + id), code=301)
-    return render_template('item.html', user=current_user, currentItem=Item.query.get(id),
-                           category=Category.query.all(), form=form)
+            session['scheduled_pickup_date'] = form.scheduled_pickup_date.data
+            session['scheduled_return_date'] = form.scheduled_return_date.data
+            # Create order in database
+            create_order(session['scheduled_pickup_date'], session['scheduled_return_date'], id, quantity)
+            flash('Order Scheduled! Visit profile to confirm pickup.', category='success')
+            return redirect(url_for('views.home'))
+    return render_template('item.html', user=current_user, currentItem=currentItem,
+                           category=category, form=form)
  
+ 
+ # WILL DELETE SOON
 # !!!!!Added right now to see how it works  /redirects from item/id/!!!!!!!! 
 #!!!! is a static ---see if its useful!!!!!
 @order_item.route('static/date/<id>', methods=['GET','POST'])
@@ -50,3 +59,11 @@ def date(id):
     scheduled_pickup_date = session['scheduled_pickup_date']
     scheduled_return_date = session['scheduled_return_date']
     return render_template('date.html', user=current_user, currentItem=Item.query.get(id))
+
+
+def create_order(scheduled_pickup_date, scheduled_return_date, item_id, quantity):
+    new_order = Order(renter_id=current_user.id, scheduled_pickup_date=scheduled_pickup_date, 
+                        scheduled_return_date=scheduled_return_date, item_id=item_id,
+                        is_active=True, quantity=quantity,) # When is_active = True, item stays out of search- update item avail
+    db.session.add(new_order)
+    db.session.commit()

@@ -63,7 +63,7 @@
                 <!-- Categories of rental items-->
                 <div class="form-group">
                   <!--!!!!!!!!!!!!!!!!NEED TO DISPLAY CATEGORY NAME ASSIGNED TO ITEM INSTEAD OF NUM!!!!!!-->
-                    Category:   {{ currentItem.category_id }}
+                    Category:   {{ category.id }}
                 </div>
 
                 <!-- Schedule Date Range of rental items-->
@@ -78,11 +78,12 @@
                 {{ form.scheduled_pickup_date.label }} {{form.scheduled_pickup_date(class='datetime-localpicker')}} {{form.hidden_tag()}}
                 {{ form.scheduled_return_date.label }} {{form.scheduled_return_date(class='datetime-localpicker')}} {{form.hidden_tag()}}
                     
-                <!-- Description box -->
+                <!-- Description box 
                 <div class="form-group">
                     <label for="desBox">Notes for the owner</label>
                     <textarea name="desBox" id="" cols="40" rows="4" placeholder="Description"></textarea>
                 </div>
+                -->
                     
                 {{form.submit()}}
             </div>    

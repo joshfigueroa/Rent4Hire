@@ -1,9 +1,9 @@
 INSERT INTO category(category) VALUES
     ("electronics"),
     ("antiques"),
-    ("arts+crafts"),
-    ("baby+kid"),
-    ("beauty+health"),
+    ("arts/crafts"),
+    ("baby/kid"),
+    ("beauty/health"),
     ("books"),
     ("furniture"),
     ("general"),
@@ -13,7 +13,7 @@ INSERT INTO category(category) VALUES
     ("service"),
     ("sporting"),
     ("tools"),
-    ("toys+games");
+    ("toys/games");
 
 INSERT INTO location VALUES
     (0, 'Glassboro', 'NJ', '08028'),
@@ -27,26 +27,27 @@ INSERT INTO location VALUES
 
 ________THEN CREATE THE 1ST 2 USERS_____________
 
-INSERT INTO item(name, category_id, description, owner_id, price_in_cents, quantity, value_in_cents) VALUES
-    ("Kayaks", 11, "Rent my kayaks!!!!", 1, 150000, 5, 300000),
-    ("Tent", 11, "Rent my tent!!!!", 1, 100000, 2, 150000),
-    ("Jack Hammer", 14, "Rent my Jack Hammer!!!!", 2, 100000, 1, 150000),
-    ("China Plates", 9, "Rent my plates for a nice dinner to impress!!!!", 1, 50000, 20, 70000),
-    ("Bible", 6, "Rent my Bible!! Its King James Version!!", 1, 10000, 2, 15000),
-    ("Bouncy House", 15, "Rent this big bouncy house!!!!", 1, 3000000, 1, 8000000),
-    ("Football", 13, "Rent my football!!!!", 2, 10000, 1, 15000),
-    ("Fishing Pole", 11, "Rent my fishing pole!!!!", 2, 50000, 7, 70000),
-    ("Plowing", 12, "I can plow your driveway!!", 2, 100000, 1, 100000),
-    ("Truck Rental", 10, "Rent my Ford F150!! For an hour!!", 1, 250000, 1, 2000000),
-    ("Paint Supplies", 3, "I have paint brushes and oil paint!! NO ACRYLIC EWWW!!", 1, 60000, 18, 200000),
-    ("Drone", 11, "Rent my drone!! DISCLAIMER: Only certified drone operators!!", 2, 100000, 3, 200000),
-    ("Tarp", 14, "Rent my tarp!! Good for carrying leaves!!", 2, 50000, 3, 90000),
-    ("Cones", 14, "Need cones for an event? Rent my cones!!!!", 2, 50000, 10, 70000),
-    ("Trampline", 11, "Rent my trampoline!! Its a 16 ft !!", 2, 1000000, 2, 2500000),
-    ("Water Slide", 11, "For a party!!!!", 2, 2500000, 1, 5800000),
-    ("Bounce House", 11, "This is fun!!!!", 2, 1000000, 1, 3000000),
-    ("Bounce Slide", 11, "Rent it for a party!!!!", 2, 150000, 1, 350000),
-    ("Water Slide", 11, "Rent for a birthday party!!!!", 2, 150000, 1, 250000);
+INSERT INTO item(name, category_id, is_available, description, owner_id, price_in_cents, quantity, value_in_cents) VALUES
+    ("Kayaks", 11, 1, "Rent my kayaks!!!!", 1, 15000, 5, 30000),
+    ("Tent", 11, 1, "Rent my tent!!!!", 1, 1000, 2, 15000),
+    ("Computer", 1, 1, "Rent my computer!!!!", 1, 1000, 1, 150000),
+    ("Jack Hammer", 14, 1, "Rent my Jack Hammer!!!!", 2, 2000, 1, 150000),
+    ("China Plates", 9, 1, "Rent my plates for a nice dinner to impress!!!!", 1, 50, 20, 70000),
+    ("Bible", 6, 1, "Rent my Bible!! Its King James Version!!", 1, 100, 2, 1500),
+    ("Bouncy House", 15, 1, "Rent this big bouncy house!!!!", 1, 30000, 1, 800000),
+    ("Football", 13, 1, "Rent my football!!!!", 2, 500, 1, 1500),
+    ("Fishing Pole", 11, 1, "Rent my fishing pole!!!!", 2, 500, 7, 7000),
+    ("Plowing", 12, 1, "I can plow your driveway!!", 2, 10000, 1, 10000),
+    ("Truck Rental", 10, 1, "Rent my Ford F150!! For an hour!!", 1, 25000, 1, 2000000),
+    ("Paint Supplies", 3, 1, "I have paint brushes and oil paint!! NO ACRYLIC EWWW!!", 1, 600, 18, 20000),
+    ("Drone", 11, 1, "Rent my drone!! DISCLAIMER: Only certified drone operators!!", 2, 8000, 3, 50000),
+    ("Tarp", 14, 1, "Rent my tarp!! Good for carrying leaves!!", 2, 500, 3, 9000),
+    ("Cones", 14, 1, "Need cones for an event? Rent my cones!!!!", 2, 100, 10, 7000),
+    ("Trampline", 11, 1, "Rent my trampoline!! Its a 16 ft !!", 2, 10000, 2, 250000),
+    ("Water Slide", 11, 1, "For a party!!!!", 2, 25000, 1, 580000),
+    ("Bounce House", 11, 1, "This is fun!!!!", 2, 10000, 1, 300000),
+    ("Bounce Slide", 11, 1, "Rent it for a party!!!!", 2, 15000, 1, 350000),
+    ("Water Slide", 11, 1, "Rent for a birthday party!!!!", 2, 15000, 1, 250000);
 
 INSERT INTO review VALUES
     (1, 1, 1, CURRENT_DATE, 'Just okay', 'meh'),
@@ -55,6 +56,47 @@ INSERT INTO review VALUES
     (4, 2, 2, CURRENT_DATE, 'The worst thing ever', 'ruined my life'),
     (5, 1, 11,CURRENT_DATE, 'cool', 'wow so good');
 
+
+
 ADD YOUR QUERY YOU MADE HERE WITH: SELECT * FROM user;
 1|daniellewhitmarsh3@gmail.com|sha256$MFUSYRfdbGj8BR49$4c1cbe03cbc1e0e8f7f0b6303775eff8daece3e46a27f1c0fef9ffea0bcefd27|Danielle|Whitmarsh|2022-10-30 16:25:07.419686||
 2|whitma13@students.rowan.edu|sha256$WIrO6NvBhvRMLL28$89d27bad9c70b66a235e736f53031a4f6d3352830eb15ebd2f2cecd1e3f43c07|John|Doe|2022-11-02 20:16:20.035378|123 street|
+
+
+THE DATETIME MIGHT NOT BE WEIRD OR IS...... 
+
+INSERT INTO order(renter_id, scheduled_pickup_date, scheduled_pickup_date, item_id, is_active, quantity) VALUES
+    (1, 2022-12-04+06:48:01.587930, 2022-12-04+06:48:01.587930, 2, 1, 1);
+
+
+POSSIBLE ISSUE:
+SCHEMA SHOWS:
+CREATE TABLE IF NOT EXISTS "order" (
+        id INTEGER NOT NULL, 
+        date_created DATETIME, 
+        renter_id INTEGER, 
+        scheduled_pickup_date DATETIME NOT NULL, 
+        scheduled_return_date DATETIME NOT NULL, 
+        item_id INTEGER, 
+        actual_pickup_date DATETIME, 
+        actual_return_date DATETIME, 
+        is_active BOOLEAN, 
+        quantity INTEGER, 
+        total INTEGER, 
+        PRIMARY KEY (id), 
+        FOREIGN KEY(renter_id) REFERENCES user (id), 
+        FOREIGN KEY(item_id) REFERENCES item (id)
+);
+WHEN ALL THE REST ARE:
+CREATE TABLE.....
+
+ISELECT * FROM ORDER;
+SELECT * FROM order;
+SELECT * FROM Order;
+ALL SEND THIS ERROR:
+
+Parse error: near "order": syntax error
+  SELECT * FROM order;
+                ^--- error here
+sqlite> SELECT * FROM Order;
+
