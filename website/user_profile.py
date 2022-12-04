@@ -29,7 +29,7 @@ def profile_page():
     check_auth = False
     user = current_user
     location=Location.query.get(user.location_id)
-    if request.method == 'POST':
+    if request.method == 'POST':        
         if check_auth:
             print("here")
             if request.form['submit'] == 'submitNewInfo':
@@ -117,7 +117,7 @@ def profile_page():
                         
             elif request.form['submit'] == 'Submit New Password':
                 update_user = User.query.filter_by(email=user.email).first()
-                new_password = request.form.get('password')
+                new_password = request.form.get('newPassword')
                 conf_password = request.form.get('confPassword')
                 if new_password == conf_password:
                     update_user.password = generate_password_hash(new_password, method='sha256')
@@ -125,16 +125,15 @@ def profile_page():
                     flash("Password Updated!", category='success')
                 else:
                     flash("Passwords don't match.", category='error')
-        print("here 2")
+        
         check_password = request.form.get('password')
         if check_password_hash(user.password, check_password):
             check_auth = True
         else:
             check_auth = False
             flash("Incorrect credentials, try again.", category='error')
-        return render_template("profile_dash.html", user=user, checkAuth=check_auth,location=location)
-    elif request.method == 'GET':
-        return render_template("profile_dash.html", user=user, checkAuth=check_auth, location=location)
+    
+    return render_template("profile_dash.html", user=user, checkAuth=check_auth, location=location)
 
 # page for individual items. gets passed the item id, returns the object.
 @user_profile.route('/item/<id>', methods=['GET', 'POST'] )
