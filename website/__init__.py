@@ -28,15 +28,23 @@ def create_app():
     
     db.init_app(app)
 
-
-    from .views import views
-    from .auth import auth
+    from .views         import views    #This has code thats not in use
+    from .auth          import auth
+    from .order_item    import order_item
+    from .google_map    import google_map
+    from .create_item   import create_item
+    from .user_profile  import user_profile #Some code not in use
 
     # Makes files with routes blueprints
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
-
-    from .models import User, Note
+    app.register_blueprint(order_item, url_prefix='/')
+    app.register_blueprint(google_map, url_prefix='/') # Did not test blueprint
+    app.register_blueprint(create_item, url_prefix='/')
+    app.register_blueprint(user_profile, url_prefix='/')
+    
+    
+    from .models import User
 
     # Creates an empty database
     if DB_PATH.exists() == False:
