@@ -3,8 +3,8 @@
 <body>
 <h2>Results Dates History</h3>
 
-<h4>Scheduled Pickup Date is: {{session['scheduled_pickup_date']}}</h4>
-<h4>Scheduled Return Date is: {{session['scheduled_return_date']}}</h4>
+<h4>Scheduled Pickup Date is: {{session['scheduled_pickup_date'].strftime("%Y-%m-%d %H:%M:%S %p")}}</h4>
+<h4>Scheduled Return Date is: {{session['scheduled_return_date'].strftime("%Y-%m-%d %H:%M:%S %p")}}</h4>
 
 </body>
 {% endblock %}

@@ -26,13 +26,11 @@ class User(db.Model, UserMixin):  # LEFT OUT TABLE NAMES BC IT COMPLICATED THING
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150), nullable=False)
     last_name = db.Column(db.String(150), nullable=False)
-    #notes = db.relationship('Note')  # Will be deleted
 
     date_created = db.Column(db.DATETIME, default=datetime.utcnow, index=True)
 
     street = db.Column(db.String(255))  # LEAVING NULLABLE SO NOT SO DEMANDING AT SIGN UP
     location_id = db.Column(db.Integer, db.ForeignKey("location.id"))
-    # availability = db.Column(db.DATETIME) #???????? if a owner -> avail = not nullable UPDATE TOOK OUT TO SIMPLIFY
     # ADD A PHONE NUMBER!!!!!!
 
     items = db.relationship("Item", backref="owner")
@@ -44,10 +42,10 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
     name = db.Column(db.String(255), index=True)
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"), index=True)
-    availability = db.Column(db.DATETIME)  # , nullable=False???????????
+    is_available = db.Column(db.Boolean, nullable=False, default=True)
     description = db.Column(db.Text, index=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("user.id"))  # ??????????
-    date_created = db.Column(db.DATETIME, default=datetime.utcnow, index=True)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     # item_location_id = Column(Integer)#, ForeignKey("locations.id"), index=True) #Not sure if this is needed
     price_in_cents = db.Column(db.Integer, nullable=False, index=True)  # Same thing here
     quantity = db.Column(db.Integer, default=1, index=True) 
@@ -59,18 +57,17 @@ class Item(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
-    date_created = db.Column(db.DATETIME(timezone=True), default=datetime.utcnow, index=True)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     renter_id = db.Column(db.Integer, db.ForeignKey("user.id"), index=True)
-    scheduled_pickup_date = db.Column(db.DATETIME, nullable=False)    # Take strftime out of views form .data 
-    scheduled_return_date = db.Column(db.DATETIME, nullable=False)
+    scheduled_pickup_date = db.Column(db.DateTime, nullable=False)    # Take strftime out of views form .data 
+    scheduled_return_date = db.Column(db.DateTime, nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey("item.id"), index=True)
-    actual_pickup_date = db.Column(db.DATETIME)    # Take strftime out of views form .data 
-    actual_return_date = db.Column(db.DATETIME)
+    actual_pickup_date = db.Column(db.DateTime)    # Take strftime out of views form .data 
+    actual_return_date = db.Column(db.DateTime)
     is_active = db.Column(db.Boolean)
-    # add total
-
-# transaction = relationship("Transaction", backref="order", use_list=False) #one-to-one rel IF USING TRANSACTION TABLE
-
+    quantity = db.Column(db.Integer)
+    total = db.Column(db.Integer)
+    
 
 # add location in profile
 class Location(db.Model):
