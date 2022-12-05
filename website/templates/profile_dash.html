@@ -74,12 +74,13 @@
                 <p class="card-text">{{Order.description}}</p>
               </div>
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">Price: {{"${:.2f}".format(Order.price_in_cents/100)}}</li>
-                <li class="list-group-item">Location: Glassboro, NJ</li>
-                <li class="list-group-item">Last Modified Date: Today</li>
+                <li class="list-group-item">Price:</li>
+                <li class="list-group-item">Location: </li>
+                <li class="list-group-item">Scheduled pickup:</li>
+                <li class="list-group-item">Scheduled return:</li>
               </ul>
               <div class="card-body">
-                <a href="{{'/item/' ~ Item.id}}" class="card-link">View Details</a>
+                <a href="#" class="card-link">View History</a>
                 <a href="#" class="card-link">Edit</a>
               </div>
             </div>
