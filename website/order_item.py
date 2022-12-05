@@ -34,7 +34,7 @@ def display_item(id):
             flash("Pickup date can't be in the past.", category='error')
         elif form.scheduled_pickup_date.data > (datetime.datetime.now() + datetime.timedelta(days=3)):  
             flash("Can only reserve items within 3 days.", category='error')
-        elif form.scheduled_return_date.data < form.scheduled_pickup_date.data: # (datetime.datetime.now() + datetime.timedelta(days=10)) > 
+        elif form.scheduled_return_date.data < form.scheduled_pickup_date.data: 
             flash("Return date can't be in the past or before pickup date.", category='error')
         else:
             quantity = request.form.get('quantity')
@@ -65,5 +65,7 @@ def create_order(scheduled_pickup_date, scheduled_return_date, item_id, quantity
     new_order = Order(renter_id=current_user.id, scheduled_pickup_date=scheduled_pickup_date, 
                         scheduled_return_date=scheduled_return_date, item_id=item_id,
                         is_active=True, quantity=quantity,) # When is_active = True, item stays out of search- update item avail
+    item = Item.query.filter_by(id=item_id).first()
+    item.is_available = False
     db.session.add(new_order)
     db.session.commit()
