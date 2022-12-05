@@ -22,17 +22,18 @@ def rental_profile():
             return render_template('chat.html', user=user)
     return render_template("rental_profile.html", user=user)
 
-
+check_auth=False
 @user_profile.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile_page():
-    check_auth = False
+    global check_auth
     user = current_user
     location=Location.query.get(user.location_id)
-    if request.method == 'POST':        
-        if check_auth:
+    if request.method == 'POST':   
+        if check_auth:     
             print("here")
-            if request.form['submit'] == 'submitNewInfo':
+            if request.form.get('submit') == 'submitNewInfo':
+                print("h5")
                 first_name = request.form.get('firstName')
                 last_name = request.form.get('lastName')
                 email = request.form.get('email')
@@ -115,7 +116,7 @@ def profile_page():
                     else:
                         flash('One of city/state/zip is not entered', category='error')
                         
-            elif request.form['submit'] == 'Submit New Password':
+            elif request.form.get('submit') == 'SubmitNewPassword':
                 update_user = User.query.filter_by(email=user.email).first()
                 new_password = request.form.get('newPassword')
                 conf_password = request.form.get('confPassword')
@@ -125,15 +126,21 @@ def profile_page():
                     flash("Password Updated!", category='success')
                 else:
                     flash("Passwords don't match.", category='error')
-        
-        check_password = request.form.get('password')
-        if check_password_hash(user.password, check_password):
-            check_auth = True
-        else:
-            check_auth = False
-            flash("Incorrect credentials, try again.", category='error')
+            
+        if not check_auth:
+            print("in not auth")
+            if request.form.get('submit'):
+                check_password = request.form.get('password')
+                if check_password_hash(user.password, check_password):
+                    check_auth = True
+                else:
+                    check_auth = False
+                    flash("Incorrect credentials, try again.", category='error')
+                
     
     return render_template("profile_dash.html", user=user, checkAuth=check_auth, location=location)
+
+
 
 # page for individual items. gets passed the item id, returns the object.
 @user_profile.route('/item/<id>', methods=['GET', 'POST'] )
