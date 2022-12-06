@@ -27,12 +27,16 @@ def home():
     # if there has been a search request, pass it through searched. else pass ''
     if request.form.get('search'):
         searched = request.form.get('search')
+        print(searched) 
     else:
         searched = ''
+    category = int(request.form.get('category'))
+    #category = 0
+    print(category)
     # grab all the items an pass to the webpage
     items = Item.query.all()
     return render_template("home.html", user=user, searched=searched, 
-    items=items, location=location)
+    items=items, location=location, category=category)
 
 # !!!!!!!!!WHAT EVEN IS ALL OF THIS?!!!!!!!!!
 @views.route('/', methods=['POST'])

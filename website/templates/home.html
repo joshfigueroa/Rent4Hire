@@ -15,7 +15,32 @@
           name="search"
           id="search"
           class="form-control"
+          float="left"
         />
+        <select
+          name="category"
+          id="category"
+          class="selectpicker form-control"
+          float="left"
+        >
+          <option value="0">None</option>
+          <option value="1">electronics</option>
+          <option value="2">antiques</option>
+          <option value="3">arts&crafts</option>
+          <option value="4">baby/kid</option>
+          <option value="5">beauty/health</option>
+          <option value="6">books</option>
+          <option value="16">camping</option>
+          <option value="7">furniture</option>
+          <option value="8">general</option>
+          <option value="9">household</option>
+          <option value="10">motor vehicles</option>
+          <option value="11">outdoors</option>
+          <option value="12">service</option>
+          <option value="13">sporting</option>
+          <option value="14">tools</option>
+          <option value="15">toys/games</option>
+        </select>
       </form>
     </div>
   </div>
@@ -57,38 +82,56 @@
   <br /><br />-->
   <div class="card-body">
     <div class="row">
-  <!-- loop through every item and display them. Filter by search. -->
-  {% for Item in items %}
-  <!---->
-  {% if searched == '' or searched.lower() in Item.description.lower() or
-  searched.lower() in Item.name.lower() %} {% if Item.owner_id != user.id and Item.is_available%} 
+      <!-- loop through every item and display them. Filter by search. -->
+      {% for Item in items %}
+      <!---->
+      {% if searched == '' or searched.lower() in Item.description.lower() or
+      searched.lower() in Item.name.lower() %} {% if Item.category_id ==
+      category or category == 0 %} {% if Item.owner_id != user.id and
+      Item.is_available%}
 
-  <form method="POST" align="left">
-    <div class="col-sm-6 col-md-4">
-      <!-- 'a' tag links to a hyperlink. When clicked, route to the 'item' 
+      <form method="POST" align="left">
+        <div class="col-sm-6 col-md-4">
+          <!-- 'a' tag links to a hyperlink. When clicked, route to the 'item' 
       template with the second part of the url as the id. Pass the id to 
       the rendered page to get the item id.
       !!!!!!!!!!!NOT A BIG FAN OF THE WAY THIS IS SET UP BUT WORKS!!!!!!!!!!!!! -->
-      
-      <div class="card border-success" style="width: 20rem;">
-        <a href="{{'/order/item/' ~ Item.id}}">
-          <!-- read the item image and styling. title field is hover text -->
-            <img src="static/images/img_nature.jpg" class="card-img-top" alt="...">
-            <h5 class="card-title" align="center" style="padding-top: 15px; color: rgb(3, 4, 5)"><b>{{ Item.name }}</b></h5>
-          
-        </a>
-        <ul class="list-group list-group-flush">
-          <p class="card-text" align="center">{{Item.description}}</p>
-          <li class="list-group-item">Quantity: {{ Item.quantity }}</li>
-          <li class="list-group-item">Price: {{"${:.2f}".format(Item.price_in_cents/100)}}</li>
-          <li class="list-group-item">Value: {{"${:.2f}".format(Item.value_in_cents/100)}}</li>
-          <li class="list-group-item">Location: {{user.street}} {{location.city}} {{location.state}} {{location.zip}}</li>
-        </ul>
-      </div>
+
+          <div class="card border-success" style="width: 20rem">
+            <a href="{{'/order/item/' ~ Item.id}}">
+              <!-- read the item image and styling. title field is hover text -->
+              <img
+                src="static/images/img_nature.jpg"
+                class="card-img-top"
+                alt="..."
+              />
+              <h5
+                class="card-title"
+                align="center"
+                style="padding-top: 15px; color: rgb(3, 4, 5)"
+              >
+                <b>{{ Item.name }}</b>
+              </h5>
+            </a>
+            <ul class="list-group list-group-flush">
+              <p class="card-text" align="center">{{Item.description}}</p>
+              <li class="list-group-item">Quantity: {{ Item.quantity }}</li>
+              <li class="list-group-item">
+                Price: {{"${:.2f}".format(Item.price_in_cents/100)}}
+              </li>
+              <li class="list-group-item">
+                Value: {{"${:.2f}".format(Item.value_in_cents/100)}}
+              </li>
+              <li class="list-group-item">
+                Location: {{user.street}} {{location.city}} {{location.state}}
+                {{location.zip}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </form>
+      {% endif %} {% endif %} {% endif %}{% endfor %}
     </div>
-  </form>
-  {% endif %} {% endif %} {% endfor %}
-</div>
-</div>
+  </div>
 </body>
 {% endblock %}

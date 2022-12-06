@@ -33,6 +33,7 @@ def profile_page():
         updated = 1
         if check_auth:     
             if request.form.get('submitNewInfo') == 'Update Profile':
+                
                 first_name = request.form.get('firstName')
                 last_name = request.form.get('lastName')
                 email = request.form.get('email')
@@ -89,7 +90,6 @@ def profile_page():
                 
                 # If one of city/state/zip has input
                 if (len(city) > 0) or (len(state) > 0) or (len(zip_code) > 0):
-                    print('do we make it here')
                     # and all city/state/zip has input
                     if (len(city) > 0) and (len(state) > 0) and (len(zip_code) > 0):
                         print('hello')
@@ -118,10 +118,26 @@ def profile_page():
                     # Not all city/state/zip has input
                     else:
                         flash('One of city/state/zip is not entered', category='error')
-                        
-            elif request.form.get('SubmitNewPassword') == 'Change Password':
+                
+                new_password = request.form.get('newPassword')
+                print(new_password)
+                conf_password = request.form.get('confPassword')
+                print(new_password)
+                if new_password != '':
+                    if new_password == conf_password:
+                        if len(new_password) < 7:
+                            flash('Password must be at least 7 characters.', category='error')
+                        user.password = generate_password_hash(new_password, method='sha256')
+                        db.session.commit()
+                        flash("Password Updated!", category='success')
+                    else:
+                        flash("Passwords don't match.", category='error')
+
+
+            if request.form.get('SubmitNewPassword') == "Change Password":
                 new_password = request.form.get('newPassword')
                 conf_password = request.form.get('confPassword')
+                print(new_password)
                 if new_password == conf_password:
                     if len(new_password) < 7:
                         flash('Password must be at least 7 characters.', category='error')
@@ -133,6 +149,7 @@ def profile_page():
         if updated == 0:
             flash("Profile Updated!", category='success')
 
+        
         
         if not check_auth:
             print("in not auth")
