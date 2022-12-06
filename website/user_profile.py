@@ -41,8 +41,6 @@ def profile_page():
                 state = request.form.get('state')
                 zip_code = request.form.get('zip')
                 
-                update_user = User.query.filter_by(id=user.id).first()
-                
                 # If first name is entered, 
                 if len(first_name) > 0:
                     # Check to see if input is more than 1 character
@@ -121,12 +119,13 @@ def profile_page():
                     else:
                         flash('One of city/state/zip is not entered', category='error')
                         
-            elif request.form.get('submit') == 'SubmitNewPassword':
-                update_user = User.query.filter_by(email=user.email).first()
+            elif request.form.get('SubmitNewPassword') == 'Change Password':
                 new_password = request.form.get('newPassword')
                 conf_password = request.form.get('confPassword')
                 if new_password == conf_password:
-                    update_user.password = generate_password_hash(new_password, method='sha256')
+                    if len(new_password) < 7:
+                        flash('Password must be at least 7 characters.', category='error')
+                    user.password = generate_password_hash(new_password, method='sha256')
                     db.session.commit()
                     flash("Password Updated!", category='success')
                 else:
