@@ -92,7 +92,7 @@ def sign_up():
             db.session.commit()
             # location = Location.query.filter_by(city=city, state=state, zip=zip_code).first()
             new_user = User(email=email, first_name=first_name, last_name=last_name, street=street,
-                            location_id=location.id, password=generate_password_hash(password1, method='sha256'))
+            location_id=location.id, password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)

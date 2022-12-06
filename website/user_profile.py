@@ -30,10 +30,9 @@ def profile_page():
     user = current_user
     location=Location.query.get(user.location_id)
     if request.method == 'POST':   
+        updated = 1
         if check_auth:     
-            print("here")
-            if request.form.get('submit') == 'submitNewInfo':
-                print("h5")
+            if request.form.get('submitNewInfo') == 'Update Profile':
                 first_name = request.form.get('firstName')
                 last_name = request.form.get('lastName')
                 email = request.form.get('email')
@@ -53,7 +52,7 @@ def profile_page():
                         # Update firstname in db
                         user.first_name = first_name
                         db.session.commit()
-                        flash("Profile Updated!", category='success')
+                        updated = 0
                         
                 # If last name is entered, 
                 if len(last_name) > 0:
@@ -64,7 +63,7 @@ def profile_page():
                         # Update lastname in db
                         user.last_name = last_name
                         db.session.commit()
-                        flash("Profile Updated!", category='success')
+                        updated = 0
                 
                 # If email is entered,
                 if len(email) > 0:
@@ -77,7 +76,7 @@ def profile_page():
                         # Update email in db
                         user.email = email
                         db.session.commit()
-                        flash("Profile Updated!", category='success')
+                        updated = 0
                 
                 # If street is entered,
                 if len(street) > 0:
@@ -88,28 +87,34 @@ def profile_page():
                         # Update street address in db
                         user.street = street
                         db.session.commit()
-                        flash("Profile Updated!", category='success')
+                        updated = 0
                 
                 # If one of city/state/zip has input
                 if (len(city) > 0) or (len(state) > 0) or (len(zip_code) > 0):
+                    print('do we make it here')
                     # and all city/state/zip has input
                     if (len(city) > 0) and (len(state) > 0) and (len(zip_code) > 0):
+                        print('hello')
                         location = Location.query.filter_by(city=city, state=state, zip=zip_code).first()
+
                         # If location exists, update user location id
                         if location:
+                            
                             user.location_id = location.id
                             db.session.commit()
-                            flash("Profile Updated!", category='success')
+                            updated = 0
                         else:
                             # If valid zipcode,
                             if len(zip_code) == 5:
                                 # Add new location to location table
                                 new_location = Location(city=city, state=state, zip=zip_code)
                                 db.session.add(new_location)
+                                db.session.commit()
                                 # Update location in db
                                 user.location_id = new_location.id
                                 db.session.commit()
-                                flash("Profile Updated!", category='success')
+                                updated = 0
+                                
                             else:
                                 flash('Not a valid zipcode', category='error')          
                     # Not all city/state/zip has input
@@ -126,7 +131,10 @@ def profile_page():
                     flash("Password Updated!", category='success')
                 else:
                     flash("Passwords don't match.", category='error')
-            
+        if updated == 0:
+            flash("Profile Updated!", category='success')
+
+        
         if not check_auth:
             print("in not auth")
             if request.form.get('submit'):
