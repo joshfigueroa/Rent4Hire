@@ -3,14 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from pathlib import Path
 from flask_googlemaps import GoogleMaps
+from flask_uploads import UploadSet, configure_uploads, IMAGES
+import os
 
 db = SQLAlchemy()
 DB_NAME = "instance/database.db"
 DB_PATH = Path(DB_NAME).resolve()
 
-UPLOAD_FOLDER = 'website\\static\\images'
-UPLOAD_PATH = Path(UPLOAD_FOLDER).resolve()
 
+def set_destination(app):
+    return os.path.join(app.instance_path, "images")
+
+photos = UploadSet(name='photos', extensions=IMAGES, default_dest=set_destination)
 
 def create_app():
     app = Flask(__name__,
@@ -18,14 +22,17 @@ def create_app():
     app.config['SECRET_KEY'] = 'ireuhgkdjfndlfkgjdslhjlkjgjvcbbjh'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///' + str(DB_PATH)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # HOPING TO FIX issue with db at start up -> DIDNT WORK
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+    
     
     # initialize API key for Google Maps API
-    #app.config['GOOGLEMAPS_KEY'] = "AIzaSyBjtiszrLI3QPX3XEJvaITaq_Ns9kFf94Y"
+    app.config['GOOGLEMAPS_KEY'] = "AIzaSyBjtiszrLI3QPX3XEJvaITaq_Ns9kFf94Y"
     # Inialize extension
-    #GoogleMaps(app, key="AIzaSyBjtiszrLI3QPX3XEJvaITaq_Ns9kFf94Y")
-    
+    GoogleMaps(app, key="AIzaSyBjtiszrLI3QPX3XEJvaITaq_Ns9kFf94Y")
+
+    # Fileupload config
+    app.config["UPLOADED_PHOTOS_DEST"] = "website/static/images"
+    configure_uploads(app, photos)
+
     db.init_app(app)
 
     from .views         import views    #This has code thats not in use
