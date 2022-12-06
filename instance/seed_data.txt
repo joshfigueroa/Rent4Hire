@@ -27,27 +27,27 @@ INSERT INTO location VALUES
 
 ________THEN CREATE THE 1ST 2 USERS_____________
 
-INSERT INTO item(name, category_id, is_available, description, owner_id, price_in_cents, quantity, value_in_cents) VALUES
-    ("Kayaks", 11, 1, "Rent my kayaks!!!!", 1, 15000, 5, 30000),
-    ("Tent", 11, 1, "Rent my tent!!!!", 1, 1000, 2, 15000),
-    ("Computer", 1, 1, "Rent my computer!!!!", 1, 1000, 1, 150000),
-    ("Jack Hammer", 14, 1, "Rent my Jack Hammer!!!!", 2, 2000, 1, 150000),
-    ("China Plates", 9, 1, "Rent my plates for a nice dinner to impress!!!!", 1, 50, 20, 70000),
-    ("Bible", 6, 1, "Rent my Bible!! Its King James Version!!", 1, 100, 2, 1500),
-    ("Bouncy House", 15, 1, "Rent this big bouncy house!!!!", 1, 30000, 1, 800000),
-    ("Football", 13, 1, "Rent my football!!!!", 2, 500, 1, 1500),
-    ("Fishing Pole", 11, 1, "Rent my fishing pole!!!!", 2, 500, 7, 7000),
-    ("Plowing", 12, 1, "I can plow your driveway!!", 2, 10000, 1, 10000),
-    ("Truck Rental", 10, 1, "Rent my Ford F150!! For an hour!!", 1, 25000, 1, 2000000),
-    ("Paint Supplies", 3, 1, "I have paint brushes and oil paint!! NO ACRYLIC EWWW!!", 1, 600, 18, 20000),
-    ("Drone", 11, 1, "Rent my drone!! DISCLAIMER: Only certified drone operators!!", 2, 8000, 3, 50000),
-    ("Tarp", 14, 1, "Rent my tarp!! Good for carrying leaves!!", 2, 500, 3, 9000),
-    ("Cones", 14, 1, "Need cones for an event? Rent my cones!!!!", 2, 100, 10, 7000),
-    ("Trampline", 11, 1, "Rent my trampoline!! Its a 16 ft !!", 2, 10000, 2, 250000),
-    ("Water Slide", 11, 1, "For a party!!!!", 2, 25000, 1, 580000),
-    ("Bounce House", 11, 1, "This is fun!!!!", 2, 10000, 1, 300000),
-    ("Bounce Slide", 11, 1, "Rent it for a party!!!!", 2, 15000, 1, 350000),
-    ("Water Slide", 11, 1, "Rent for a birthday party!!!!", 2, 15000, 1, 250000);
+INSERT INTO item(name, category_id, is_available, description, owner_id, price_in_cents, quantity, value_in_cents, image_name) VALUES
+    ("Kayaks", 11, 1, "Rent my kayaks!!!!", 1, 15000, 5, 30000, "img_lights"),
+    ("Tent", 11, 1, "Rent my tent!!!!", 1, 1000, 2, 15000, "img_lights"),
+    ("Computer", 1, 1, "Rent my computer!!!!", 1, 1000, 1, 150000, "img_lights"),
+    ("Jack Hammer", 14, 1, "Rent my Jack Hammer!!!!", 2, 2000, 1, 150000, "img_lights"),
+    ("China Plates", 9, 1, "Rent my plates for a nice dinner to impress!!!!", 1, 50, 20, 70000, "img_lights"),
+    ("Bible", 6, 1, "Rent my Bible!! Its King James Version!!", 1, 100, 2, 1500, "img_mountains"),
+    ("Bouncy House", 15, 1, "Rent this big bouncy house!!!!", 1, 30000, 1, 800000, "img_mountains"),
+    ("Football", 13, 1, "Rent my football!!!!", 2, 500, 1, 1500, "img_mountains"),
+    ("Fishing Pole", 11, 1, "Rent my fishing pole!!!!", 2, 500, 7, 7000, "img_mountains"),
+    ("Plowing", 12, 1, "I can plow your driveway!!", 2, 10000, 1, 10000, "img_mountains"),
+    ("Truck Rental", 10, 1, "Rent my Ford F150!! For an hour!!", 1, 25000, 1, 2000000, "img_mountains"),
+    ("Paint Supplies", 3, 1, "I have paint brushes and oil paint!! NO ACRYLIC EWWW!!", 1, 600, 18, 20000,"img_mountains"),
+    ("Drone", 11, 1, "Rent my drone!! DISCLAIMER: Only certified drone operators!!", 2, 8000, 3, 50000, "img_nature"),
+    ("Tarp", 14, 1, "Rent my tarp!! Good for carrying leaves!!", 2, 500, 3, 9000, "img_nature"),
+    ("Cones", 14, 1, "Need cones for an event? Rent my cones!!!!", 2, 100, 10, 7000,"img_nature"),
+    ("Trampline", 11, 1, "Rent my trampoline!! Its a 16 ft !!", 2, 10000, 2, 250000, "img_nature"),
+    ("Water Slide", 11, 1, "For a party!!!!", 2, 25000, 1, 580000,"img_nature"),
+    ("Bounce House", 11, 1, "This is fun!!!!", 2, 10000, 1, 300000,"img_nature"),
+    ("Bounce Slide", 11, 1, "Rent it for a party!!!!", 2, 15000, 1, 350000, "img_nature"),
+    ("Water Slide", 11, 1, "Rent for a birthday party!!!!", 2, 15000, 1, 250000, "img_nature");
 
 INSERT INTO review VALUES
     (1, 1, 1, CURRENT_DATE, 'Just okay', 'meh'),
