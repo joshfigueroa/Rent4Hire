@@ -7,26 +7,38 @@ content %}
   <div class="form-group">
     <label for="name">Item Name</label>
     <!--UPDATE WITH ITEM INFO-->
-    <input type="name" class="form-control" id="name" name="name" placeholder="Enter name" />
+    <input
+      type="name"
+      class="form-control"
+      id="name"
+      name="name"
+      placeholder="Enter name"
+    />
   </div>
 
   <!-- FIELD FOR ITEM DESCRIPTION -->
   <div class="form-group">
-    <label for="description">Item Description</label><br>
-     <!-- !!!!!!!TEXTBOX NEEDS TO BE FIXED TO SHRINK AND EXPAND LIKE OTHERS PRB VIA CSS!!!!!!!!!!-->
-    <textarea id="description" name="description" rows="4" cols="100" placeholder="Description"></textarea>
+    <label for="description">Item Description</label><br />
+    <!-- !!!!!!!TEXTBOX NEEDS TO BE FIXED TO SHRINK AND EXPAND LIKE OTHERS PRB VIA CSS!!!!!!!!!!-->
+    <textarea
+      id="description"
+      name="description"
+      rows="4"
+      cols="100"
+      placeholder="Description"
+    ></textarea>
   </div>
 
   <!-- FIELD FOR ITEM QUANTITY -->
   <div class="form-group">
     <label for="quantity">Quantity:</label>
-    <input type="number" id="quantity" name="quantity" min="1" max="1000">
+    <input type="number" id="quantity" name="quantity" min="1" max="1000" />
   </div>
 
   <!-- FIELD FOR ITEM CLASSIFICATION -->
   <div class="form-group">
     <label for="classification">Classification</label>
-    <select name="category" class="selectpicker form-control">
+    <select name="category" id="category" class="selectpicker form-control">
       <option value="1">electronics</option>
       <option value="2">antiques</option>
       <option value="3">arts&crafts</option>
@@ -49,7 +61,13 @@ content %}
   <!-- FIELD FOR ITEM PRICE -->
   <div class="form-group">
     <label for="price">Price</label>
-    <input type="number" class="form-control" id="price" name="price" placeholder="Enter Price" />
+    <input
+      type="number"
+      class="form-control"
+      id="price"
+      name="price"
+      placeholder="Enter Price"
+    />
   </div>
 
     <!-- FIELD FOR ITEM VALUE -->
@@ -64,3 +82,4 @@ content %}
     </div>
 
   {% endblock %}
+</form>

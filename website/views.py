@@ -16,8 +16,10 @@ def home():
     # if there has been a search request, pass it through searched. else pass ''
     if request.form.get('search'):
         searched = request.form.get('search')
+        print(searched) 
     else:
         searched = ''
+    #category = 0
     # grab all the items an pass to the webpage
     items = Item.query.all()
     return render_template("home.html", user=user, searched=searched, 
