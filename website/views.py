@@ -19,7 +19,10 @@ def home():
         print(searched) 
     else:
         searched = ''
-    category = int(request.form.get('category'))
+    if request.form.get('category'):
+        category = int(request.form.get('category'))
+    else:
+        category = 0
     # grab all the items an pass to the webpage
     items = Item.query.all()
     return render_template("home.html", user=user, searched=searched, 
