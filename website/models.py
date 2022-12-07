@@ -45,7 +45,7 @@ class Item(db.Model):
     is_available = db.Column(db.Boolean, nullable=False, default=True)
     description = db.Column(db.Text, index=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("user.id"))  # ??????????
-    date_created = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    date_created = db.Column(db.DATETIME, default=datetime.utcnow, index=True)
     # item_location_id = Column(Integer)#, ForeignKey("locations.id"), index=True) #Not sure if this is needed
     price_in_cents = db.Column(db.Integer, nullable=False, index=True)  # Same thing here
     quantity = db.Column(db.Integer, default=1, index=True) 
