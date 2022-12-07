@@ -1,9 +1,15 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-
 from .models import Item
 from . import db
+from . import __init__
+from pathlib import Path
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 
+UPLOAD_FOLDER = 'website\\static\\images'
+UPLOAD_PATH = Path(UPLOAD_FOLDER).resolve()
+
+photos = UploadSet("photos", IMAGES)
 
 create_item = Blueprint('create_item', __name__)
 
@@ -27,7 +33,11 @@ def create_listing():
         value = request.form.get('value')
         
         #item = Item.query.filter_by(name=name).first() #idk if needed to filter something first
-        
+
+        if request.method == 'POST' and 'photo' in request.files:
+            photos.save(request.files['photo'])
+            flash("Photo saved successfully.")
+
         # ERROR CHECKING
         if len(name) < 1:
             flash('Name is too short', category='error')

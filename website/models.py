@@ -50,6 +50,7 @@ class Item(db.Model):
     price_in_cents = db.Column(db.Integer, nullable=False, index=True)  # Same thing here
     quantity = db.Column(db.Integer, default=1, index=True) 
     value_in_cents = db.Column(db.Integer, nullable=False, index=True) 
+    image_name = db.Column(db.String(255), index=True)
 
     item_reviews = db.relationship("Review", backref="item")  # the item being reviewed
     orders = db.relationship("Order", backref="item")

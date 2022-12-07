@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block title %}Create Listing{% endblock %} {% block
 content %}
-<form method="POST">
+<form method="POST" enctype=multipart/form-data>
   <h3 align="center">Create Listing</h3>
 
   <!-- FIELD FOR ITEM NAME -->
@@ -70,43 +70,16 @@ content %}
     />
   </div>
 
-  <!-- FIELD FOR ITEM VALUE -->
-  <div class="form-group">
-    <label for="value">Value</label>
-    <input
-      type="number"
-      class="form-control"
-      id="value"
-      name="value"
-      placeholder="Enter Value"
-    />
-  </div>
-  <br />
+    <!-- FIELD FOR ITEM VALUE -->
+    <div class="form-group">
+      <label for="value">Value</label>
+      <input type="number" class="form-control" id="value" name="value" placeholder="Enter Value" />
+    </div>
 
-  {% if filename %}
-  <div>
-    <img src="{{ url_for('display_image', filename=filename) }}" />
-  </div>
-  {% endif %}
-  <form method="post" action="/" enctype="multipart/form-data">
-    <dl>
-      <p>
-        <input type="file" name="file" autocomplete="off" required />
-      </p>
-    </dl>
-    <p>
-      <input type="submit" value="Submit" />
-    </p>
-
-    <!-- FIELD FOR IMAGE UPLOADS 
-    <label for="img">Select image:</label>
-    <input type="file" id="img" name="img" accept="image/*" />
-    <br />
-    <br />
-    <button type="submit" class="btn btn-primary">Submit</button>
-
-    -->
-  </form>
+    <div method=POST enctype=multipart/form-data action="{{ url_for('create_item.create_listing') }}">
+      <input type='file' name='photo'/>
+      <button type="submit">Submit</button>
+    </div>
 
   {% endblock %}
 </form>
