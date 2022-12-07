@@ -4,6 +4,7 @@ from .models import Item
 from . import db
 from . import __init__
 from pathlib import Path
+from werkzeug.datastructures import FileStorage
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 UPLOAD_FOLDER = 'website\\static\\images'
@@ -31,11 +32,20 @@ def create_listing():
         price = request.form.get('price')
         quantity = request.form.get('quantity')
         value = request.form.get('value')
+        f = request.files['photo']
+        image_name = f.filename
+    
         
         #item = Item.query.filter_by(name=name).first() #idk if needed to filter something first
 
         if request.method == 'POST' and 'photo' in request.files:
-            photos.save(request.files['photo'])
+            # Need to add some type of error checking for if name exists
+            # This might be a problem with displaying if file names are the same.
+            # Right now it added file to folder under name_1 and still references orginal
+            photos.save(f)
+            # make secure_filename
+            #https://stackoverflow.com/questions/53098335/flask-get-the-name-of-an-uploaded-file-minus-the-file-extension
+            
             flash("Photo saved successfully.")
 
         # ERROR CHECKING
@@ -64,7 +74,7 @@ def create_listing():
             new_item = Item(name=name, category_id=category,
                             description=description, owner_id=current_user.id,
                             price_in_cents=price_in_cents, quantity=quantity,
-                            value_in_cents=value_in_cents)
+                            value_in_cents=value_in_cents, image_name=image_name)
             db.session.add(new_item)
             db.session.commit()
             flash('Item added!', category='success')
