@@ -19,11 +19,11 @@ def home():
         print(searched) 
     else:
         searched = ''
-    #category = 0
+    category = int(request.form.get('category'))
     # grab all the items an pass to the webpage
     items = Item.query.all()
     return render_template("home.html", user=user, searched=searched, 
-    items=items, location=location)
+    items=items, location=location, category=category)
 
 
 # This would be good to update to delete rental listing or something like that/ maybe even useful for deleting user
