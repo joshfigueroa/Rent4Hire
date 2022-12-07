@@ -9,38 +9,46 @@
   <div class="collapse navbar-collapse" id="navbar">
     <div class="navbar-nav">
       <form method="POST">
-        <input
-          type="text"
-          placeholder="Search..."
-          name="search"
-          id="search"
-          class="form-control"
-          float="left"
-        />
-        <select
-          name="category"
-          id="category"
-          class="selectpicker form-control"
-          float="left"
-        >
-          <option value="0">None</option>
-          <option value="1">electronics</option>
-          <option value="2">antiques</option>
-          <option value="3">arts&crafts</option>
-          <option value="4">baby/kid</option>
-          <option value="5">beauty/health</option>
-          <option value="6">books</option>
-          <option value="16">camping</option>
-          <option value="7">furniture</option>
-          <option value="8">general</option>
-          <option value="9">household</option>
-          <option value="10">motor vehicles</option>
-          <option value="11">outdoors</option>
-          <option value="12">service</option>
-          <option value="13">sporting</option>
-          <option value="14">tools</option>
-          <option value="15">toys/games</option>
-        </select>
+        <div class="form-group">
+          <input 
+            type="text"
+            placeholder="Search..."
+            name="search"
+            id="search"
+            class="form-control"
+            float="left"
+          />
+        </div>
+        <div class="form-group" style="width: 10rem">
+          <select
+            name="category"
+            id="category"
+            class="selectpicker form-control"
+            float="left">
+            <option value="0">None</option>
+            <option value="1">electronics</option>
+            <option value="2">antiques</option>
+            <option value="3">arts&crafts</option>
+            <option value="4">baby/kid</option>
+            <option value="5">beauty/health</option>
+            <option value="6">books</option>
+            <option value="16">camping</option>
+            <option value="7">furniture</option>
+            <option value="8">general</option>
+            <option value="9">household</option>
+            <option value="10">motor vehicles</option>
+            <option value="11">outdoors</option>
+            <option value="12">service</option>
+            <option value="13">sporting</option>
+            <option value="14">tools</option>
+            <option value="15">toys/games</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" name="submit" class="btn btn-primary">
+            Search
+          </button>
+        </div>
       </form>
     </div>
   </div>

@@ -13,3 +13,7 @@
     grid-template-columns: repeat(auto-fill);
 
 }
+.form-group{
+    display:inline-block;
+    width: 225px;
+}
