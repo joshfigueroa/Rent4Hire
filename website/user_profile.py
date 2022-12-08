@@ -32,17 +32,21 @@ def profile_page():
     location=Location.query.get(user.location_id)
 
     listItem = []
-    #listItemUser = []
+    listItemUser = []
+    listUserLocation = []
     print(listItem)
 
     for oneOrder in user.orders:
         orderItem = Item.query.get(oneOrder.item_id)
-       # itemUser = User.query.get(itemUser.owner_id)
+        itemUser = User.query.get(orderItem.owner_id)
+        userLocation = Location.query.get(itemUser.location_id)
         listItem.append(orderItem)
-       # listItemUser.append(itemUser)
+        listItemUser.append(itemUser)
+        listUserLocation.append(userLocation)
 
     print(listItem)
-   # print(listItemUser)
+    print(listItemUser)
+    print(userLocation)
 
     if request.method == 'POST':   
         updated = 1
@@ -176,7 +180,7 @@ def profile_page():
                     check_auth = False
                     flash("Incorrect credentials, try again.", category='error')
             
-    return render_template("profile_dash.html", user=user, checkAuth=check_auth, location=location, listItem =listItem)
+    return render_template("profile_dash.html", user=user, checkAuth=check_auth, location=location, listItem =listItem, listItemUser=listItemUser, listUserLocation=listUserLocation)
 
 # Routing for pickup
 @user_profile.route('/pickup/item/<id>')

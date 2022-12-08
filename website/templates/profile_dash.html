@@ -41,10 +41,10 @@
                 <p class="card-text">{{Item.description}}</p>
               </div>
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">Quantity: {{ Item.quantity }}</li>
-                <li class="list-group-item">Price: {{"${:.2f}".format(Item.price_in_cents/100)}}</li>
-                <li class="list-group-item">Value: {{"${:.2f}".format(Item.value_in_cents/100)}}</li>
-                <li class="list-group-item">Location: {{user.street}} {{location.city}} {{location.state}} {{location.zip}}</li>
+                <li class="list-group-item"><b>Quantity:</b> {{ Item.quantity }}</li>
+                <li class="list-group-item"><b>Price:</b> {{"${:.2f}".format(Item.price_in_cents/100)}}</li>
+                <li class="list-group-item"><b>Value:</b> {{"${:.2f}".format(Item.value_in_cents/100)}}</li>
+                <li class="list-group-item"><b>Location:</b> {{user.street}} {{location.city}} {{location.state}} {{location.zip}}</li>
               </ul>
               <div class="card-body">
                 <a href="{{'/item/' ~ Item.id}}" class="card-link">View Details</a>
@@ -78,7 +78,7 @@
             {% for thatOneOrder in user.orders %}
                 {% if thatOneOrder.is_active %}
                 {% if listItem[loop.index-1] %}
-                
+                {% if listItemUser[loop.index-1] %}
               <div class="col-sm-6 col-md-4">
                 <div class="card border-success" style="width: 24rem;">
                   
@@ -88,10 +88,10 @@
                     <p class="card-text">{{listItem[loop.index-1].description}}</p>
                   </div>
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Price: {{"${:.2f}".format(listItem[loop.index-1].price_in_cents/100)}}</li>
-                    <li class="list-group-item">Location: </li>
-                    <li class="list-group-item">Scheduled pickup: {{ thatOneOrder.scheduled_pickup_date }}</li>
-                    <li class="list-group-item">Scheduled return: {{ thatOneOrder.scheduled_return_date }}</li>
+                    <li class="list-group-item"><b>Price:</b> {{"${:.2f}".format(listItem[loop.index-1].price_in_cents/100)}}</li>
+                    <li class="list-group-item"><b>Location:</b> {{ listItemUser[loop.index-1].street }} {{ listUserLocation[loop.index-1].city }} {{ listUserLocation[loop.index-1].state }} {{ listUserLocation[loop.index-1].zip }}</li>
+                    <li class="list-group-item"><b>Scheduled pickup:</b> {{ thatOneOrder.scheduled_pickup_date }}</li>
+                    <li class="list-group-item"><b>Scheduled return:</b> {{ thatOneOrder.scheduled_return_date }}</li>
                   </ul>
                   
                   <div class="card-body">
@@ -105,9 +105,9 @@
               </div>
               {% endif %}
               {% endif %}
+              {% endif %}
             {% endfor %}
-          {% else %}
-            {% set count = -1 %}
+
           {% endif %}
         </div>
       </div>
@@ -129,7 +129,7 @@
           {% if listItem %}
             {% for thatOneOrder in user.orders %}
                 {% if not thatOneOrder.is_active %}
-                {% if listItem[loop.index-1] %}
+                {% if listItemUser[loop.index-1] %}
                 
                 
               <div class="col-sm-6 col-md-4">
@@ -141,12 +141,12 @@
                     <p class="card-text">{{listItem[loop.index-1].description}}</p>
                   </div>
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Price: {{"${:.2f}".format(listItem[loop.index-1].price_in_cents/100)}}</li>
-                    <li class="list-group-item">Location: </li>
-                    <li class="list-group-item">Scheduled pickup date: {{ thatOneOrder.scheduled_pickup_date }}</li>
-                    <li class="list-group-item">Scheduled return date: {{ thatOneOrder.scheduled_return_date }}</li>
-                    <li class="list-group-item">Actual pickup date: {{ thatOneOrder.actual_pickup_date }}</li>
-                    <li class="list-group-item">Actual return date: {{ thatOneOrder.actual_return_date }}</li>
+                    <li class="list-group-item"><b>Price:</b> {{"${:.2f}".format(listItem[loop.index-1].price_in_cents/100)}}</li>
+                    <li class="list-group-item"><b>Location:</b> {{ listItemUser[loop.index-1].street }} {{ listUserLocation[loop.index-1].city }} {{ listUserLocation[loop.index-1].state }} {{ listUserLocation[loop.index-1].zip }}</li>
+                    <li class="list-group-item"><b>Scheduled pickup:</b> {{ thatOneOrder.scheduled_pickup_date }}</li>
+                    <li class="list-group-item"><b>Scheduled return:</b> {{ thatOneOrder.scheduled_return_date }}</li>
+                    <li class="list-group-item"><b>Actual pickup date:</b> {{ thatOneOrder.actual_pickup_date }}</li>
+                    <li class="list-group-item"><b>Actual return date:</b> {{ thatOneOrder.actual_return_date }}</li>
                   </ul>
                 </div>
               </div>
@@ -154,8 +154,6 @@
               {% endif %}
               {% endif %}
             {% endfor %}
-          {% else %}
-            {% set count = -1 %}
           {% endif %}
         </div>
       </div>

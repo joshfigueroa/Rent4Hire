@@ -132,15 +132,15 @@
             </a>
             <ul class="list-group list-group-flush">
               <p class="card-text" align="center">{{Item.description}}</p>
-              <li class="list-group-item">Quantity: {{ Item.quantity }}</li>
+              <li class="list-group-item"><b>Quantity:</b> {{ Item.quantity }}</li>
               <li class="list-group-item">
-                Price: {{"${:.2f}".format(Item.price_in_cents/100)}}
+                <b>Price:</b> {{"${:.2f}".format(Item.price_in_cents/100)}}
               </li>
               <li class="list-group-item">
-                Value: {{"${:.2f}".format(Item.value_in_cents/100)}}
+                <b>Value:</b> {{"${:.2f}".format(Item.value_in_cents/100)}}
               </li>
               <li class="list-group-item">
-                Location: {{user.street}} {{location.city}} {{location.state}}
+                <b>Location:</b> {{user.street}} {{location.city}} {{location.state}}
                 {{location.zip}}
               </li>
             </ul>
