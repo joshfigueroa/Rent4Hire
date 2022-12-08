@@ -1,12 +1,14 @@
 {% extends "base.html" %} {% block title %}Edit Listing{% endblock %} 
 {% block content %}
-<head>
+    <head>
     <link rel="stylesheet" href="static/css/profile.css" />
   </head>
 {% if currentItem.owner_id == user.id %}
     
     
+    
     <form method="POST" enctype=multipart/form-data>
+        
       <h3 align="center">Edit Listing</h3>
     
       <!-- FIELD FOR ITEM NAME -->
@@ -123,10 +125,14 @@
         
         <div method=POST enctype=multipart/form-data action="{{ url_for('create_item.create_listing') }}">
           <input type='file' name='photo'/>
-          <button type="submit">Submit</button>
+          <input class="btn btn-primary" type="submit" name="edited" id="edited" value="edited">
         </div>
-    
       
+    
+    <br>
+    
+        <!--<button type="submit" class="btn btn-primary" name="deleted" id="deleted" value="deleted">Delete</button>-->
+        <input class="btn btn-primary" type="submit" name="deleted" id="deleted" value="Delete">
     </form>
     
     {% else %}
