@@ -64,17 +64,14 @@
       <div class="card-body">
         <div class="row">
           {% if listItem %}
-            {% set count = -1 %}
             {% for thatOneOrder in user.orders %}
               {% if thatOneOrder.is_active %}
-              {% set count = count + 1 %}
-              <p>{{count}}</p>
               <div class="col-sm-6 col-md-4">
                 <div class="card border-success" style="width: 24rem;">
                   <img src="static/images/img_nature.jpg" class="card-img-top" alt="...">
                   <div class="card-body text-info">
-                    <h5 class="card-title"><b>{{listItem[count].name}}</b></h5>
-                    <p class="card-text">{{listItem[count].description}}</p>
+                    <h5 class="card-title"><b>{{listItem[loop.index-1].name}}</b></h5>
+                    <p class="card-text">{{listItem[loop.index-1].description}}</p>
                   </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item">Price: </li>
