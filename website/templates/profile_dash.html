@@ -76,10 +76,12 @@
         <div class="row">
           {% if listItem %}
             {% for thatOneOrder in user.orders %}
-              {% if thatOneOrder.is_active %}
+                {% if listItem[loop.index-1] %}
+                
               <div class="col-sm-6 col-md-4">
                 <div class="card border-success" style="width: 24rem;">
-                  <img src="static/images/img_nature.jpg" class="card-img-top" alt="...">
+                  
+                  <img src="{{'static/images/' ~ listItem[loop.index-1].image_name}}" class="card-img-top" alt="...">
                   <div class="card-body text-info">
                     <h5 class="card-title"><b>{{listItem[loop.index-1].name}}</b></h5>
                     <p class="card-text">{{listItem[loop.index-1].description}}</p>
@@ -100,7 +102,8 @@
                   </div>
                 </div>
               </div>
-            {% endif %}
+              {% endif %}
+            
             {% endfor %}
           {% else %}
             {% set count = -1 %}

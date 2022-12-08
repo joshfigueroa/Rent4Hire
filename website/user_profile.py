@@ -191,7 +191,9 @@ def pickup_order(id):
 @login_required
 def return_order(id):
     currentOrder = Order.query.get(id)
+    print(currentOrder)
     currentItem = Item.query.get(currentOrder.item_id)
+    print(currentItem)
     currentOrder.actual_return_date = datetime.datetime.now()
     currentOrder.total = currentOrder.quantity * (currentItem.price_in_cents * ((currentOrder.actual_return_date-currentOrder.actual_pickup_date).days))
     currentOrder.total = 0
