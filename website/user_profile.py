@@ -44,10 +44,6 @@ def profile_page():
         listItemUser.append(itemUser)
         listUserLocation.append(userLocation)
 
-    print(listItem)
-    print(listItemUser)
-    print(userLocation)
-
     if request.method == 'POST':   
         updated = 1
         if check_auth:
