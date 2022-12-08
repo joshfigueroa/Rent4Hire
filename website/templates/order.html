@@ -62,28 +62,15 @@
 
                 <!-- Categories of rental items-->
                 <div class="form-group">
-                  <!--!!!!!!!!!!!!!!!!NEED TO DISPLAY CATEGORY NAME ASSIGNED TO ITEM INSTEAD OF NUM!!!!!!-->
-                    Category:   {{ category.id }}
+                    Category:   {{ category.category }}
                 </div>
 
                 <!-- Schedule Date Range of rental items-->
                 <h5 style="color: rgb(0, 0, 0)"> Schedule dates: </h5>
-                <!-- {% for field, errors in form.errors.items() %}
-                    <small class="form-text text-muted ">
-                        {{ ', '.join(errors) }}
-                    </small>
-                {% endfor %}-->
                 
                 {{ form.csrt_token }}
                 {{ form.scheduled_pickup_date.label }} {{form.scheduled_pickup_date(class='datetime-localpicker')}} {{form.hidden_tag()}}
                 {{ form.scheduled_return_date.label }} {{form.scheduled_return_date(class='datetime-localpicker')}} {{form.hidden_tag()}}
-                    
-                <!-- Description box 
-                <div class="form-group">
-                    <label for="desBox">Notes for the owner</label>
-                    <textarea name="desBox" id="" cols="40" rows="4" placeholder="Description"></textarea>
-                </div>
-                -->
                     
                 {{form.submit()}}
             </div>    
