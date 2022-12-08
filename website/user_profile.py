@@ -35,9 +35,8 @@ def profile_page():
     print(listItem)
 
     for oneOrder in user.orders:
-        if oneOrder.is_active:
-            orderItem = Item.query.get(oneOrder.item_id)
-            listItem.append(orderItem)
+        orderItem = Item.query.get(oneOrder.item_id)
+        listItem.append(orderItem)
 
     print(listItem)
 

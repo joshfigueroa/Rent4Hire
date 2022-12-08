@@ -76,6 +76,7 @@
         <div class="row">
           {% if listItem %}
             {% for thatOneOrder in user.orders %}
+                {% if thatOneOrder.is_active %}
                 {% if listItem[loop.index-1] %}
                 
               <div class="col-sm-6 col-md-4">
@@ -103,7 +104,7 @@
                 </div>
               </div>
               {% endif %}
-            
+              {% endif %}
             {% endfor %}
           {% else %}
             {% set count = -1 %}
