@@ -42,11 +42,13 @@ def create_listing():
             # Need to add some type of error checking for if name exists
             # This might be a problem with displaying if file names are the same.
             # Right now it added file to folder under name_1 and still references orginal
-            photos.save(f)
+            if f:
+                photos.save(f)
+                flash("Photo saved successfully.")
             # make secure_filename
             #https://stackoverflow.com/questions/53098335/flask-get-the-name-of-an-uploaded-file-minus-the-file-extension
             
-            flash("Photo saved successfully.")
+            
 
         # ERROR CHECKING
         if len(name) < 1:

@@ -41,6 +41,7 @@ def create_app():
     from .google_map    import google_map
     from .create_item   import create_item
     from .user_profile  import user_profile #Some code not in use
+    from .edit_item  import edit_item
 
     # Makes files with routes blueprints
     app.register_blueprint(views, url_prefix='/')
@@ -48,7 +49,9 @@ def create_app():
     app.register_blueprint(order_item, url_prefix='/')
     app.register_blueprint(google_map, url_prefix='/') # Did not test blueprint
     app.register_blueprint(create_item, url_prefix='/')
+    app.register_blueprint(edit_item, url_prefix='/')
     app.register_blueprint(user_profile, url_prefix='/')
+    
     
     
     from .models import User

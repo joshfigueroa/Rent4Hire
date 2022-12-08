@@ -10,7 +10,7 @@
     <div class="navbar-nav">
       <form method="POST">
         <div class="form-group">
-          <input 
+          <input
             type="text"
             placeholder="Search..."
             name="search"
@@ -24,7 +24,8 @@
             name="category"
             id="category"
             class="selectpicker form-control"
-            float="left">
+            float="left"
+          >
             <option value="0">None</option>
             <option value="1">electronics</option>
             <option value="2">antiques</option>
@@ -108,11 +109,19 @@
           <div class="card border-success" style="width: 20rem">
             <a href="{{'/order/item/' ~ Item.id}}">
               <!-- read the item image and styling. title field is hover text -->
+              {% if Item.image_name %}
               <img
                 src="{{'static/images/' ~ Item.image_name }}"
                 class="card-img-top"
-                alt="..."
+                alt="No Image"
               />
+              {% else %}
+              <img
+                src="{{'static/images/no-image.jpeg'  }}"
+                class="card-img-top"
+                alt="No Image"
+              />
+              {% endif %}
               <h5
                 class="card-title"
                 align="center"
