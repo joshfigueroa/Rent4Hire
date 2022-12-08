@@ -41,10 +41,10 @@
                 <p class="card-text">{{Item.description}}</p>
               </div>
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">Quantity: {{ Item.quantity }}</li>
-                <li class="list-group-item">Price: {{"${:.2f}".format(Item.price_in_cents/100)}}</li>
-                <li class="list-group-item">Value: {{"${:.2f}".format(Item.value_in_cents/100)}}</li>
-                <li class="list-group-item">Location: {{user.street}} {{location.city}} {{location.state}} {{location.zip}}</li>
+                <li class="list-group-item"><b>Quantity:</b> {{ Item.quantity }}</li>
+                <li class="list-group-item"><b>Price:</b> {{"${:.2f}".format(Item.price_in_cents/100)}}</li>
+                <li class="list-group-item"><b>Value:</b> {{"${:.2f}".format(Item.value_in_cents/100)}}</li>
+                <li class="list-group-item"><b>Location:</b> {{user.street}} {{location.city}} {{location.state}} {{location.zip}}</li>
               </ul>
               <div class="card-body">
                 <a href="{{'/item/' ~ Item.id}}" class="card-link">View Details</a>
@@ -74,30 +74,41 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionItem">
       <div class="card-body">
         <div class="row">
-
-          {% for Order in user.orders %}
-          <div class="col-sm-6 col-md-4">
-            
-            <div class="card border-success" style="width: 24rem;">
-              <img src="static/images/img_nature.jpg" class="card-img-top" alt="...">
-              <div class="card-body text-info">
-                <h5 class="card-title"><b>{{ Order.name }}</b></h5>
-                <p class="card-text">{{Order.description}}</p>
+          {% if listItem %}
+            {% for thatOneOrder in user.orders %}
+                {% if thatOneOrder.is_active %}
+                {% if listItem[loop.index-1] %}
+                {% if listItemUser[loop.index-1] %}
+              <div class="col-sm-6 col-md-4">
+                <div class="card border-success" style="width: 24rem;">
+                  
+                  <img src="{{'static/images/' ~ listItem[loop.index-1].image_name}}" class="card-img-top" alt="...">
+                  <div class="card-body text-info">
+                    <h5 class="card-title"><b>{{listItem[loop.index-1].name}}</b></h5>
+                    <p class="card-text">{{listItem[loop.index-1].description}}</p>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Price:</b> {{"${:.2f}".format(listItem[loop.index-1].price_in_cents/100)}}</li>
+                    <li class="list-group-item"><b>Location:</b> {{ listItemUser[loop.index-1].street }} {{ listUserLocation[loop.index-1].city }} {{ listUserLocation[loop.index-1].state }} {{ listUserLocation[loop.index-1].zip }}</li>
+                    <li class="list-group-item"><b>Scheduled pickup:</b> {{ thatOneOrder.scheduled_pickup_date }}</li>
+                    <li class="list-group-item"><b>Scheduled return:</b> {{ thatOneOrder.scheduled_return_date }}</li>
+                  </ul>
+                  
+                  <div class="card-body">
+                      {% if thatOneOrder.actual_pickup_date == None %}
+                      <a href="{{'/pickup/item/' ~ thatOneOrder.id}}">Pickup</a>
+                      {% else %}
+                      <a href="{{'/return/item/' ~ thatOneOrder.id}}">Return</a>
+                      {% endif %}
+                  </div>
+                </div>
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Price:</li>
-                <li class="list-group-item">Location: </li>
-                <li class="list-group-item">Scheduled pickup:</li>
-                <li class="list-group-item">Scheduled return:</li>
-              </ul>
-              <div class="card-body">
-                <a href="#" class="card-link">View History</a>
-                <a href="#" class="card-link">Edit</a>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
+              {% endif %}
+              {% endif %}
+              {% endif %}
+            {% endfor %}
 
+          {% endif %}
         </div>
       </div>
     </div>
@@ -107,12 +118,58 @@
   <div class="card">
     <div class="card-header" id="headingThree">
       <h2 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          My Rentals History
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionItem">
+      <div class="card-body">
+        <div class="row">
+          {% if listItem %}
+            {% for thatOneOrder in user.orders %}
+                {% if not thatOneOrder.is_active %}
+                {% if listItemUser[loop.index-1] %}
+                
+                
+              <div class="col-sm-6 col-md-4">
+                <div class="card border-success" style="width: 24rem;">
+                  
+                  <img src="{{'static/images/' ~ listItem[loop.index-1].image_name}}" class="card-img-top" alt="...">
+                  <div class="card-body text-info">
+                    <h5 class="card-title"><b>{{listItem[loop.index-1].name}}</b></h5>
+                    <p class="card-text">{{listItem[loop.index-1].description}}</p>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Price:</b> {{"${:.2f}".format(listItem[loop.index-1].price_in_cents/100)}}</li>
+                    <li class="list-group-item"><b>Location:</b> {{ listItemUser[loop.index-1].street }} {{ listUserLocation[loop.index-1].city }} {{ listUserLocation[loop.index-1].state }} {{ listUserLocation[loop.index-1].zip }}</li>
+                    <li class="list-group-item"><b>Scheduled pickup:</b> {{ thatOneOrder.scheduled_pickup_date }}</li>
+                    <li class="list-group-item"><b>Scheduled return:</b> {{ thatOneOrder.scheduled_return_date }}</li>
+                    <li class="list-group-item"><b>Actual pickup date:</b> {{ thatOneOrder.actual_pickup_date }}</li>
+                    <li class="list-group-item"><b>Actual return date:</b> {{ thatOneOrder.actual_return_date }}</li>
+                  </ul>
+                </div>
+              </div>
+              
+              {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Card 4-->
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
           My Profile
         </button>
       </h2>
     </div>
-    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionItem">
+    <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordionItem">
       <div class="card-body">
         <div>
           <br>

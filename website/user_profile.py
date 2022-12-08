@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from .models import User, Location, Item, Category
+from .models import User, Location, Item, Category, Order
 from . import db
+import datetime
 
 
 user_profile = Blueprint('user_profile', __name__)
@@ -29,9 +30,27 @@ def profile_page():
     global check_auth
     user = current_user
     location=Location.query.get(user.location_id)
+
+    listItem = []
+    listItemUser = []
+    listUserLocation = []
+    print(listItem)
+
+    for oneOrder in user.orders:
+        orderItem = Item.query.get(oneOrder.item_id)
+        itemUser = User.query.get(orderItem.owner_id)
+        userLocation = Location.query.get(itemUser.location_id)
+        listItem.append(orderItem)
+        listItemUser.append(itemUser)
+        listUserLocation.append(userLocation)
+
+    print(listItem)
+    print(listItemUser)
+    print(userLocation)
+
     if request.method == 'POST':   
         updated = 1
-        if check_auth:     
+        if check_auth:
             if request.form.get('submitNewInfo') == 'Update Profile':
                 
                 first_name = request.form.get('firstName')
@@ -160,11 +179,42 @@ def profile_page():
                 else:
                     check_auth = False
                     flash("Incorrect credentials, try again.", category='error')
-                
+            
+    return render_template("profile_dash.html", user=user, checkAuth=check_auth, location=location, listItem =listItem, listItemUser=listItemUser, listUserLocation=listUserLocation)
+
+# Routing for pickup
+@user_profile.route('/pickup/item/<id>')
+@login_required
+def pickup_order(id):
+    currentOrder = Order.query.get(id)
+    currentOrder.actual_pickup_date = datetime.datetime.now()
+    db.session.commit()
+    flash("You have successfully picked up the order!", category='success')
+
+    return redirect(url_for('user_profile.profile_page'))
+
+# Routing for return
+@user_profile.route('/return/item/<id>')
+@login_required
+def return_order(id):
+    currentOrder = Order.query.get(id)
+    print(currentOrder)
+    currentItem = Item.query.get(currentOrder.item_id)
+    print(currentItem)
+    currentOrder.actual_return_date = datetime.datetime.now()
+    currentOrder.total = currentOrder.quantity * (currentItem.price_in_cents * ((currentOrder.actual_return_date-currentOrder.actual_pickup_date).days))
+    currentOrder.total = 0
     
-    return render_template("profile_dash.html", user=user, checkAuth=check_auth, location=location)
+    db.session.commit()
 
+    if currentOrder:
+        currentItem.is_available = True
+        currentOrder.is_active = False
+        message = f"You have successfully returned the order! Now you have to pay {currentOrder.total}"
+        flash(message, category='success')
+        db.session.commit()
 
+    return redirect(url_for('user_profile.profile_page'))
 
 # page for individual items. gets passed the item id, returns the object.
 @user_profile.route('/item/<id>', methods=['GET', 'POST'] )

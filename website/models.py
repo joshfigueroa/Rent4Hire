@@ -55,7 +55,6 @@ class Item(db.Model):
     item_reviews = db.relationship("Review", backref="item")  # the item being reviewed
     orders = db.relationship("Order", backref="item")
 
-
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
     date_created = db.Column(db.DateTime, default=datetime.utcnow, index=True)
