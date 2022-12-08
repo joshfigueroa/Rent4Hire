@@ -63,30 +63,40 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionItem">
       <div class="card-body">
         <div class="row">
-
-          {% for Order in user.orders %}
-          <div class="col-sm-6 col-md-4">
-            
-            <div class="card border-success" style="width: 24rem;">
-              <img src="static/images/img_nature.jpg" class="card-img-top" alt="...">
-              <div class="card-body text-info">
-                <h5 class="card-title"><b>{{ Order.name }}</b></h5>
-                <p class="card-text">{{Order.description}}</p>
+          {% if listItem %}
+            {% set count = -1 %}
+            {% for thatOneOrder in user.orders %}
+              {% if thatOneOrder.is_active %}
+              {% set count = count + 1 %}
+              <p>{{count}}</p>
+              <div class="col-sm-6 col-md-4">
+                <div class="card border-success" style="width: 24rem;">
+                  <img src="static/images/img_nature.jpg" class="card-img-top" alt="...">
+                  <div class="card-body text-info">
+                    <h5 class="card-title"><b>{{listItem[count].name}}</b></h5>
+                    <p class="card-text">{{listItem[count].description}}</p>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Price: </li>
+                    <li class="list-group-item">Location: </li>
+                    <li class="list-group-item">Scheduled pickup: {{ thatOneOrder.scheduled_pickup_date }}</li>
+                    <li class="list-group-item">Scheduled return: {{ thatOneOrder.scheduled_return_date }}</li>
+                  </ul>
+                  
+                  <div class="card-body">
+                      {% if thatOneOrder.actual_pickup_date == None %}
+                      <a href="{{'/pickup/item/' ~ thatOneOrder.id}}">Pickup</a>
+                      {% else %}
+                      <a href="{{'/return/item/' ~ thatOneOrder.id}}">Return</a>
+                      {% endif %}
+                  </div>
+                </div>
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Price:</li>
-                <li class="list-group-item">Location: </li>
-                <li class="list-group-item">Scheduled pickup:</li>
-                <li class="list-group-item">Scheduled return:</li>
-              </ul>
-              <div class="card-body">
-                <a href="#" class="card-link">View History</a>
-                <a href="#" class="card-link">Edit</a>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-
+            {% endif %}
+            {% endfor %}
+          {% else %}
+            {% set count = -1 %}
+          {% endif %}
         </div>
       </div>
     </div>
