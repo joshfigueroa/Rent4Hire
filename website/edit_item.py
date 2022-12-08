@@ -12,7 +12,7 @@ UPLOAD_PATH = Path(UPLOAD_FOLDER).resolve()
 
 photos = UploadSet("photos", IMAGES)
 
-create_item = Blueprint('create_item', __name__)
+edit_item = Blueprint('edit_item', __name__)
 
 # Convert dollars to cents to store nicely in database
 def convertToCents(dollars):
@@ -20,18 +20,19 @@ def convertToCents(dollars):
     return cents
 
 # Routes to create listing page
-@create_item.route('/create', methods=['GET', 'POST'])
+@edit_item.route('/edit/<id>', methods=['GET', 'POST'])
 @login_required
-def create_listing():  
+def edit_listing(id):  
+    currentItem=Item.query.get(id)
     if request.method == 'POST':
         name = request.form.get('name')
         category = request.form.get('category')
         description = request.form.get('description')
         description = description.strip() # Trim white space at each end
         # item_location_id = Column(Integer)#, ForeignKey("locations.id"), index=True) #Not sure if this is needed
-        price = request.form.get('price')
+        price = float(request.form.get('price'))
         quantity = request.form.get('quantity')
-        value = request.form.get('value')
+        value = float(request.form.get('value'))
         f = request.files['photo']
         image_name = f.filename
     
@@ -47,8 +48,6 @@ def create_listing():
                 flash("Photo saved successfully.")
             # make secure_filename
             #https://stackoverflow.com/questions/53098335/flask-get-the-name-of-an-uploaded-file-minus-the-file-extension
-            
-            
 
         # ERROR CHECKING
         if len(name) < 1:
@@ -73,13 +72,16 @@ def create_listing():
             price_in_cents=convertToCents(price)
             value_in_cents=convertToCents(value)
         
-            new_item = Item(name=name, category_id=category,
-                            description=description, owner_id=current_user.id,
-                            price_in_cents=price_in_cents, quantity=quantity,
-                            value_in_cents=value_in_cents, image_name=image_name)
-            db.session.add(new_item)
+            currentItem.name = name
+            currentItem.description = description
+            currentItem.quantity = quantity
+            currentItem.category_id = int(category)
+            currentItem.price_in_cents = price_in_cents
+            currentItem.value_in_cents = value_in_cents
+            if f:
+                currentItem.image_name = image_name
             db.session.commit()
-            flash('Item added!', category='success')
+            flash('Item updated!', category='success')
             return redirect(url_for('views.home'))
 
-    return render_template("create_listing.html", user=current_user)
+    return render_template("edit_listing.html", user=current_user, currentItem=currentItem)

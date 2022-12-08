@@ -1,0 +1,135 @@
+{% extends "base.html" %} {% block title %}Edit Listing{% endblock %} 
+{% block content %}
+<head>
+    <link rel="stylesheet" href="static/css/profile.css" />
+  </head>
+{% if currentItem.owner_id == user.id %}
+    
+    
+    <form method="POST" enctype=multipart/form-data>
+      <h3 align="center">Edit Listing</h3>
+    
+      <!-- FIELD FOR ITEM NAME -->
+      <div class="form-group">
+        <label for="name">Item Name</label>
+        <!--UPDATE WITH ITEM INFO-->
+        <input
+          type="name"
+          class="form-control"
+          id="name"
+          name="name"
+          placeholder="Enter name"
+          value="{{currentItem.name}}"
+        />
+      </div>
+    
+      <!-- FIELD FOR ITEM DESCRIPTION -->
+      <div class="form-group">
+        <label for="description">Item Description</label><br />
+        <!-- !!!!!!!TEXTBOX NEEDS TO BE FIXED TO SHRINK AND EXPAND LIKE OTHERS PRB VIA CSS!!!!!!!!!!-->
+        <textarea
+          id="description"
+          name="description"
+          rows="4"
+          cols="100"
+          placeholder="Description"
+        >{{currentItem.description}}</textarea>
+      </div>
+    
+      <!-- FIELD FOR ITEM QUANTITY -->
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="{{currentItem.quantity}}" min="1" max="1000" />
+      </div>
+    
+      <!-- FIELD FOR ITEM CLASSIFICATION -->
+      <div class="form-group">
+        <label for="classification">Classification</label>
+        <select name="category" id="category" class="selectpicker form-control" value="{{currentItem.category_id}}">
+          {% if currentItem.category_id == 1 %}<option value="1" selected>electronics</option>
+          {% else %}<option value="1">electronics</option>{% endif %}
+          
+          {% if currentItem.category_id == 2 %}<option value="2" selected>antiques</option>
+          {% else %}<option value="2">antiques</option>{% endif %}
+          
+          {% if currentItem.category_id == 3 %}<option value="3" selected>arts&crafts</option>
+          {% else %}<option value="3">arts&crafts{% endif %}
+          
+          {% if currentItem.category_id == 4 %}<option value="4" selected>baby/kid</option>
+          {% else %}<option value="4">baby/kid</option>{% endif %}
+          
+          {% if currentItem.category_id == 5 %}<option value="5" selected>beauty/health</option>
+          {% else %}<option value="5">beauty/health</option>{% endif %}
+          
+          {% if currentItem.category_id == 6 %}<option value="6" selected>books</option>
+          {% else %}<option value="6">books</option>{% endif %}
+          
+          {% if currentItem.category_id == 16 %}<option value="16" selected>camping</option>
+          {% else %}<option value="16">camping</option>{% endif %}
+          
+          {% if currentItem.category_id == 7 %}<option value="7" selected>furniture</option>
+          {% else %}<option value="7">furniture</option>{% endif %}
+          
+          {% if currentItem.category_id == 8 %}<option value="8" selected>general</option>
+          {% else %}<option value="8">general</option>{% endif %}
+          
+          {% if currentItem.category_id == 9 %}<option value="9" selected>household</option>
+          {% else %}<option value="9">household</option>{% endif %}
+          
+          {% if currentItem.category_id == 10 %}<option value="10" selected>motor vehicles</option>
+          {% else %}<option value="10">motor vehicles</option>{% endif %}
+          
+          {% if currentItem.category_id == 11 %}<option value="11" selected>outdoors</option>
+          {% else %}<option value="11">outdoors</option>{% endif %}
+
+          {% if currentItem.category_id == 12 %}<option value="12" selected>service</option>
+          {% else %}<option value="12">service</option>{% endif %}
+          
+          {% if currentItem.category_id == 13 %}<option value="13" selected>sporting</option>
+          {% else %}<option value="13">sporting</option>{% endif %}
+          
+          {% if currentItem.category_id == 14 %}<option value="14" selected>tools</option>
+          {% else %}<option value="14">tools</option>{% endif %}
+          
+          {% if currentItem.category_id == 15 %}<option value="15" selected>toys/games</option>
+          {% else %}<option value="15">toys/games</option>{% endif %}
+        </select>
+      </div>
+    
+      <!-- FIELD FOR ITEM PRICE -->
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input
+          type="number"
+          class="form-control"
+          id="price"
+          name="price"
+          placeholder="Enter Price"
+          value="{{currentItem.price_in_cents/100}}0"
+        />
+      </div>
+    
+        <!-- FIELD FOR ITEM VALUE -->
+        <div class="form-group">
+          <label for="value">Value</label>
+          <input 
+          type="number" 
+          class="form-control" 
+          id="value" 
+          name="value" 
+          placeholder="Enter Value" 
+          value="{{currentItem.value_in_cents/100}}0" />
+        </div>
+        
+        <div method=POST enctype=multipart/form-data action="{{ url_for('create_item.create_listing') }}">
+          <input type='file' name='photo'/>
+          <button type="submit">Submit</button>
+        </div>
+    
+      
+    </form>
+    
+    {% else %}
+     <h1 align="center">Access Denied: Not your item</h1> 
+    {% endif %}
+    {% endblock %}
