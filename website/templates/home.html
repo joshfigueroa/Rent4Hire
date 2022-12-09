@@ -140,8 +140,9 @@
                 <b>Value:</b> {{"${:.2f}".format(Item.value_in_cents/100)}}
               </li>
               <li class="list-group-item">
-                <b>Location:</b> {{user.street}} {{location.city}} {{location.state}}
-                {{location.zip}}
+				  <b>Location:</b> {{location[loop.index0]}}
+				  <!-- {{user.street}} {{location.city}} {{location.state}} 
+				  {{location.zip}} -->
               </li>
             </ul>
           </div>

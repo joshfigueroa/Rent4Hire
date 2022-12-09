@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, app
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
-from .models import Note, Item, Location
+from .models import Note, Item, Location, User
 from . import db
 import json
 
@@ -25,8 +25,15 @@ def home():
         category = 0
     # grab all the items an pass to the webpage
     items = Item.query.all()
+    allLocations = []
+    for item in items:
+        ownerID = item.owner_id
+        owner = User.query.get(ownerID)
+        locationID = owner.location_id
+        ownerLoc = Location.query.get(locationID)
+        allLocations.append(str(owner.street) + " " + str(ownerLoc.city) + " " + str(ownerLoc.state) + " " + str(ownerLoc.zip))
     return render_template("home.html", user=user, searched=searched, 
-    items=items, location=location, category=category)
+    items=items, location=allLocations, category=category)
 
 
 # This would be good to update to delete rental listing or something like that/ maybe even useful for deleting user
