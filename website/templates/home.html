@@ -68,27 +68,6 @@
     Listings
   </h1>
   <br />
-
-  <!--Left in for reference-->
-
-  <!--<ul class="list-group list-group-flush" id="items">
-
-    {% for Item in user.items %}
-    <li
-      class="list-group-item"
-      style="background-color: rgb(221, 221, 221); max-height: 40px"
-    >
-      <p style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">
-        {{ Item.name }}: {{Item.description}}, ${{Item.price_in_cents / 100}}0
-        This is delete function that works with static/index.js (somehow) Funct not needed in here, but good to have this reference for deleting item in profile - my listings page-->
-  <!--<button type="button" class="close" onClick="delete({{ Item.id }})">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </p>
-    </li>
-    {% endfor %}
-  </ul>
-  <br /><br />-->
   <div class="card-body">
     <div class="row">
       <!-- loop through every item and display them. Filter by search. -->
@@ -124,13 +103,13 @@
               {% endif %}
               <h5
                 class="card-title"
-                style="padding-top: 15px; color: rgb(3, 4, 5)"
+                style="padding-top: 15px; color: rgb(3, 4, 5); text-align:center"
               >
                 <b>{{ Item.name }}</b>
               </h5>
             </a>
             <ul class="list-group list-group-flush">
-              <p class="card-text">{{Item.description}}</p>
+              <p class="card-text" style="text-align:center">{{Item.description}}</p>
               <li class="list-group-item"><b>Quantity:</b> {{ Item.quantity }}</li>
               <li class="list-group-item">
                 <b>Price:</b> {{"${:.2f}".format(Item.price_in_cents/100)}}
