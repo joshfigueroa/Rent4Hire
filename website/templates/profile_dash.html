@@ -147,6 +147,7 @@
                     <li class="list-group-item"><b>Scheduled return:</b> {{ thatOneOrder.scheduled_return_date }}</li>
                     <li class="list-group-item"><b>Actual pickup date:</b> {{ thatOneOrder.actual_pickup_date }}</li>
                     <li class="list-group-item"><b>Actual return date:</b> {{ thatOneOrder.actual_return_date }}</li>
+                    <li class="list-group-item"><b>Total:</b> {{"${:.2f}".format(thatOneOrder.total/100) }}</li>
                   </ul>
                 </div>
               </div>

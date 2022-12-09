@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .models import User, Location, Item, Category, Order
 from . import db
 import datetime
+import math 
 
 
 user_profile = Blueprint('user_profile', __name__)
@@ -198,15 +199,15 @@ def return_order(id):
     currentItem = Item.query.get(currentOrder.item_id)
     print(currentItem)
     currentOrder.actual_return_date = datetime.datetime.now()
-    currentOrder.total = currentOrder.quantity * (currentItem.price_in_cents * ((currentOrder.actual_return_date-currentOrder.actual_pickup_date).days))
-    currentOrder.total = 0
+    currentOrder.total = currentOrder.quantity * (currentItem.price_in_cents * math.ceil((currentOrder.actual_return_date-currentOrder.actual_pickup_date).days+1))
+
     
     db.session.commit()
 
     if currentOrder:
         currentItem.is_available = True
         currentOrder.is_active = False
-        message = f"You have successfully returned the order! Now you have to pay {currentOrder.total}"
+        message = f"You have successfully returned the order! Now you have to pay {currentOrder.total/100}0"
         flash(message, category='success')
         db.session.commit()
 
