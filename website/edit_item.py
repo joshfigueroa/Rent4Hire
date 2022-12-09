@@ -26,7 +26,7 @@ def edit_listing(listing_id):
     current_item = Item.query.get(listing_id)
     if request.method == 'POST':
 
-        if request.form.get('edited') == 'edited':
+        if request.form.get('edited') == 'Edit Item':
             print('hello')
             name = request.form.get('name')
             category = request.form.get('category')
