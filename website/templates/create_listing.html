@@ -1,14 +1,14 @@
 {% extends "base.html" %} {% block title %}Create Listing{% endblock %} {% block
 content %}
 <form method="POST" enctype=multipart/form-data>
-  <h3 align="center">Create Listing</h3>
+  <h3>Create Listing</h3>
 
   <!-- FIELD FOR ITEM NAME -->
   <div class="form-group">
     <label for="name">Item Name</label>
     <!--UPDATE WITH ITEM INFO-->
     <input
-      type="name"
+      type="text"
       class="form-control"
       id="name"
       name="name"
@@ -38,7 +38,7 @@ content %}
   <!-- FIELD FOR ITEM CLASSIFICATION -->
   <div class="form-group">
     <label for="classification">Classification</label>
-    <select name="category" id="category" class="selectpicker form-control">
+      <label for="category"></label><select name="category" id="category" class="selectpicker form-control">
       <option value="1">electronics</option>
       <option value="2">antiques</option>
       <option value="3">arts&crafts</option>

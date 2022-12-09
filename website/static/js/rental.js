@@ -1,7 +1,7 @@
 function myFunction(imgs) {
-    var holderImg = document.getElementById("placeholderImg");
+    const holderImg = document.getElementById("placeholderImg");
     // Get the expanded image
-    var expandImg = document.getElementById("expandedImg");
+    const expandImg = document.getElementById("expandedImg");
     // Get the image text
     
     // Use the same src in the expanded image as the image being clicked on from the grid

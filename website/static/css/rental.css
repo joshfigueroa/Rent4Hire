@@ -2,8 +2,8 @@
 .col {
     width: 20%;
     overflow: hidden;
-    padding: 0px 0px 0px 20px;
-  }
+    padding: 0 0 0 20px;
+}
 
   /* Style the images inside the grid */
 .col img {

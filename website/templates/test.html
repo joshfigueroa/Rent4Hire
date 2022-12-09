@@ -2,20 +2,21 @@
     {% block title %}Create Rental{% endblock %} 
     {% block content %}
     <head>
-        <link rel="stylesheet" href="static/css/test.css" />
-        <script type="text/javascript" src="static/js/test.js"></script>
+        <link rel="stylesheet" href="../static/css/test.css" />
+        <script type="text/javascript" src="../static/js/test.js"></script>
+        <title>Test</title>
     </head>
     <!-- The grid: four columns -->
 
   <!-- The expanding image container -->
   <div class="container">
   <div class="container" id="innerCon">
-    <div><img id="placeholderImg" src="static/images/img_nature.jpg" alt="Nature" style="width:50%""></div>
+    <div><img id="placeholderImg" src="../static/images/img_nature.jpg" alt="Nature" style="width:50%"></div>
     <!-- Close the image -->
     <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
     
     <!-- Expanded image -->
-    <img id="expandedImg" style="width:50%">
+    <img id="expandedImg" src="../static/images/img_nature.jpg" style="width:50%" alt="../static/images/no-image.jpeg">
   
     <!-- Image text -->
     <div id="imgtext"></div>
@@ -23,16 +24,16 @@
 
 <div class="row">
     <div class="column">
-      <img src="static/images/img_nature.jpg" alt="Nature" onclick="myFunction(this);">
+      <img src="../static/images/img_nature.jpg" alt="Nature" onclick="myFunction(this);">
     </div>
     <div class="column">
-      <img src="static/images/img_snow.jpg" alt="Snow" onclick="myFunction(this);">
+      <img src="../static/images/img_snow.jpg" alt="Snow" onclick="myFunction(this);">
     </div>
     <div class="column">
-      <img src="static/images/img_mountains.jpg" alt="Mountains" onclick="myFunction(this);">
+      <img src="../static/images/img_mountains.jpg" alt="Mountains" onclick="myFunction(this);">
     </div>
     <div class="column">
-      <img src="static/images/img_lights.jpg" alt="Lights" onclick="myFunction(this);">
+      <img src="../static/images/img_lights.jpg" alt="Lights" onclick="myFunction(this);">
     </div>
 </div>
 </div>

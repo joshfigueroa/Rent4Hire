@@ -1,22 +1,23 @@
 {% extends "base.html" %} {% block title %}Edit Listing{% endblock %} 
 {% block content %}
     <head>
-    <link rel="stylesheet" href="static/css/profile.css" />
-  </head>
+<!--    <link rel="stylesheet" href="static/css/profile.css" /> -->
+        <title>Edit Listing</title>
+    </head>
 {% if currentItem.owner_id == user.id %}
     
     
     
     <form method="POST" enctype=multipart/form-data>
         
-      <h3 align="center">Edit Listing</h3>
+      <h3>Edit Listing</h3>
     
       <!-- FIELD FOR ITEM NAME -->
       <div class="form-group">
         <label for="name">Item Name</label>
         <!--UPDATE WITH ITEM INFO-->
         <input
-          type="name"
+          type="text"
           class="form-control"
           id="name"
           name="name"
@@ -47,7 +48,7 @@
       <!-- FIELD FOR ITEM CLASSIFICATION -->
       <div class="form-group">
         <label for="classification">Classification</label>
-        <select name="category" id="category" class="selectpicker form-control" value="{{currentItem.category_id}}">
+          <label for="category"></label><select name="category" id="category" class="selectpicker form-control" value="{{currentItem.category_id}}">
           {% if currentItem.category_id == 1 %}<option value="1" selected>electronics</option>
           {% else %}<option value="1">electronics</option>{% endif %}
           
@@ -136,6 +137,6 @@
     </form>
     
     {% else %}
-     <h1 align="center">Access Denied: Not your item</h1> 
+     <h1>Access Denied: Not your item</h1>
     {% endif %}
     {% endblock %}

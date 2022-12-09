@@ -2,7 +2,8 @@
     {% block title %}Rental Profile{% endblock %} 
     {% block content %}
     <head>
-        <link rel="stylesheet" href="static/css/rental.css" />
+        <link rel="stylesheet" href="../static/css/rental.css" />
+        <title>Rental Profile</title>
     </head>
     <div class="container py-4">
         <h2 class="text-center font-weight-light">Let's Start Renting!</h2>
@@ -26,8 +27,10 @@
                                 <p class="text-dark">Quantity</p>
                             </div>
 
-                            <div class="quantityClass"><input type="number" step="1" max="10" value="1" name="quantity"
-                                    class="quantity-field border-3 text-center w-25"></div>
+                            <div class="quantityClass"><label>
+                                <input type="number" step="1" max="10" value="1" name="quantity"
+                                        class="quantity-field border-3 text-center w-25">
+                            </label></div>
 
                         </div>
 
@@ -51,7 +54,7 @@
                     <!-- Description box -->
                     <div class="form-group">
                         <label for="desBox">Notes for the owner</label>
-                        <textarea name="desBox" id="" cols="40" rows="4" placeholder="Description"></textarea>
+                        <label for=""></label><textarea name="desBox" id="" cols="40" rows="4" placeholder="Description"></textarea>
                     </div>
 
                         <!-- Buttons -->
@@ -69,7 +72,7 @@
 
         {% if filename %}
         <div>
-            <img src="{{ url_for('display_image', filename=filename) }}">
+            <img src="{{ url_for('display_image', filename=filename) }}" alt="{{ url_for('no-image', filename=filename) }}">
         </div>
         {% endif %}
         <form method="post" action="/" enctype="multipart/form-data">
@@ -117,6 +120,7 @@
                 </div>
             </div>
             -->
+        </form>
     </div>
-    <script type="text/javascript" src="static/js/rental.js"></script>
+    <script type="text/javascript" src="../static/js/rental.js"></script>
     {% endblock %}
