@@ -3,6 +3,8 @@ from flask import Blueprint, render_template, request, jsonify
 from flask_login import login_required, current_user
 from . import db
 from .models import Note, Item, Location, User
+from flask import Flask
+from geopy import Nominatim
 
 views = Blueprint('views', __name__)
 
@@ -14,17 +16,43 @@ def home():
     user = current_user
     # location = Location.query.get(user.location_id)
     # if there has been a search request, pass it through searched. else pass ''
+    items = Item.query.all()
+    # grab all the items an pass to the webpage
+    # list of tuples
+    item_coords = []
+    for item in items:
+        owner_id = item.owner_id
+        if(owner_id == None):
+            continue
+        owner = User.query.get(owner_id)
+        location_id = owner.location_id
+        if(location_id == None):
+            continue
+        owner_loc = Location.query.get(location_id)
+        # Need regex for splitting and text removal. Store as a tuple
+        #get_coordinates(API_KEY, str(owner.street) + " " + str(owner_loc.city) + " " + str(owner_loc.state) + " " + str(owner_loc.zip))
+
+        locator = Nominatim(user_agent="myGeocoder")
+        address = (str(owner.street) + ", " + str(owner_loc.city) + ", " + str(owner_loc.state) + ", " + str(owner_loc.zip))
+        location = locator.geocode(address)
+        if(location == None):
+            continue
+        print(location.latitude)
+
     if request.form.get('search'):
         searched = request.form.get('search')
         print(searched)
     else:
         searched = ''
+    if request.form.get('radius'):
+        search_radius = request.form.get('radius')
+
+        print(search_radius)
     if request.form.get('category'):
         category = int(request.form.get('category'))
     else:
         category = 0
     # grab all the items an pass to the webpage
-    items = Item.query.all()
     all_locations = []
     for item in items:
         owner_id = item.owner_id
