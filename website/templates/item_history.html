@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block title %}{{ currentItem.name }}{% endblock %} {% block content
+    %}
+    <head>
+      <link rel="stylesheet" href="static/css/rental.css" />
+    </head>
+    <body style="background-color: rgb(242, 251, 255)">
+      <br />
+      <h2>
+        <center>Rental History of {{ currentItem.name }}</center>
+      </h2>
+    
+    
+      <div class="container py-4">
+        <div class="list-group">
+            {% if listOrder %}
+            {% for itemOrder in listOrder%}
+            {% if listRenter[loop.index-1] %}
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                {% set orderTotal = itemOrder.total | int() %}
+                <h6 class="mb-1">Total:{{"${:.2f}".format(orderTotal/100)}}, Quantity:{{itemOrder.quantity}}</h6>
+                <small><i>Picked up on: {{ itemOrder.actual_pickup_date }}</i></small>
+              </div>
+              <p class="mb-1"><b>{{ listRenter[loop.index-1].first_name }} {{ listRenter[loop.index-1].last_name }}</b> scheduled to pick up on {{ itemOrder.scheduled_pickup_date }} and return on {{ itemOrder.scheduled_return_date }}</p>
+              <small><i>Returned on: {{ itemOrder.actual_return_date }}</i></small>
+            </a>
+                {% endif %}
+                {% endfor %}
+            {% else %}    
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1"></h5>
+                  <small></small>
+                </div>No one rents it yet!</p>
+                <small></small>
+              </a>
+              
+            {% endif %}
+          </div>
+      </div>
+    <script type="text/javascript" src="static/js/rental.js"></script>
+      {% endblock %}
+    </body>

@@ -200,7 +200,6 @@ def return_order(id):
     print(currentItem)
     currentOrder.actual_return_date = datetime.datetime.now()
     currentOrder.total = currentOrder.quantity * (currentItem.price_in_cents * math.ceil((currentOrder.actual_return_date-currentOrder.actual_pickup_date).days+1))
-
     
     db.session.commit()
 
@@ -224,3 +223,18 @@ def display_item(id):
     return render_template('item.html', user=current_user, currentItem=currentItem,
                            category=category)
  
+
+@user_profile.route('/history/<id>')
+@login_required
+def item_history(id):
+    listOrder = []
+    listRenter = []
+    listRenterLocation = []
+    currentItem = Item.query.get(id)
+    for order in currentItem.orders:
+        renterUser = User.query.get(order.renter_id)
+        renterLocation = Location.query.get(renterUser.location_id)
+        listOrder.append(order)
+        listRenter.append(renterUser)
+        listRenterLocation.append(renterLocation)
+    return render_template('item_history.html', user=current_user, currentItem=currentItem, listOrder=listOrder, listRenter=listRenter, listRenterLocation=listRenterLocation)

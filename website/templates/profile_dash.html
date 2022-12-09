@@ -49,6 +49,7 @@
               <div class="card-body">
                 <a href="{{'/item/' ~ Item.id}}" class="card-link">View Details</a>
                 <a href="{{'/edit/' ~ Item.id}}" class="card-link">Edit</a>
+                <a href="{{'/history/' ~ Item.id}}" class="card-link">View History</a>
               </div>
             </div>
             
@@ -141,13 +142,15 @@
                     <p class="card-text">{{listItem[loop.index-1].description}}</p>
                   </div>
                   <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Owner:</b> {{ listItemUser[loop.index-1].first_name }} {{ listItemUser[loop.index-1].last_name }} </li>
                     <li class="list-group-item"><b>Price:</b> {{"${:.2f}".format(listItem[loop.index-1].price_in_cents/100)}}</li>
                     <li class="list-group-item"><b>Location:</b> {{ listItemUser[loop.index-1].street }} {{ listUserLocation[loop.index-1].city }} {{ listUserLocation[loop.index-1].state }} {{ listUserLocation[loop.index-1].zip }}</li>
                     <li class="list-group-item"><b>Scheduled pickup:</b> {{ thatOneOrder.scheduled_pickup_date }}</li>
                     <li class="list-group-item"><b>Scheduled return:</b> {{ thatOneOrder.scheduled_return_date }}</li>
                     <li class="list-group-item"><b>Actual pickup date:</b> {{ thatOneOrder.actual_pickup_date }}</li>
                     <li class="list-group-item"><b>Actual return date:</b> {{ thatOneOrder.actual_return_date }}</li>
-                    <li class="list-group-item"><b>Total:</b> {{"${:.2f}".format(thatOneOrder.total/100) }}</li>
+                    {% set orderTotal = thatOneOrder.total | int() %}
+                    <li class="list-group-item"><b>Price:</b> {{"${:.2f}".format(orderTotal/100)}}</li>
                   </ul>
                 </div>
               </div>
