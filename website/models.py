@@ -48,26 +48,27 @@ class Item(db.Model):
     date_created = db.Column(db.DATETIME, default=datetime.utcnow, index=True)
     # item_location_id = Column(Integer)#, ForeignKey("locations.id"), index=True) #Not sure if this is needed
     price_in_cents = db.Column(db.Integer, nullable=False, index=True)  # Same thing here
-    quantity = db.Column(db.Integer, default=1, index=True) 
-    value_in_cents = db.Column(db.Integer, nullable=False, index=True) 
+    quantity = db.Column(db.Integer, default=1, index=True)
+    value_in_cents = db.Column(db.Integer, nullable=False, index=True)
     image_name = db.Column(db.String(255), index=True)
 
     item_reviews = db.relationship("Review", backref="item")  # the item being reviewed
     orders = db.relationship("Order", backref="item")
 
+
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
     date_created = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     renter_id = db.Column(db.Integer, db.ForeignKey("user.id"), index=True)
-    scheduled_pickup_date = db.Column(db.DateTime, nullable=False)    # Take strftime out of views form .data 
+    scheduled_pickup_date = db.Column(db.DateTime, nullable=False)  # Take strftime out of views form .data
     scheduled_return_date = db.Column(db.DateTime, nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey("item.id"), index=True)
-    actual_pickup_date = db.Column(db.DateTime)    # Take strftime out of views form .data 
+    actual_pickup_date = db.Column(db.DateTime)  # Take strftime out of views form .data
     actual_return_date = db.Column(db.DateTime)
     is_active = db.Column(db.Boolean)
     quantity = db.Column(db.Integer)
     total = db.Column(db.Integer)
-    
+
 
 # add location in profile
 class Location(db.Model):

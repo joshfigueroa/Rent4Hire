@@ -7,3 +7,4 @@ flask-googlemaps
 mysql-connector
 flask_wtf
 flask-reuploaded
+wtforms
