@@ -61,8 +61,17 @@ def home():
         owner_loc = Location.query.get(location_id)
         all_locations.append(
             str(owner.street) + " " + str(owner_loc.city) + " " + str(owner_loc.state) + " " + str(owner_loc.zip))
+    user_address = Location.query.get(user.location_id)
+    currAddrGeo = locator.geocode(user_address)  # User's current address
+    items_filter_dist = []
+    for locIndex, item in enumerate(items):
+        itemAddrGeo = locator.geocode(all_locations[locIndex])
+        distance = distance.distance(currAddrGeo, itemAddrGeo)
+        if search_radius < itemAddrGeo:
+            items_filter_dist.append(item)
+
     return render_template("home.html", user=user, searched=searched,
-                           items=items, location=all_locations, category=category)
+                           items=items, location=items_filter_dist, category=category)
 
 
 # This would be good to update to delete rental listing or something like that/ maybe even useful for deleting user
