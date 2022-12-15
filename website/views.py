@@ -93,7 +93,7 @@ def home():
             location_filter_list.append(all_locations[locIndex])
 
     return render_template("home.html", user=user, searched=searched,
-                           items=items_filter_dist, location=location_filter_list, category=category)
+                           items=items_filter_dist, location=location_filter_list, category=category, search_radius=search_radius)
 
 
 # This would be good to update to delete rental listing or something like that/ maybe even useful for deleting user
