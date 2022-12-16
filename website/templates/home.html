@@ -2,7 +2,7 @@
 %}<!--Add a search box like figma example https://www.figma.com/file/3U5ECD3dQNLCi4cU3l3yIB/Website-Mockup?node-id=0%3A1-->
 <head>
   <link rel="stylesheet" type="text/css" href="../static/css/home.css" />
-    <title>Home</title>
+  <title>Home</title>
 </head>
 
 <!-- very little stying, can be cleaned up. Just a search bar to grab search input. -->
@@ -11,7 +11,8 @@
     <div class="navbar-nav">
       <form method="POST">
         <div class="form-group">
-            <label for="search"></label><input
+          <label for="search"></label
+          ><input
             type="text"
             placeholder="Search..."
             name="search"
@@ -20,8 +21,37 @@
             float="left"
           />
         </div>
+
         <div class="form-group" style="width: 10rem">
-            <label for="category"></label><select
+          <label for="distance-filter"></label
+          ><select
+            name="radius"
+            id="radius"
+            class="selectpicker form-control"
+            float="left"
+          >
+            {% if search_radius == 0 %}
+            <option value="0" selected>Any distance</option>
+            {% else %}
+            <option value="0">Any distance</option>
+            {% endif %} {% if search_radius == 5 %}
+            <option value="5" selected>5 miles</option>
+            {% else %}
+            <option value="5">5 miles</option>
+            {% endif %} {% if search_radius == 10 %}
+            <option value="10" selected>10 miles</option>
+            {% else %}
+            <option value="10">10 miles</option>
+            {% endif %}{% if search_radius == 15 %}
+            <option value="15" selected>15 miles</option>
+            {% else %}
+            <option value="15">15 miles</option>
+            {% endif %}
+          </select>
+        </div>
+        <div class="form-group" style="width: 10rem">
+          <label for="category"></label
+          ><select
             name="category"
             id="category"
             class="selectpicker form-control"
@@ -104,14 +134,22 @@
               {% endif %}
               <h5
                 class="card-title"
-                style="padding-top: 15px; color: rgb(3, 4, 5); text-align:center"
+                style="
+                  padding-top: 15px;
+                  color: rgb(3, 4, 5);
+                  text-align: center;
+                "
               >
                 <b>{{ Item.name }}</b>
               </h5>
             </a>
             <ul class="list-group list-group-flush">
-              <p class="card-text" style="text-align:center">{{Item.description}}</p>
-              <li class="list-group-item"><b>Quantity:</b> {{ Item.quantity }}</li>
+              <p class="card-text" style="text-align: center">
+                {{Item.description}}
+              </p>
+              <li class="list-group-item">
+                <b>Quantity:</b> {{ Item.quantity }}
+              </li>
               <li class="list-group-item">
                 <b>Price:</b> {{"${:.2f}".format(Item.price_in_cents/100)}}
               </li>
@@ -119,9 +157,7 @@
                 <b>Value:</b> {{"${:.2f}".format(Item.value_in_cents/100)}}
               </li>
               <li class="list-group-item">
-				  <b>Location:</b> {{location[loop.index0]}}
-				  <!-- {{user.street}} {{location.city}} {{location.state}} 
-				  {{location.zip}} -->
+                <b>Location:</b> {{location[loop.index0]}}
               </li>
             </ul>
           </div>
