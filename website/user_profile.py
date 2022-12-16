@@ -16,7 +16,7 @@ user_profile = Blueprint('user_profile', __name__)
 @login_required
 def rental_profile():
     user = current_user
-#    location = Location.query.get(user.location_id)
+    #    location = Location.query.get(user.location_id)
     if request.method == 'POST':
         if request.form.get('submit_button') == "Submit":
             pass
@@ -143,27 +143,13 @@ def profile_page():
                 conf_password = request.form.get('confPassword')
                 print(new_password)
                 if new_password != '':
-                    if new_password == conf_password:
-                        if len(new_password) < 7:
-                            flash('Password must be at least 7 characters.', category='error')
-                        user.password = generate_password_hash(new_password, method='sha256')
-                        db.session.commit()
-                        flash("Password Updated!", category='success')
-                    else:
-                        flash("Passwords don't match.", category='error')
+                    check_password_entry(user, new_password, conf_password)
 
             if request.form.get('SubmitNewPassword') == "Change Password":
                 new_password = request.form.get('newPassword')
                 conf_password = request.form.get('confPassword')
                 print(new_password)
-                if new_password == conf_password:
-                    if len(new_password) < 7:
-                        flash('Password must be at least 7 characters.', category='error')
-                    user.password = generate_password_hash(new_password, method='sha256')
-                    db.session.commit()
-                    flash("Password Updated!", category='success')
-                else:
-                    flash("Passwords don't match.", category='error')
+                check_password_entry(user, new_password, conf_password)
         if updated == 0:
             flash("Profile Updated!", category='success')
 
@@ -244,3 +230,14 @@ def item_history(item_id):
         list_renter_location.append(renter_location)
     return render_template('item_history.html', user=current_user, currentItem=current_item, listOrder=list_order,
                            listRenter=list_renter, listRenterLocation=list_renter_location)
+
+
+def check_password_entry(user, new_password, conf_password):
+    if new_password == conf_password:
+        if len(new_password) < 7:
+            flash('Password must be at least 7 characters.', category='error')
+        user.password = generate_password_hash(new_password, method='sha256')
+        db.session.commit()
+        flash("Password Updated!", category='success')
+    else:
+        flash("Passwords don't match.", category='error')
