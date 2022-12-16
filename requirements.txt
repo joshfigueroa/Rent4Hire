@@ -3,7 +3,7 @@ Flask-SQLAlchemy
 flask-login
 werkzeug
 sqlalchemy
-flask-googlemaps
+geopy
 mysql-connector
 flask_wtf
 flask-reuploaded
